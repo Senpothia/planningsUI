@@ -3,8 +3,7 @@ package com.michel.plannings.models;
 import java.util.List;
 
 public class UtilisateurAux {
-	
-	
+
 	private Integer id;
 	private String nom;
 	private String prenom;
@@ -14,21 +13,25 @@ public class UtilisateurAux {
 	private Boolean ressource;
 	private String type; // interne CDVI, pretataire externe
 	private String email;
+	private String username;
 	private String password;
 	private boolean enabled;
 	private List<PhaseAux> phases;
 	private List<FicheAux> fiches;
 	private List<ProjetAux> managedProjets;
 	private List<ProjetAux> involvedProjets;
-	
+	private String token;
+	private String role;
+
 	public UtilisateurAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public UtilisateurAux(Integer id, String nom, String prenom, Boolean visiteur, Boolean admin, Boolean manager,
-			Boolean ressource, String type, String email, String password, boolean enabled, List<PhaseAux> phases,
-			List<FicheAux> fiches, List<ProjetAux> managedProjets, List<ProjetAux> involvedProjets) {
+			Boolean ressource, String type, String email, String username, String password, boolean enabled,
+			List<PhaseAux> phases, List<FicheAux> fiches, List<ProjetAux> managedProjets,
+			List<ProjetAux> involvedProjets, String token, String role) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -39,15 +42,17 @@ public class UtilisateurAux {
 		this.ressource = ressource;
 		this.type = type;
 		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
 		this.phases = phases;
 		this.fiches = fiches;
 		this.managedProjets = managedProjets;
 		this.involvedProjets = involvedProjets;
+		this.token = token;
+		this.role = role;
 	}
 
-	
 	public Integer getId() {
 		return id;
 	}
@@ -112,12 +117,12 @@ public class UtilisateurAux {
 		this.type = type;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -167,11 +172,29 @@ public class UtilisateurAux {
 	public void setInvolvedProjets(List<ProjetAux> involvedProjets) {
 		this.involvedProjets = involvedProjets;
 	}
-	
-	
-	
-	
-	
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 }

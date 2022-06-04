@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.michel.plannings.models.Login;
+import com.michel.plannings.models.UtilisateurAux;
+
 
 //@FeignClient(name = "plannings", url = "http://46.105.35.7:8103")
-@FeignClient(name = "plannings", url = "http://localhost:8103")
-public interface MicroServicePlannings {
+@FeignClient(name = "plannings", url = "http://localhost:8103/")
+public interface MicroServicePlannings extends ProxyGlobal{
 	
 /*
 		@PutMapping("/modifier/compte/{id}")
@@ -400,7 +403,7 @@ public interface MicroServicePlannings {
 		@PostMapping("/private/gestion/usine/of/enregistrer")
 		public void enregistrerOf(@RequestHeader("Authorization") String token, @RequestBody FormOf formOf);
 		
-		@GetMapping("/private/gestion/usine/of/liste")
+		@GetMapping("/private/gestion/usine/of/liste"
 		public List<FormOf> obtenirListeOfs(@RequestHeader("Authorization") String token);
 
 		@PostMapping("/private/gestion/usine/of/voir")
@@ -457,13 +460,22 @@ public interface MicroServicePlannings {
 
 		
 */
+	
+	// code plannings
+	
+	/*
+	
+	@PostMapping("/connexion")
+	public ResponseEntity<UtilisateurAux> generate(@RequestBody final Login login);
 		
+	@PutMapping("/modifier/compte/{id}")
+	public void modifierCompte(@PathVariable Integer id, @RequestHeader("Authorization") String token,
+			@RequestBody UtilisateurAux utilisateurAux);
 
-		
-		
-		
+	@PostMapping("/compte")
+	public void creerCompte(@RequestBody UtilisateurAux user);
 
-		
+	*/
 		
 		  
 		
