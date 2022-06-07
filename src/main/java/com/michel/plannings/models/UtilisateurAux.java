@@ -7,19 +7,15 @@ public class UtilisateurAux {
 	private Integer id;
 	private String nom;
 	private String prenom;
-	private Boolean visiteur;
-	private Boolean admin;
-	private Boolean manager;
-	private Boolean ressource;
 	private String type; // interne CDVI, pretataire externe
 	private String email;
 	private String username;
 	private String password;
 	private boolean enabled;
-	private List<PhaseAux> phases;
-	private List<FicheAux> fiches;
-	private List<ProjetAux> managedProjets;
-	private List<ProjetAux> involvedProjets;
+	// private List<PhaseAux> phases;
+	// private List<FicheAux> fiches;
+	// private List<ProjetAux> managedProjets;
+	// private List<ProjetAux> involvedProjets;
 	private String token;
 	private String role;
 
@@ -28,27 +24,17 @@ public class UtilisateurAux {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UtilisateurAux(Integer id, String nom, String prenom, Boolean visiteur, Boolean admin, Boolean manager,
-			Boolean ressource, String type, String email, String username, String password, boolean enabled,
-			List<PhaseAux> phases, List<FicheAux> fiches, List<ProjetAux> managedProjets,
-			List<ProjetAux> involvedProjets, String token, String role) {
+	public UtilisateurAux(Integer id, String nom, String prenom, String type, String email, String username,
+			String password, boolean enabled, String token, String role) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.visiteur = visiteur;
-		this.admin = admin;
-		this.manager = manager;
-		this.ressource = ressource;
 		this.type = type;
 		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
-		this.phases = phases;
-		this.fiches = fiches;
-		this.managedProjets = managedProjets;
-		this.involvedProjets = involvedProjets;
 		this.token = token;
 		this.role = role;
 	}
@@ -75,38 +61,6 @@ public class UtilisateurAux {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
-	}
-
-	public Boolean getVisiteur() {
-		return visiteur;
-	}
-
-	public void setVisiteur(Boolean visiteur) {
-		this.visiteur = visiteur;
-	}
-
-	public Boolean getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
-	}
-
-	public Boolean getManager() {
-		return manager;
-	}
-
-	public void setManager(Boolean manager) {
-		this.manager = manager;
-	}
-
-	public Boolean getRessource() {
-		return ressource;
-	}
-
-	public void setRessource(Boolean ressource) {
-		this.ressource = ressource;
 	}
 
 	public String getType() {
@@ -141,37 +95,26 @@ public class UtilisateurAux {
 		this.enabled = enabled;
 	}
 
-	public List<PhaseAux> getPhases() {
-		return phases;
-	}
-
-	public void setPhases(List<PhaseAux> phases) {
-		this.phases = phases;
-	}
-
-	public List<FicheAux> getFiches() {
-		return fiches;
-	}
-
-	public void setFiches(List<FicheAux> fiches) {
-		this.fiches = fiches;
-	}
-
-	public List<ProjetAux> getManagedProjets() {
-		return managedProjets;
-	}
-
-	public void setManagedProjets(List<ProjetAux> managedProjets) {
-		this.managedProjets = managedProjets;
-	}
-
-	public List<ProjetAux> getInvolvedProjets() {
-		return involvedProjets;
-	}
-
-	public void setInvolvedProjets(List<ProjetAux> involvedProjets) {
-		this.involvedProjets = involvedProjets;
-	}
+	/*
+	 * public List<PhaseAux> getPhases() { return phases; }
+	 * 
+	 * public void setPhases(List<PhaseAux> phases) { this.phases = phases; }
+	 * 
+	 * public List<FicheAux> getFiches() { return fiches; }
+	 * 
+	 * public void setFiches(List<FicheAux> fiches) { this.fiches = fiches; }
+	 * 
+	 * public List<ProjetAux> getManagedProjets() { return managedProjets; }
+	 * 
+	 * public void setManagedProjets(List<ProjetAux> managedProjets) {
+	 * this.managedProjets = managedProjets; }
+	 * 
+	 * public List<ProjetAux> getInvolvedProjets() { return involvedProjets; }
+	 * 
+	 * public void setInvolvedProjets(List<ProjetAux> involvedProjets) {
+	 * this.involvedProjets = involvedProjets; }
+	 * 
+	 */
 
 	public String getToken() {
 		return token;

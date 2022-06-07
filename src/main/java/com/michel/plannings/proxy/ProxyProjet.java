@@ -16,7 +16,7 @@ import com.michel.plannings.models.ProjetAux;
 public interface ProxyProjet {
 
 	@PostMapping("/projet/creer")
-	public void creerProjet(@RequestBody ProjetAux projet);
+	public void creerProjet(@RequestHeader("Authorization") String token, @RequestBody ProjetAux projet);
 
 	@PutMapping("/projet/modifier/{id}")
 	public void modifierProjet(@PathVariable Integer id, @RequestHeader("Authorization") String token,
@@ -38,8 +38,16 @@ public interface ProxyProjet {
 			@PathVariable(name = "id") Integer id);
 	
 	@GetMapping("/projet/liste/type")
-	public List<ProjetAux> projetsParType(@RequestParam(name = "type") String type);
+	public List<ProjetAux> projetsParType(@RequestHeader("Authorization") String token, @RequestParam(name = "type") String type);
 	
+	@GetMapping("/projet/tous")
+	public List<ProjetAux> projetsTous(@RequestHeader("Authorization") String token);
 	
+
+	@PutMapping("/projet/statut/{id}")
+	public  ProjetAux modifierStatutProjet(@PathVariable Integer id, @RequestHeader("Authorization") String token);
+	
+	@PutMapping("/projet/statut/liste/{id}")
+	public  List<ProjetAux> modifierStatutProjetListe(@PathVariable Integer id, @RequestHeader("Authorization") String token);
 	
 }

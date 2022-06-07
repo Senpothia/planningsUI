@@ -8,6 +8,7 @@ public class FormCompte {
 	private String nom;
 	private String username;
 	private String password;
+	private String type;
 	
 	
 	public FormCompte() {
@@ -54,6 +55,18 @@ public class FormCompte {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	
 
 
 }

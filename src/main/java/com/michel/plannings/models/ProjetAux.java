@@ -9,28 +9,34 @@ public class ProjetAux {
 	private String nom;
 	private String numero;
 	private String type; // Verrouillage, contrôle d'accès
+	private Boolean statut;
 	private LocalDateTime date;
-	private UtilisateurAux chef; // Le chef produit ou responsable
-	private List<UtilisateurAux> ressources; // Ressources allouées aux projets
-	private List<PhaseAux> phases;
+	private String dateString;
+	private Integer chefId;
+	private String nomChef;
 
 	public ProjetAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjetAux(Integer id, String nom, String numero, String type, LocalDateTime date, UtilisateurAux chef,
-			List<UtilisateurAux> ressources, List<PhaseAux> phases) {
+	
+
+	public ProjetAux(Integer id, String nom, String numero, String type, Boolean statut, LocalDateTime date,
+			String dateString, Integer chefId, String nomChef) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.numero = numero;
 		this.type = type;
+		this.statut = statut;
 		this.date = date;
-		this.chef = chef;
-		this.ressources = ressources;
-		this.phases = phases;
+		this.dateString = dateString;
+		this.chefId = chefId;
+		this.nomChef = nomChef;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -64,30 +70,6 @@ public class ProjetAux {
 		this.type = type;
 	}
 
-	public UtilisateurAux getChef() {
-		return chef;
-	}
-
-	public void setChef(UtilisateurAux chef) {
-		this.chef = chef;
-	}
-
-	public List<UtilisateurAux> getRessources() {
-		return ressources;
-	}
-
-	public void setRessources(List<UtilisateurAux> ressources) {
-		this.ressources = ressources;
-	}
-
-	public List<PhaseAux> getPhases() {
-		return phases;
-	}
-
-	public void setPhases(List<PhaseAux> phases) {
-		this.phases = phases;
-	}
-
 	public LocalDateTime getDate() {
 		return date;
 	}
@@ -95,5 +77,43 @@ public class ProjetAux {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
+
+	public Integer getChefId() {
+		return chefId;
+	}
+
+	public void setChefId(Integer chefId) {
+		this.chefId = chefId;
+	}
+
+	public String getDateString() {
+		return dateString;
+	}
+
+	public void setDateString(String dateString) {
+		this.dateString = dateString;
+	}
+
+	public String getNomChef() {
+		return nomChef;
+	}
+
+	public void setNomChef(String nomChef) {
+		this.nomChef = nomChef;
+	}
+
+
+
+	public Boolean getStatut() {
+		return statut;
+	}
+
+
+
+	public void setStatut(Boolean statut) {
+		this.statut = statut;
+	}
+	
+	
 
 }
