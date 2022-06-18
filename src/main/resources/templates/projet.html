@@ -29,7 +29,7 @@
 		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau3.png" alt="" th:src="@{/images/bandeau0.png}" />
+				<img class="img-fluid" src="/images/bandeau25.jpg" alt="" th:src="@{/images/bandeau25.jpg}" />
 			</div>
 		</div>
 		<!-- ----------------- -->
@@ -66,7 +66,7 @@
 							<td th:text="${projet.numero}" />
 							<td th:text="${projet.nom}" />
 							<td th:text="${projet.type}" />
-							<td th:text="${projet.date}" />
+							<td th:text="${#temporals.format(projet.date, 'dd-MM-yyyy')}" />
 							<td th:text="${projet.nomChef}" />
 							<span th:if="${projet.statut}">
 								<td><a th:href="@{/projet/page/statut/{id}(id=${projet.id})}">
@@ -84,20 +84,20 @@
 									</a>
 								</td>
 							</span>
-							<td><a th:href="@{/projet/voir/{id}(id=${projet.id})}">
+							<td><a th:href="@{/projet/voir/phases/{id}(id=${projet.id})}">
 									<p type="text" class="btn btn-block"
 										style="background-color: #7e60fb; color: white">Voir</p>
 								</a>
 							</td>
 
-							<td><a th:href="@{/projet/voir/{id}(id=${projet.id})}">
+							<td><a th:href="@{/projet/voir/ressources/{id}(id=${projet.id})}">
 									<p type="text" class="btn btn-block"
 										style="background-color: #7e60fb; color: white">Voir</p>
 								</a>
 							</td>
 							
 							
-							<td><a th:href="@{/projet/voir/{id}(id=${projet.id})}">
+							<td><a th:href="@{/projet/voir/fiches/{id}(id=${projet.id})}">
 									<p type="text" class="btn btn-block"
 										style="background-color: #7e60fb; color: white">Voir</p>
 								</a>
@@ -123,14 +123,14 @@
 			<div class="col d-flex justify-content-end">
 
 				<div class="form-group mr-3">
-					<a th:href="@{/projet/ajouter/fiches/{id}(id=${projet.id})}">
+					<a th:href="@{/projet/voir/phases/{id}(id=${projet.id})}">
 						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Ajouter des
 							fiches</p>
 					</a>
 				</div>
 
 				<div class="form-group mr-3">
-					<a th:href="@{/projet/gerer/ressources/{id}(id=${projet.id})}">
+					<a th:href="@{/projet/ajouter/ressources/{id}(id=${projet.id})}">
 						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Ajouter des
 							ressources</p>
 					</a>

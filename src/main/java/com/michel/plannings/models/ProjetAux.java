@@ -10,33 +10,33 @@ public class ProjetAux {
 	private String numero;
 	private String type; // Verrouillage, contrôle d'accès
 	private Boolean statut;
+	private String statutString;
 	private LocalDateTime date;
 	private String dateString;
 	private Integer chefId;
 	private String nomChef;
+	private Boolean affecte;
 
 	public ProjetAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-	public ProjetAux(Integer id, String nom, String numero, String type, Boolean statut, LocalDateTime date,
-			String dateString, Integer chefId, String nomChef) {
+	public ProjetAux(Integer id, String nom, String numero, String type, Boolean statut, String statutString,
+			LocalDateTime date, String dateString, Integer chefId, String nomChef, Boolean affecte) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.numero = numero;
 		this.type = type;
 		this.statut = statut;
+		this.statutString = statutString;
 		this.date = date;
 		this.dateString = dateString;
 		this.chefId = chefId;
 		this.nomChef = nomChef;
+		this.affecte = affecte;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -102,18 +102,28 @@ public class ProjetAux {
 		this.nomChef = nomChef;
 	}
 
-
-
 	public Boolean getStatut() {
 		return statut;
 	}
 
-
-
 	public void setStatut(Boolean statut) {
 		this.statut = statut;
 	}
-	
-	
+
+	public Boolean getAffecte() {
+		return affecte;
+	}
+
+	public void setAffecte(Boolean affecte) {
+		this.affecte = affecte;
+	}
+
+	public String getStatutString() {
+		return statutString;
+	}
+
+	public void setStatutString(String statutString) {
+		this.statutString = statutString;
+	}
 
 }

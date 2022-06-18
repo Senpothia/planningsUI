@@ -61,8 +61,8 @@
 
 		<div class="container">
 			<form
-				th:action="@{/private/fiche/modifier/{id}(id=${formFiche.id})}"
-				method="post" th:object="${formFiche}">
+				th:action="@{/fiche/modifier/{id}(id=${fiche.id})}"
+				method="post" th:object="${fiche}">
 
 
 				<div class="col">
@@ -77,19 +77,19 @@
 
 					<div class="row mr-1">
 						<label for="text">Date</label> <input type="date"
-							class="form-control" th:field="*{date}">
+							class="form-control" th:field="*{dateString}">
 					</div>
 
 
 					<div class="row  mr-1">
 						<label for="text">Service</label> <input type="text"
-							class="form-control" th:field="*{service}" th:value="*{projet}">
+							class="form-control" th:field="*{service}" th:value="*{service}">
 					</div>
 					
 					
 					<div class="row  mr-1">
 						<label for="text">Produit</label> <input type="text"
-							class="form-control" th:field="*{produit}" th:value="*{projet}">
+							class="form-control" th:field="*{produit}" th:value="*{produit}">
 					</div>
 					
 					<div class="row  mr-1">
@@ -157,7 +157,7 @@
 					<div class="row  mr-1">
 						<label for="text">Documents joints</label> <input type="text"
 							class="form-control" th:field="*{document}"
-							th:value="*{solution}">
+							th:value="*{document}">
 					</div>
 
 

@@ -19,7 +19,7 @@ import com.michel.plannings.services.UserConnexion;
 
 
 @Controller
-//@RequestMapping("/labplan")
+
 
 public class HomeController {
 	
@@ -144,15 +144,13 @@ public class HomeController {
 		utilisateurAux.setPrenom(formCompte.getPrenom());
 		utilisateurAux.setNom(formCompte.getNom());
 		
-		System.out.println("password récupéré: "+ formCompte.getPassword());
-		
+	
 		if (!formCompte.getPassword().equals("")) {
 			
 			utilisateurAux.setToken(formCompte.getPassword());
-			System.out.println("chaine non vide!");
+			utilisateurAux.setPassword(formCompte.getPassword());
 			utilisateurAux.setUsername(formCompte.getUsername());
 			utilisateurAux.setRole("USER");
-			
 			utilisateur.setPrenom(formCompte.getPrenom());
 			utilisateur.setNom(formCompte.getNom());
 			

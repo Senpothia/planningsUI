@@ -1,0 +1,263 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="/css/styles.css">
+
+	<title>Plannings</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+</head>
+
+<body>
+	<div class="container">
+
+
+		<!-- Entete -->
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
+		<!-- ---------------- -->
+
+		<div class="row">
+			<div class="col">
+				<img class="img-fluid" src="/images/bandeau19.jpg" th:src="@{/images/bandeau19.jpg}" />
+			</div>
+		</div>
+		
+		
+		<span th:if=${supprimer}>
+			<div class="row mt-3">
+				<div class="col d-flex justify-content-center">
+
+					<form class="formulaire" th:action="@{/supprimer/fiche/{fiche}(fiche=${fiche.id})}" th:object="${login}" method="post">
+						<div>
+							<h3 style="color: red;" th:if="${error}">Erreur! Vérifiez vous
+								identifiants de connexion</h3>
+
+						</div>
+						
+						<div>
+							<h3 style="color: red;" th:unless="${error}">Entrez vos identifiants pour valider la suppression</h3>
+
+						</div>
+						
+						<div class="form-group">
+							<label for="email">Email</label> <input type="text" class="form-control" name="user">
+
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label> <input type="password" class="form-control"
+								name="password">
+						</div>
+
+						<div class="float-right">
+							
+							<button type="submit" class="btn"
+								style="background-color: red; color: white;">Supprimer</button>
+						</div>
+
+					</form>
+
+
+				</div>
+
+
+			</div>
+
+		</span>
+
+		<div class="row">
+
+			<h1>Présentation de la fiche</h1>
+
+
+		</div>
+
+		<div class="col">
+
+
+
+
+
+			<table class="table table-striped">
+				<thead>
+
+
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">Numéro</th>
+						<td th:text="${fiche.numero}" />
+
+					</tr>
+
+
+					<tr>
+						<th scope="row">Date</th>
+						<td th:text="${fiche.date}" />
+
+					</tr>
+
+
+					<tr>
+						<th scope="row">Auteur</th>
+						<td th:text="${fiche.nomAuteur}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Service</th>
+						<td th:text="${fiche.service}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Produit</th>
+						<td th:text="${fiche.produit}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Code produit</th>
+						<td th:text="${fiche.code}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Projet</th>
+						<td th:text="${fiche.projet}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Circonstance de l'observation</th>
+						<td th:text="${fiche.circonstance}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Objet de l'anomalie</th>
+						<td th:text="${fiche.objet}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Description de l'anomalie</th>
+						<td th:text="${fiche.observation}" />
+
+					</tr>
+
+
+					<tr>
+						<th scope="row">Documents joints</th>
+						<td th:text="${fiche.document}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Incidence de l'anomalie</th>
+						<td th:text="${fiche.incidence}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Degré de gravité de l'anomalie</th>
+						<td th:text="${fiche.degre}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Solution proposée</th>
+						<td th:text="${fiche.solution}" />
+
+					</tr>
+
+
+					<tr>
+						<th scope="row">Réponse envisagée du BE</th>
+						<td th:text="${fiche.reponse}" />
+
+					</tr>
+
+
+				</tbody>
+			</table>
+
+		</div>
+
+		<span th:unless=${supprimer}>
+			<div class="row mt-3">
+				<div class="col d-flex justify-content-end">
+
+					<div class="form-group mr-3 ">
+						<a th:href="@{'/fiche/voir/' + ${fiche.id} (format=pdf)}">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Export
+								PDF
+							</p>
+						</a>
+					</div>
+
+					<div class="form-group mr-3">
+						<a th:href="@{/fiche/supprimer/{id}(id=${fiche.id})}">
+							<p type="text" class="btn btn-block" style="background-color: red; color: white">Supprimer
+							</p>
+						</a>
+					</div>
+
+					<div class="form-group mr-3">
+						<a th:href="@{/fiche/modifier/{fiche}(fiche=${fiche.id})}">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">
+								Modifier
+							</p>
+						</a>
+					</div>
+
+					<div class="form-group ">
+						<a href="/espace">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour
+							</p>
+						</a>
+					</div>
+				</div>
+
+
+			</div>
+
+		</span>
+
+		<!-- footer -->
+
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
+
+		<!-- footer -->
+	</div>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

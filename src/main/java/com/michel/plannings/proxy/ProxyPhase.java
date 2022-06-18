@@ -16,12 +16,8 @@ import com.michel.plannings.models.ProjetAux;
 
 public interface ProxyPhase {
 	
-	@PostMapping("/phase/creer")
-	public void creerPhase(@RequestBody PhaseAux phase);
-	
-	@PutMapping("/phase/modifier/{id}")
-	public void modifierPhase(@PathVariable Integer id, @RequestHeader("Authorization") String token,
-			@RequestBody PhaseAux phaseAux);
+	@PostMapping("/phase/creer/{projet}/{ressource}")
+	public void creerPhase(@RequestHeader("Authorization") String token, @RequestBody PhaseAux phase, @PathVariable (name="projet") Integer idProjet, @PathVariable (name="ressource") Integer idRessource);
 	
 	@DeleteMapping("/phase/supprimer/{id}")
 	public void supprimerPhase(@PathVariable Integer id, @RequestHeader("Authorization") String token);
@@ -37,7 +33,15 @@ public interface ProxyPhase {
 	@GetMapping("/phase/liste/statut")  // récupération phase par statut: actif, inactif, suspendu, conforme, non conforme
 	public List<ProjetAux> phasesParStatut(@RequestParam(name = "statut") String statut);
 	
-	@GetMapping("/phase/liste/projet/{id}") // récupération de la liste de toutes les phases par projet
-	public List<ProjetAux> phasesParProjet(@RequestHeader("Authorization") String token,
-			@PathVariable(name = "id") Integer id);
+	@GetMapping("/phase/liste/projet/{projet}") // récupération de la liste de toutes les phases par projet
+	public List<PhaseAux> phasesParProjetId(@RequestHeader("Authorization") String token,
+			@PathVariable(name = "projet") Integer idProjet);
+	
+	@GetMapping("/phase/voir/{phase}")
+	PhaseAux phaseParId(@RequestHeader("Authorization") String token, @PathVariable(name = "phase") Integer idPhase);
+	
+	@PostMapping("/phase/modifier/{phase}")
+	void modifierPhase(@RequestHeader("Authorization") String token, @RequestBody PhaseAux phase, @PathVariable(name = "phase") Integer idPhase);
+	
+	
 }

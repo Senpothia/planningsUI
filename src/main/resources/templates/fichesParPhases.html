@@ -1,0 +1,131 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="/css/styles.css">
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+	<title>Plannings</title>
+</head>
+
+<body>
+	<div class="container">
+
+		<!-- ENTETE -->
+
+		<div th:replace="fragments/entete_post :: entete_post"></div>
+		<!-- ---------------- -->
+
+		<!-- IMAGE -->
+		<div class="row">
+			<div class="col">
+				<img class="img-fluid" src="/images/bandeau7.png" alt="" th:src="@{/images/bandeau7.png}" />
+			</div>
+		</div>
+		<!-- ----------------- -->
+		<div class="row d-flex justify-content-center">
+
+			<h1 th:text="${'Liste des fiches pour la phase ' + phase.nom + ' du projet ' + projet.nom}">Liste des phases
+			</h1>
+
+		</div>
+		<span th:if=${vide}>
+			<div class="row d-flex justify-content-center">
+				<h1 th:text="${'La ' + phase.nom + ' ne comporte pas de fiches'}" style="color: red;"></h1>
+			</div>
+		</span>
+
+		<span th:unless=${vide}>
+			<div class="row">
+
+				<div class="col donnees" style="margin: 5px;">
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+
+								<th scope="col">Numéro</th>
+								<th scope="col">Projet</th>
+								<th scope="col">Date</th>
+								<th scope="col">Anomalie</th>
+								<th scope="col">Degré</th>
+								<th scope="col">Statut</th>
+								<th scope="col">Voir</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="fiche, iStat: ${fiches}">
+
+								<td th:text="${fiche.numero}" />
+								<td th:text="${fiche.projet}" />
+								<td th:text="${fiche.date}" />
+								<td th:text="${fiche.anomalie}" />
+								<td th:text="${fiche.degre}" />
+								<td th:text="${fiche.numero}" />
+
+								<td><a th:href="@{/fiche/voir/{id}(id=${fiche.id})}">
+										<p type="text" class="btn btn-block"
+											style="background-color: #7e60fb; color: white">Voir</p>
+									</a>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</span>
+
+		<div class="row mt-3">
+			<div class="col d-flex justify-content-end">
+
+
+				<div class="form-group mr-3">
+					<a th:href="@{/projet/voir/phases/{id}(id=${projet.id})}">
+						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Ajouter des
+							fiches</p>
+					</a>
+				</div>
+				<div class="form-group ">
+					<a href="/espace">
+						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour</p>
+					</a>
+				</div>
+
+			</div>
+
+
+		</div>
+
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
+
+
+	</div>
+	<!-- fin conteneur -->
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>

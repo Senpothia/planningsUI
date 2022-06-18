@@ -1,5 +1,6 @@
 package com.michel.plannings.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.michel.plannings.contants.Constants;
 import com.michel.plannings.models.ProjetAux;
 import com.michel.plannings.models.Utilisateur;
+import com.michel.plannings.models.UtilisateurAux;
 import com.michel.plannings.proxy.MicroServicePlannings;
 import com.michel.plannings.services.UserConnexion;
 
@@ -63,10 +65,9 @@ public class ProjetController {
 	@GetMapping("/projets/voir/tous")
 	public String tousProjets(Model model, HttpSession session) {
 		
-		System.out.println("demande de tous les projets");
+		
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		System.out.println("token 2: " + token);
 		List<ProjetAux> projets = microServicePlannnings.projetsTous(token);
 		model.addAttribute("projets", projets);
 		model.addAttribute("access", "1");
@@ -107,5 +108,73 @@ public class ProjetController {
 		return Constants.testUser(utilisateur, Constants.PROJETS);
 		
 	}
+	
+	@GetMapping("/projets/ressource/{id}")
+	public String mesProjetId(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String role = utilisateur.getRole();
+		
+		String token = Constants.getToken(session);
+		List<ProjetAux> projets = new ArrayList<>();
+		if(role.equals("CPROJET")) {
+			projets = microServicePlannnings.projetsParChef(token, id);
+		}
+		
+		if(role.equals("LABO")) {
+			projets = microServicePlannnings.projetsTous(token);
+		}
+		
+		if(role.equals("BE") || role.equals("RESBE")) {
+			projets = microServicePlannnings.projetsParRessource(token, id, false);
+		}
+		
+		
+		model.addAttribute("projets", projets);
+		model.addAttribute("access", "3");
+		return Constants.testUser(utilisateur, Constants.PROJETS);
+		
+	}
+	
+	@GetMapping("/projets/actifs")
+	public String projetsActifs(Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		List<ProjetAux> projets = microServicePlannnings.projetsTousActifs(token);
+		model.addAttribute("projets", projets);
+		model.addAttribute("access", "2");
+		return Constants.testUser(utilisateur, Constants.PROJETS);
 
+	}
+	
+	@GetMapping("/projet/voir/ressources/{id}")
+	public String projetConsuterRessources(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		List<UtilisateurAux> ressources = microServicePlannnings.ressourcesParProjet(token, id);
+		ProjetAux projet = microServicePlannnings.projetParId(token, id);
+		model.addAttribute("ressources", ressources);
+		model.addAttribute("projet", projet);
+		return Constants.testUser(utilisateur, Constants.LISTE_RESSOURCES_PROJET);
+	}
+	
+	
+	@GetMapping("/projet/ajouter/ressources/{id}")
+	public String projetAjouterRessources(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		List<UtilisateurAux> ressources = microServicePlannnings.ressourcesParProjet(token, id);
+		ProjetAux projet = microServicePlannnings.projetParId(token, id);
+		model.addAttribute("ressources", ressources);
+		model.addAttribute("projet", projet);
+		
+		List<UtilisateurAux> ressourcesDisponibles = microServicePlannnings.ressourcesDispoParProjet(token, id);
+		model.addAttribute("ressourcesDispos", ressourcesDisponibles);
+		
+		return Constants.testUser(utilisateur, Constants.AJOUTER_RESSOURCES_PROJET);
+		
+	}
 }

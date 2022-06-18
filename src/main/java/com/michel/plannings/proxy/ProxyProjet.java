@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.michel.plannings.models.ProjetAux;
+import com.michel.plannings.models.UtilisateurAux;
 
 public interface ProxyProjet {
 
@@ -33,9 +34,9 @@ public interface ProxyProjet {
 	public List<ProjetAux> projetsParChef(@RequestHeader("Authorization") String token,
 			@PathVariable(name = "id") Integer id);
 
-	@GetMapping("/projet/liste/ressource/{id}") // récupération de la liste de tous les projets par ressource
+	@GetMapping("/projet/liste/ressource/{id}/{masque}") // récupération de la liste de tous les projets par ressource
 	public List<ProjetAux> projetsParRessource(@RequestHeader("Authorization") String token,
-			@PathVariable(name = "id") Integer id);
+			@PathVariable(name = "id") Integer id, @PathVariable(name = "masque") Boolean masque);
 	
 	@GetMapping("/projet/liste/type")
 	public List<ProjetAux> projetsParType(@RequestHeader("Authorization") String token, @RequestParam(name = "type") String type);
@@ -50,4 +51,19 @@ public interface ProxyProjet {
 	@PutMapping("/projet/statut/liste/{id}")
 	public  List<ProjetAux> modifierStatutProjetListe(@PathVariable Integer id, @RequestHeader("Authorization") String token);
 	
+	@GetMapping("/projet/tous/actifs")
+	public List<ProjetAux> projetsTousActifs(@RequestHeader("Authorization") String token);
+	
+	@GetMapping("/projet/affecter/ressource/{id}")
+	public List<ProjetAux> projetsParRessourceSansAffectation(@RequestHeader("Authorization") String token, @PathVariable Integer id);
+	
+	@GetMapping("/ressources/affecter/selection/projet/{id}/{ressource}")
+	void affecterProjetRessource(@PathVariable Integer id, @PathVariable Integer ressource, @RequestHeader("Authorization") String token);
+	
+	@GetMapping("/projet/affectation/ressource/{id}")
+	public List<ProjetAux> projetsAvecEtatImplication(@RequestHeader("Authorization") String token, @PathVariable Integer id);
+	
+	@GetMapping("/projet/voir/ressources/{id}")
+	public List<UtilisateurAux> ressourcesParProjet(@RequestHeader("Authorization") String token, @PathVariable Integer id);
+
 }

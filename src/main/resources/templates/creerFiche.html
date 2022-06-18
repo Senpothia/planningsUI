@@ -13,7 +13,7 @@
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/css/styles.css">
-<title>Labplan</title>
+<title>Plannings</title>
 </head>
 <body>
 	<div class="container">
@@ -60,7 +60,7 @@
 		<!-- ********************************************* -->
 
 		<div class="container">
-			<form th:action="@{/private/fiche/creation}" method="post"
+			<form th:action="@{/fiches/creation/{phase}/{ressource}/{projet}(phase=${phase.id}, ressource=${ressource.id}, projet=${projet.id})}" method="post"
 				th:object="${formFiche}">
 
 
@@ -69,7 +69,7 @@
 
 
 					<div class="row  mr-1">
-						<label for="text">Numéro</label> <input type="text"
+						<label for="text">Numéro</label> <input type="number"
 							class="form-control" th:field="*{numero}">
 					</div>
 

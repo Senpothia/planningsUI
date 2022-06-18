@@ -1,0 +1,211 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="/css/styles.css">
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+	<title>Plannings</title>
+</head>
+
+<body>
+	<div class="container">
+
+		<!-- ENTETE -->
+
+
+		<div th:replace="fragments/entete_post :: entete_post"></div>
+		<!-- ---------------- -->
+
+
+		<!-- IMAGE -->
+		<div class="row">
+			<div class="col">
+				<img class="img-fluid" src="/images/bandeau24.jpg" alt="" th:src="@{/images/bandeau24.jpg}" />
+			</div>
+		</div>
+		<!-- ----------------- -->
+		<div class="row d-flex justify-content-center">
+
+			<h1>Ressource</h1>
+
+		</div>
+
+		<div class="row">
+
+			<div class="col donnees" style="margin: 5px;">
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Nom</th>
+							<th scope="col">Type</th>
+							<th scope="col">Statut</th>
+							<th scope="col">Droits</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td th:text="${ressource.nomString}" />
+							<td th:text="${ressource.type}" />
+							<td th:text="${ressource.statutString}" />
+							<td th:text="${ressource.role}" />
+						</tr>
+
+					</tbody>
+				</table>
+
+			</div>
+
+
+		</div>
+		<span th:if="${vide}">
+
+			<div class="row d-flex justify-content-center">
+
+				<h3 style="color: red;">La ressource n'est affectée à aucun projet</h3>
+
+			</div>
+
+			<div class="row mt-3">
+				<div class="col d-flex justify-content-end">
+
+					<div class="form-group mr-3">
+						<a th:href="@{/ressources/affecter/projet/{id}(id=${ressource.id})}">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">
+								Affecter
+							</p>
+						</a>
+					</div>
+
+					<div class="form-group ">
+						<a href="/espace">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour
+							</p>
+						</a>
+					</div>
+
+				</div>
+
+			</div>
+
+		</span>
+		<span th:unless="${vide}">
+			<div class="row d-flex justify-content-center">
+
+				<h2>Liste des projets</h2>
+
+			</div>
+			<div class="row">
+
+				<div class="col donnees" style="margin: 5px;">
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">N°</th>
+								<th scope="col">Nom</th>
+								<th scope="col">type</th>
+								<th scope="col">Statut</th>
+								<th scope="col">Date</th>
+								<th scope="col">Responsable</th>
+								<th scope="col">Phases</th>
+								<th scope="col">Fiches</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="projet, iStat: ${projets}">
+
+								<td th:text="${projet.numero}" />
+								<td th:text="${projet.nom}" />
+								<td th:text="${projet.type}" />
+								<td th:text="${projet.statutString}" />
+								<td th:text="${#temporals.format(projet.date, 'dd-MM-yyyy')}" />
+							<td th:text="${projet.nomChef}" />
+							<td><a
+									th:href="@{/projet/voir/phases/{id}(id=${projet.id})}">
+									<p type="text" class="btn btn-block"
+										style="background-color: #7e60fb; color: white">Phases</p>
+								</a>
+							</td>
+
+							<td><a
+									th:href="@{/fiches/voir/projet/{ressource}/{projet}(ressource=${ressource.id},projet=${projet.id})}">
+									<p type="text" class="btn btn-block"
+										style="background-color: #7e60fb; color: white">Fiches</p>
+								</a>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col d-flex justify-content-end">
+			<span th:if=${noInactifs}>
+			<span th:if="${masque}">
+			<div class="form-group mr-3">
+					<a 
+								
+					th:href="@{/ressources/voir/{id}/{masque}(id=${ressource.id}, masque=${false})}">
+					
+						<p type="text" class="btn btn-block" style="background-color:  #730800; color: white">Voir tous les projets</p>
+					</a>
+				</div>
+				</span>
+				
+			<span th:unless="${masque}">
+			
+			<div class="form-group mr-3">
+					<a 
+								
+					th:href="@{/ressources/voir/{id}/{masque}(id=${ressource.id}, masque=${true})}">
+					
+						<p type="text" class="btn btn-block" style="background-color:  #730800; color: white">Masquer projets inactifs</p>
+					</a>
+				</div>
+			
+			</span>
+			
+			</span>
+				<div class="form-group ">
+					<a href="/espace">
+						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour</p>
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		</span>
+
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
+	</div>
+	<!-- fin conteneur -->
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
