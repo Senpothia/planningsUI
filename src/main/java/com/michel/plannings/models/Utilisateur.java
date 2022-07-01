@@ -11,6 +11,7 @@ public class Utilisateur {
 	private String username;
 	private String password;
 	private boolean enabled;
+	private Boolean autorise;
 	private String role;
 	private String type; // interne CDVI, pretataire externe
 
@@ -22,7 +23,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(Integer id, String nom, String prenom, String email, String username, String password,
-			boolean enabled, String role, String type) {
+			boolean enabled, Boolean autorise, String role, String type) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -31,6 +32,7 @@ public class Utilisateur {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
+		this.autorise = autorise;
 		this.role = role;
 		this.type = type;
 	}
@@ -105,6 +107,14 @@ public class Utilisateur {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Boolean getAutorise() {
+		return autorise;
+	}
+
+	public void setAutorise(Boolean autorise) {
+		this.autorise = autorise;
 	}
 
 }

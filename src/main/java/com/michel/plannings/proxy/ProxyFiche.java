@@ -16,8 +16,8 @@ import com.michel.plannings.models.forms.FormFiche;
 
 public interface ProxyFiche {
 	
-	@PostMapping("/fiche/enregistrer/{phase}/{ressource}")
-	void enregistrerFiche(@RequestHeader("Authorization") String token, @RequestBody FormFiche ficheForm,@PathVariable(name = "phase") Integer idPhase ,@PathVariable(name = "ressource") Integer idRessource);
+	@PostMapping("/fiche/enregistrer/{phase}/{ressource}/{projet}")
+	void enregistrerFiche(@RequestHeader("Authorization") String token, @RequestBody FormFiche ficheForm,@PathVariable(name = "phase") Integer idPhase ,@PathVariable(name = "ressource") Integer idRessource,@PathVariable(name = "projet") Integer idProjet);
 
 	@DeleteMapping("/fiche/supprimer/{id}")
 	public void supprimerFiche(@PathVariable Integer id, @RequestHeader("Authorization") String token);
@@ -57,5 +57,16 @@ public interface ProxyFiche {
 	
 	@PutMapping("/fiche/changer/statut/{fiche}")
 	void changerStatutFiche(@PathVariable(name = "fiche") Integer idFiche);
+	
+	@GetMapping("/fiche/liste/toutes/spontanees")
+	List<FicheAux> toutesLesFichesspontanees(@RequestHeader("Authorization")  String token);
+	
+	@GetMapping("/fiche/liste/ressource/projet/{ressource}/{projet}")
+	List<FicheAux> fichesDeRessourceSurProjet(@RequestHeader("Authorization") String token, @PathVariable(name = "ressource") Integer idRessource, @PathVariable(name = "projet") Integer idProjet);
+	
+	@GetMapping("/fiche/voir/active/{active}")
+	List<FicheAux> toutesLesFichesStatut(@RequestHeader("Authorization") String token, @PathVariable(name = "active") Boolean active);
+	
+	
 }
 

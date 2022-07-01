@@ -28,6 +28,7 @@
 		<div class="row">
 			<div class="col">
 				<img class="img-fluid" src="/images/bandeau7.png" alt="" th:src="@{/images/bandeau7.png}" />
+			
 			</div>
 		</div>
 		<!-- ----------------- -->
@@ -54,10 +55,12 @@
 								<th scope="col">Numéro</th>
 								<th scope="col">Nom</th>
 								<th scope="col">Ressource</th>
-								<th scope="col">Active</th>
 								<th scope="col">Suspendue</th>
 								<th scope="col">Conformité</th>
-								<th scope="col">Fiches</th>
+								<th scope="col">Active</th>
+								<span th:if=${groupe1}>
+									<th scope="col">Fiches</th>
+								</span>
 								<th scope="col">Voir</th>
 							</tr>
 						</thead>
@@ -67,15 +70,47 @@
 								<td th:text="${phase.numero}" />
 								<td th:text="${phase.nom}" />
 								<td th:text="${phase.nomRessource}" />
-								<td th:text="${phase.actifString}" />
 								<td th:text="${phase.suspenduString}" />
 								<td th:text="${phase.conformeString}" />
 
-								<td><a th:href="@{/phase/fiches/ajouter/{id}(id=${phase.id})}">
-										<p type="text" class="btn btn-block"
-											style="background-color: #7e60fb; color: white">Ajouter</p>
-									</a>
-								</td>
+
+								
+
+								<span th:unless=${groupe2}>
+									<td th:text="${phase.actifString}" />
+								</span>
+
+
+								<span th:if=${groupe2}>
+									<span th:if="${phase.actif}">
+										<td><a th:href="@{/phase/changer/statut/{phase}/{active}(phase=${phase.id}, active=${phase.actif})}">
+												<p type="text" class="btn btn-block"
+													style="background-color: #730800; color: white">Désactiver</p>
+											</a>
+										</td>
+									</span>
+
+
+									<span th:unless="${phase.actif}">
+										<td><a th:href="@{/phase/changer/statut/{phase}/{active}(phase=${phase.id}, active=${phase.actif})}">
+												<p type="text" class="btn btn-block"
+													style="background-color: #7e60fb; color: white">Activer</p>
+											</a>
+										</td>
+									</span>
+								</span>
+
+
+
+								<span th:if=${groupe1}>
+
+									<td><a th:href="@{/phase/fiches/ajouter/{id}(id=${phase.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #7e60fb; color: white">Ajouter</p>
+										</a>
+									</td>
+								</span>
+
 
 								<td><a th:href="@{/phase/voir/{id}(id=${phase.id})}">
 										<p type="text" class="btn btn-block"
@@ -94,20 +129,27 @@
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-end">
 
-				
+
+
+				<span th:if=${groupe2}>
 					<div class="form-group mr-3">
 						<a th:href="@{/projet/ajouter/phase/{id}(id=${projet.id})}">
 							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Ajouter
 								phase</p>
 						</a>
 					</div>
-				
-				<div class="form-group mr-3">
-					<a th:href="@{/fiches/spontanee/ajouter}">
-						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Ajouter
-							fiche spontanée</p>
-					</a>
-				</div>
+
+				</span>
+
+				<span th:if=${groupe1}>
+					<div class="form-group mr-3">
+						<a th:href="@{/fiches/spontanee/ajouter/{projet}(projet=${projet.id})}">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Ajouter
+								fiche spontanée</p>
+						</a>
+					</div>
+
+				</span>
 
 				<div class="form-group ">
 					<a href="/espace">

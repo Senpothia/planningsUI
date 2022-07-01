@@ -54,5 +54,12 @@ public interface ProxyUser {
 	@GetMapping("/ressources/disponibles/projet/{id}")
 	public List<UtilisateurAux> ressourcesDispoParProjet(@RequestHeader("Authorization") String token, @PathVariable Integer id);
 	
+	@GetMapping("/ressources/liste/visiteurs")
+	List<UtilisateurAux> toutsLesVisiteurs(@RequestHeader("Authorization") String token);
 	
+	@PutMapping("/ressources/modifier/droits/{id}")
+	void enregistrerDroitsRessource(@PathVariable(name="id") Integer id, @RequestHeader("Authorization") String token, @RequestBody UtilisateurAux ressource);
+	
+	@GetMapping("/ressources/liste/utilisateurs")
+	List<UtilisateurAux> toutsLesUtilisateurs(@RequestHeader("Authorization") String token);
 }

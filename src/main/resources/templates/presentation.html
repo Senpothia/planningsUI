@@ -1,32 +1,31 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="fr">
+
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8"/>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-<link rel="stylesheet" href="/css/styles.css">
+	<link rel="stylesheet" href="/css/styles.css">
 
-<title>Plannings</title>
-<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+	<title>Plannings</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
 </head>
+
 <body>
 	<div class="container">
 
 
 		<!-- Entete -->
-			<span th:if="${authentification}">
+		<span th:if="${authentification}">
 			<div th:replace="fragments/entete_post :: entete_post"></div>
 		</span>
-		
+
 		<span th:unless="${authentification}">
 			<div th:replace="fragments/entete_init :: entete_init"></div>
 		</span>
@@ -40,35 +39,63 @@
 
 		<div class="row">
 
-			<h1>Labplan: une application web pour faciliter la gestion de vos essais en laboratoire</h1>
+			<h1>Une application web pour faciliter la gestion de vos projets</h1>
 
 			<div>
-				<p>Après plusieurs années d'activité dans le test et contrôle de conformité de produits électroniques, j'ai eu besoin de me doter d'un outil 
-				fiable et pratique. Aucune application sur le marché ne répondait précisement à mes besoins à un coût acceptable. Par conséquent, j'ai entrepris d'utiliser mes 
-				compétances en programmation web pour développer ma propre application taillée sur mesure. </p>
-					
-					<p>	<strong>Principe de fonctionnement:</strong><br><br>
-					    • L'application permet la gestion des quailfications de produits électroniques <br>
-					    • Vous devez créer un compte utilisateur. <br>
-					    • Une qualification se compose d'une suite d'essais. <br>
-					    • Un essai est la réalisation d'une procédure de test. <br>
-					    • Un test concerne plusieurs échantillons <br>
-					    • Un test peut comprendre plusieurs séquences <br>
-					    • Un échantillon peut intervenir dans plusieurs essais et plusieurs séquences. <br>
-					    
-										</p>
-					
-					<p>	<strong>Mise en oeuvre:</strong><br><br>
-					    • Créer une qualification à partir du formulaire dédié  <br>
-					    • Créer ou utiliser les essais déjà définis pour définir le contenu de la qualification. <br>
-					    • Créer les échantillons de test à partir du formulaire associé. <br>
-					    • Créer les séquences de test en associant les échantillons <br>
-					    • Compléter les séquences de test avec les résultats observés au cours des essais <br>
-					    • Vous pouvez modifier les éléments de la quaification à loisir <br>
-					    
-					    
-										</p>
-										
+				<p>Mener à bien un projet nécessite une gestion rigoureuse. Cette application répond au besoin d'un
+					bureau
+					d'étude tel que celui de CDVI<br>
+					Elle permet d'organiser un projet autour de phases (ou tâches élémentaires) et de gérer les
+					ressources humaines associées au projet. L'idée est d'obtenir
+					la meilleure visibilité possible sur le déroulement du projet, pour ses responsables et ses
+					différents intervenants.</p>
+
+
+
+				<p> <strong>Régles de fonctionnement:</strong><br><br>
+					• L'application permet la gestion des projets suivant des phases<br>
+					• Vous devez créer un compte utilisateur. Un compte créé vous donne par défaut les droits d'un
+					visiteur. <br>
+					• Une projet se compose d'une suite de phases. <br>
+					• Une phase est associée à une ressource, c'est-à-dire une personne qui sera chargé d'accomplir la
+					phase<br>
+					• Une phase peut donner lieu à une fiche <br>
+					• Une fiche est le constat d'une anomalie relevée lors de l'accomplissement de la phase <br>
+					• Une fiche est associée à une phase<br>
+					• Une fiche peut être spontanée, c'est-à-dire rédigée en dehors de toute phase<br>
+					• Les projets et ses phases sont créés uniquement par un utilisateur disposant des droits
+					suffisants<br>
+					• Les projets et ses phases peuvent être supprimés avec les mêmes droits <br>
+					• Les ressources projets peuvent compléter les renseignements associés au phases et rédiger des
+					fiches<br>
+					• Les ressources projet ne peuvent pas créer ou supprimer des éléments enregistrés (projets, phases,
+					fiches...)<br>
+					• Une ressources enregistrée ne peut pas être supprimée avec elle peut être desactivée<br>
+					• Une phase peut être supprimée. Les fiches associées sont converties en fiches spontanées pour
+					éviter la perte d'information'<br>
+					• Une fiche peut être supprimée individuellement uniquement<br>
+
+				</p>
+
+				<p> <strong>Mise en oeuvre:</strong><br><br>
+					• Créer un projet à partir du formumaire dédié<br>
+					• Affecter des ressources au projet. <br>
+					• Créer des phases. <br>
+					• Associer une resource projet à la phase <br>
+					• La ressource affectée à la phase renseigne les informations liées au deroulement de la phase <br>
+					• Une fiche peut être créée par la ressource projet lors de l'exécution de la phase <br>
+
+
+				</p>
+
+				<p> <strong>Liste des droits associés aux utilisateurs:</strong><br><br>
+					• USER: simple consultation, ne fait pas partie des ressources projet<br>
+					• BE: ressource projet classique, membre du BE ou autre. Consulte, renseigne les phases, rédige des fiches pour les phases le concernant<br>
+					• RESPBE: responsable BE. Consulte, renseigne les phases, rédige des fiches pour toutes les phases<br>
+					• CPROD: Chef produit. Consulte, créer, supprime des projets, les phases, les fiches, rédige des fiches<br>
+					• LABO: Administration du système, développement, déployement, maintenance, attribution des droits, dispose de tous les droits<br>
+					</p>
+
 			</div>
 		</div>
 
@@ -88,13 +115,12 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
 </body>
+
 </html>

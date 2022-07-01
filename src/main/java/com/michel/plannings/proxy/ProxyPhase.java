@@ -26,10 +26,6 @@ public interface ProxyPhase {
 	public List<ProjetAux> phasesParId(@RequestHeader("Authorization") String token,
 			@PathVariable(name = "id") Integer id);
 	
-	@GetMapping("/phase/liste/ressource/{id}") // récupération de la liste de toutes les phases par ressource
-	public PhaseAux phasesParRessource(@RequestHeader("Authorization") String token,
-			@PathVariable(name = "id") Integer id);
-	
 	@GetMapping("/phase/liste/statut")  // récupération phase par statut: actif, inactif, suspendu, conforme, non conforme
 	public List<ProjetAux> phasesParStatut(@RequestParam(name = "statut") String statut);
 	
@@ -43,5 +39,17 @@ public interface ProxyPhase {
 	@PostMapping("/phase/modifier/{phase}")
 	void modifierPhase(@RequestHeader("Authorization") String token, @RequestBody PhaseAux phase, @PathVariable(name = "phase") Integer idPhase);
 	
+	@GetMapping("/phase/liste/ressource/{ressource}") // récupération de la liste de toutes les phases par ressource
+	public List<PhaseAux> phasesParRessource(@RequestHeader("Authorization") String token,
+			@PathVariable(name = "ressource") Integer idRessource);
 	
-}
+	@GetMapping("/phase/liste/actives/{active}")
+	List<PhaseAux> phasesActives(@RequestHeader("Authorization") String token, @PathVariable(name = "active") Boolean active);
+	
+	@PutMapping("/phase/changer/statut/{phase}/{active}")
+	void changerStatutPhase(@RequestHeader("Authorization") String token,  @PathVariable(name = "phase") Integer idPhase,  @PathVariable(name = "active") boolean active);
+	
+	@GetMapping("/phase/vide/liste/projet/{projet}")
+	PhaseAux phaseVideParProjetId(@RequestHeader("Authorization") String token,@PathVariable (name="projet") Integer idProjet);
+	
+}  

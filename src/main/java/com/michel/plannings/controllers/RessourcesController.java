@@ -242,6 +242,71 @@ public class RessourcesController {
 		return Constants.testUser(utilisateur, Constants.AJOUTER_RESSOURCES_PROJET);
 		
 	}
+	
+	@GetMapping("/ressources/liste/visiteur")
+	public String listeVisiteurs(Model model, HttpSession session) {
+
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		List<UtilisateurAux> ressources = microServicePlannnings.toutsLesVisiteurs(token);
+		model.addAttribute("ressources", ressources);
+		model.addAttribute("visiteur", true);
+		return Constants.testUser(utilisateur, Constants.LISTE_VISITEURS);
+
+	}
+	
+	@GetMapping("/ressources/liste/visiteur/statut/{id}")
+	public String visiteurChangeStatutListe(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
+
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		microServicePlannnings.ChangerStatutRessourcesId(token, id);
+		List<UtilisateurAux> ressources = microServicePlannnings.toutesLesRessources(token);
+		model.addAttribute("ressources", ressources);
+		model.addAttribute("visiteur", true);
+		return Constants.testUser(utilisateur, "redirect:/ressources/liste/visiteur ");
+
+	}
+	
+	@GetMapping("/ressources/modifier/droits/{visiteur}/{id}")
+	public String ressourcesChangeDroitsListe(@PathVariable(name = "visiteur") Boolean visiteur, @PathVariable(name = "id") Integer id, Model model, HttpSession session) {
+
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		UtilisateurAux ressource = microServicePlannnings.obtenirRessourceParId(id, token);
+		model.addAttribute("ressource", ressource);
+		model.addAttribute("visiteur", visiteur);
+		return Constants.testUser(utilisateur, Constants.MODIFIER_DROITS);
+
+	}
+	
+	@PostMapping("/ressources/modifier/droits/{visiteur}/{id}")
+	public String enregistrerDroitsRessource(@PathVariable(name = "visiteur") Boolean visiteur, @PathVariable(name = "id") Integer id, Model model, HttpSession session, UtilisateurAux ressource) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		microServicePlannnings.enregistrerDroitsRessource(id, token, ressource);
+		if(visiteur) {
+			return Constants.testUser(utilisateur, "redirect:/ressources/liste/visiteur");
+			}else {
+				
+				return Constants.testUser(utilisateur, "redirect:/ressources/gerer/droits");
+				//return Constants.testUser(utilisateur, "ok");
+			}
+		
+	}
+	
+	@GetMapping("/ressources/gerer/droits")
+	public String gererDroitsUtilisateurs(Model model, HttpSession session) {
+
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		List<UtilisateurAux> ressources = microServicePlannnings.toutsLesUtilisateurs(token);
+		model.addAttribute("ressources", ressources);
+		model.addAttribute("visiteur", false);
+		return Constants.testUser(utilisateur, Constants.DROITS);
+
+	}
 		
 
 }

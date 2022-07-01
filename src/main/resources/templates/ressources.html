@@ -29,7 +29,7 @@
 		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau3.png" alt="" th:src="@{/images/bandeau2.png}" />
+				<img class="img-fluid" src="/images/bandeau19.jpg" alt="" th:src="@{/images/bandeau19.jpg}" />
 			</div>
 		</div>
 		<!-- ----------------- -->
@@ -51,8 +51,11 @@
 							<th scope="col">Nom</th>
 							<th scope="col">Droit</th>
 							<th scope="col">Type</th>
-							<th scope="col">Actif</th>
-							<th scope="col">Affecter</th>
+
+							<span th:if=${groupe2}>
+								<th scope="col">Actif</th>
+								<th scope="col">Affecter</th>
+							</span>
 							<th scope="col">Voir</th>
 						</tr>
 					</thead>
@@ -63,27 +66,30 @@
 							<td th:text="${ressource.role}" />
 							<td th:text="${ressource.type}" />
 
-							<span th:if="${ressource.enabled}">
-								<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
-										<p type="text" class="btn btn-block"
-											style="background-color: #730800; color: white">Désactiver</p>
-									</a>
-								</td>
-							</span>
+							<span th:if=${groupe2}>
+								<span th:if="${ressource.enabled}">
+									<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #730800; color: white">Désactiver</p>
+										</a>
+									</td>
+								</span>
 
 
-							<span th:unless="${ressource.enabled}">
-								<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+								<span th:unless="${ressource.enabled}">
+									<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #7e60fb; color: white">Activer</p>
+										</a>
+									</td>
+								</span>
+								<td><a th:href="@{/ressources/affecter/projet/{id}(id=${ressource.id})}">
 										<p type="text" class="btn btn-block"
-											style="background-color: #7e60fb; color: white">Activer</p>
+											style="background-color: #7e60fb; color: white">Affecter</p>
 									</a>
 								</td>
+
 							</span>
-							<td><a th:href="@{/ressources/affecter/projet/{id}(id=${ressource.id})}">
-									<p type="text" class="btn btn-block"
-										style="background-color: #7e60fb; color: white">Affecter</p>
-								</a>
-							</td>
 
 							<td><a th:href="@{/ressources/voir/{id}/{masque}(id=${ressource.id}, masque=${false})}">
 									<p type="text" class="btn btn-block"

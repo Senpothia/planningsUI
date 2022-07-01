@@ -42,6 +42,18 @@ public class Constants {
 	public static final String FICHES_RESSOURCE = "fichesParRessource";
 	public static final String MODIFIER_FICHE = "modifierfiche";
 	public static final String CONFIRMATION = "Confirmation";
+	public static final String FICHES_SPONTANEES = "fichesSpontanees";
+	public static final String LISTE_VISITEURS = "visiteurs";
+	public static final String MODIFIER_DROITS = "modifierDroits";
+	public static final String DROITS = "droits";
+	public static final String ALERTE_BLOCAGE = "alerteBlocage";
+	public static final String FICHES_RESSOURCE_PROJET = "fichesParRessourceSurProjet";
+	public static final String CREATION_PHASE_RESSOURCE_SUR_PROJET = "creerPhasePourRessourceDansProjet";
+	public static final String PHASES_RESSOURCE = "phasesParRessource";
+	public static final String PHASES_ACTIVES = "phasesActives";
+	public static final String FICHES_ACTIVES = "fichesParStatut";
+	public static final String CREATION_FICHE_SPONTANEE = "creerFicheSpontanee";
+	public static final String CREATION_FICHE_SPONTANEE_PROJET = "creerFicheSpontaneeProjet";
 
 
 

@@ -7,6 +7,7 @@ public class PhaseAux {
 
 	private Integer id;
 	private Integer numero;
+	private String projet; // nom du projet
 	private Integer idProjet;
 	private String nom; // nom de la phase
 	private LocalDateTime debut;
@@ -31,14 +32,14 @@ public class PhaseAux {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PhaseAux(Integer id, Integer numero, Integer idProjet, String nom, LocalDateTime debut,
+	public PhaseAux(Integer id, Integer numero, String projet, Integer idProjet, String nom, LocalDateTime debut,
 			String dateDebutString, LocalDateTime fin, String dateFinString, Integer idRessource, String nomRessource,
 			String description, String complement, String resultat, Boolean conforme, Boolean actif, Boolean suspendu,
-			String conformeString, String actifString, String suspenduString,
-			List<com.michel.plannings.models.FicheAux> fiches) {
+			String conformeString, String actifString, String suspenduString, List<FicheAux> fiches) {
 		super();
 		this.id = id;
 		this.numero = numero;
+		this.projet = projet;
 		this.idProjet = idProjet;
 		this.nom = nom;
 		this.debut = debut;
@@ -217,6 +218,14 @@ public class PhaseAux {
 
 	public void setFiches(List<FicheAux> fiches) {
 		this.fiches = fiches;
+	}
+
+	public String getProjet() {
+		return projet;
+	}
+
+	public void setProjet(String projet) {
+		this.projet = projet;
 	}
 
 }

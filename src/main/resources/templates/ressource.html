@@ -78,7 +78,8 @@
 
 			<div class="row mt-3">
 				<div class="col d-flex justify-content-end">
-
+				
+					<span th:if=${groupe2}>
 					<div class="form-group mr-3">
 						<a th:href="@{/ressources/affecter/projet/{id}(id=${ressource.id})}">
 							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">
@@ -86,6 +87,8 @@
 							</p>
 						</a>
 					</div>
+					
+					</span>
 
 					<div class="form-group ">
 						<a href="/espace">
@@ -134,14 +137,14 @@
 							<td><a
 									th:href="@{/projet/voir/phases/{id}(id=${projet.id})}">
 									<p type="text" class="btn btn-block"
-										style="background-color: #7e60fb; color: white">Phases</p>
+										style="background-color: #7e60fb; color: white">Voir</p>
 								</a>
 							</td>
 
 							<td><a
 									th:href="@{/fiches/voir/projet/{ressource}/{projet}(ressource=${ressource.id},projet=${projet.id})}">
 									<p type="text" class="btn btn-block"
-										style="background-color: #7e60fb; color: white">Fiches</p>
+										style="background-color: #7e60fb; color: white">Voir</p>
 								</a>
 							</td>
 						</tr>

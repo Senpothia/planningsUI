@@ -28,21 +28,22 @@
 		<div class="row">
 			<div class="col">
 				<img class="img-fluid" src="/images/bandeau7.png" alt="" th:src="@{/images/bandeau7.png}" />
-				
 			</div>
 		</div>
 		<!-- ----------------- -->
-		<div class="row d-flex justify-content-center">
-
-			<h1 th:text="${'Liste des fiches pour la phase ' + phase.nom + ' du projet ' + projet.nom}">Liste des phases
-			</h1>
-
-		</div>
+		
+		
+		<span th:unless=${vide}>
+			<div class="row d-flex justify-content-center">
+				<h1 th:text="${'Liste des phases actives'}"></h1>
+			</div>
+		</span> 
+		
 		<span th:if=${vide}>
 			<div class="row d-flex justify-content-center">
-				<h1 th:text="${'La ' + phase.nom + ' ne comporte pas de fiches'}" style="color: red;"></h1>
+				<h1 th:text="${'Pas de phases inactives'}" style="color: red;"></h1>
 			</div>
-		</span>
+		</span> 
 
 		<span th:unless=${vide}>
 			<div class="row">
@@ -55,24 +56,37 @@
 
 								<th scope="col">Numéro</th>
 								<th scope="col">Projet</th>
-								<th scope="col">Date</th>
-								<th scope="col">Anomalie</th>
-								<th scope="col">Degré</th>
-								<th scope="col">Statut</th>
+								<th scope="col">Nom</th>
+								<th scope="col">Ressource</th>
+								<th scope="col">Active</th>
+								<th scope="col">Suspendue</th>
+								<th scope="col">Conformité</th>
+								<span th:if=${groupe1}>
+									<th scope="col">Fiches</th>
+								</span>
 								<th scope="col">Voir</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="fiche, iStat: ${fiches}">
+							<tr th:each="phase, iStat: ${phases}">
 
-								<td th:text="${fiche.numero}" />
-								<td th:text="${fiche.projet}" />
-								<td th:text="${#temporals.format(fiche.date, 'dd-MM-yyyy')}" />
-								<td th:text="${fiche.anomalie}" />
-								<td th:text="${fiche.degre}" />
-								<td th:text="${fiche.statutString}" />
+								<td th:text="${phase.numero}" />
+								<td th:text="${phase.projet}" />
+								<td th:text="${phase.nom}" />
+								<td th:text="${phase.nomRessource}" />
+								<td th:text="${phase.actifString}" />
+								<td th:text="${phase.suspenduString}" />
+								<td th:text="${phase.conformeString}" />
 
-								<td><a th:href="@{/fiche/voir/{id}(id=${fiche.id})}">
+								<span th:if=${groupe1}>
+									<td><a th:href="@{/phase/fiches/ajouter/{id}(id=${phase.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #7e60fb; color: white">Ajouter</p>
+										</a>
+									</td>
+								</span>
+
+								<td><a th:href="@{/phase/voir/{id}(id=${phase.id})}">
 										<p type="text" class="btn btn-block"
 											style="background-color: #7e60fb; color: white">Voir</p>
 									</a>
@@ -89,14 +103,9 @@
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-end">
 
-			<span th:if=${groupe1}>
-				<div class="form-group mr-3">
-					<a th:href="@{/phase/fiches/ajouter/{phase}(phase=${phase.id})}">
-						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Ajouter des
-							fiches</p>
-					</a>
-				</div>
-			</span>
+			
+		
+
 				<div class="form-group ">
 					<a href="/espace">
 						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour</p>

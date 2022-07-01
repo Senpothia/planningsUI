@@ -28,16 +28,20 @@
 		<!-- ---------------- -->
 
 		<!-- IMAGE -->
+		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau14.jpg" alt="" th:src="@{/images/bandeau14.jpg}" />
+				<img class="img-fluid" src="/images/bandeau22.jpg" alt="" th:src="@{/images/bandeau22.jpg}" />
 			</div>
 		</div>
 		<!-- ----------------- -->
 
 		<div class="message row">
 
-			<h1>Complétez ce formulaire pour créer une ressource.</h1>
+			<h2>Complétez ce formulaire pour modifier les droits de l'utilisateur.</h2>
+			<h3 style="color: red;" th:if="${error}">Erreur! Pensez à renseigner le mot de passe.</h3>
+
+			</span>
 
 		</div>
 
@@ -45,7 +49,9 @@
 		<div class="row">
 
 			<div class="col">
-				<form th:action="@{/ressources/ajouter}" method="post" th:object="${formCompte}">
+				<form
+					th:action="@{/ressources/modifier/droits/{visiteur}/{id}(visiteur = ${visiteur},id=${ressource.id})}"
+					method="post" th:object="${ressource}">
 
 
 					<div class="form-group">
@@ -64,19 +70,30 @@
 							th:field="*{username}" th:value="*{username}">
 					</div>
 
-					<div class="form-group">
-						<label for="exampleInputEmail1">Password</label> <input type="text" class="form-control"
-							th:field="*{password}">
-					</div>
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">Type</label> <input type="text" class="form-control"
-							th:field="*{type}">
+						<label for="exampleFormControlSelect1">Droits</label> <select class="form-control"
+							id="exampleFormControlSelect1" th:field="*{role}">
+							<option th:value="'USER'" th:text="VISITEUR"></option>
+							<option th:value="'LABO'" th:text="LABO"></option>
+							<option th:value="'BE'" th:text="BE"></option>
+							<option th:value="'CPROD'" th:text="CPROD"></option>
+							<option th:value="'RESBE'" th:text="RESBE"></option>
+
+						</select>
 					</div>
+					
+					<div class="form-check mt-2">
+						<input type="checkbox" class="form-check-input"
+							th:field="*{autorise}" th:checked="*{autorise}" th:value="*{autorise}"> <label
+							class="form-check-label">Autorisé</label>
+					</div>
+
+
 
 					<div class="d-flex justify-content-end">
 
-						<a class="btn mr-1" style="background-color: #7e60fb; color: white;" href="/"
+						<a class="btn mr-1" style="background-color: #7e60fb; color: white;" href="/espace"
 							role="button">Annuler</a>
 						<input class="btn" style="background-color: #7e60fb; color: white;" type="submit"
 							value="Valider">

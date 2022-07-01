@@ -117,7 +117,7 @@ public class ProjetController {
 		
 		String token = Constants.getToken(session);
 		List<ProjetAux> projets = new ArrayList<>();
-		if(role.equals("CPROJET")) {
+		if(role.equals("CPROD")) {
 			projets = microServicePlannnings.projetsParChef(token, id);
 		}
 		
@@ -131,7 +131,7 @@ public class ProjetController {
 		
 		
 		model.addAttribute("projets", projets);
-		model.addAttribute("access", "3");
+		model.addAttribute("access", "2");
 		return Constants.testUser(utilisateur, Constants.PROJETS);
 		
 	}
@@ -143,7 +143,7 @@ public class ProjetController {
 		String token = Constants.getToken(session);
 		List<ProjetAux> projets = microServicePlannnings.projetsTousActifs(token);
 		model.addAttribute("projets", projets);
-		model.addAttribute("access", "2");
+		model.addAttribute("access", "3");
 		return Constants.testUser(utilisateur, Constants.PROJETS);
 
 	}
@@ -154,10 +154,11 @@ public class ProjetController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<UtilisateurAux> ressources = microServicePlannnings.ressourcesParProjet(token, id);
+		if(ressources.isEmpty()) {model.addAttribute("vide", true);};
 		ProjetAux projet = microServicePlannnings.projetParId(token, id);
 		model.addAttribute("ressources", ressources);
 		model.addAttribute("projet", projet);
-		return Constants.testUser(utilisateur, Constants.LISTE_RESSOURCES_PROJET);
+ 		return Constants.testUser(utilisateur, Constants.LISTE_RESSOURCES_PROJET);
 	}
 	
 	

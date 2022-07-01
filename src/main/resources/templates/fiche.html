@@ -34,47 +34,50 @@
 				<img class="img-fluid" src="/images/bandeau19.jpg" th:src="@{/images/bandeau19.jpg}" />
 			</div>
 		</div>
-		
-		
-		<span th:if=${supprimer}>
-			<div class="row mt-3">
-				<div class="col d-flex justify-content-center">
 
-					<form class="formulaire" th:action="@{/supprimer/fiche/{fiche}(fiche=${fiche.id})}" th:object="${login}" method="post">
-						<div>
-							<h3 style="color: red;" th:if="${error}">Erreur! Vérifiez vous
-								identifiants de connexion</h3>
+		<span th:if=${groupe2}>
+			<span th:if=${supprimer}>
+				<div class="row mt-3">
+					<div class="col d-flex justify-content-center">
 
-						</div>
-						
-						<div>
-							<h3 style="color: red;" th:unless="${error}">Entrez vos identifiants pour valider la suppression</h3>
+						<form class="formulaire" th:action="@{/supprimer/fiche/{fiche}(fiche=${fiche.id})}"
+							th:object="${login}" method="post">
+							<div>
+								<h3 style="color: red;" th:if="${error}">Erreur! Vérifiez vous
+									identifiants de connexion</h3>
 
-						</div>
-						
-						<div class="form-group">
-							<label for="email">Email</label> <input type="text" class="form-control" name="user">
+							</div>
 
-						</div>
-						<div class="form-group">
-							<label for="password">Password</label> <input type="password" class="form-control"
-								name="password">
-						</div>
+							<div>
+								<h3 style="color: red;" th:unless="${error}">Entrez vos identifiants pour valider la
+									suppression</h3>
 
-						<div class="float-right">
-							
-							<button type="submit" class="btn"
-								style="background-color: red; color: white;">Supprimer</button>
-						</div>
+							</div>
 
-					</form>
+							<div class="form-group">
+								<label for="email">Email</label> <input type="text" class="form-control" name="user">
+
+							</div>
+							<div class="form-group">
+								<label for="password">Password</label> <input type="password" class="form-control"
+									name="password">
+							</div>
+
+							<div class="float-right">
+
+								<button type="submit" class="btn"
+									style="background-color: red; color: white;">Supprimer</button>
+							</div>
+
+						</form>
+
+
+					</div>
 
 
 				</div>
 
-
-			</div>
-
+			</span>
 		</span>
 
 		<div class="row">
@@ -105,7 +108,7 @@
 
 					<tr>
 						<th scope="row">Date</th>
-						<td th:text="${fiche.date}" />
+						<td th:text="${#temporals.format(fiche.date, 'dd-MM-yyyy')}" />
 
 					</tr>
 
@@ -208,13 +211,16 @@
 						</a>
 					</div>
 
+				<span th:if=${groupe2}>
 					<div class="form-group mr-3">
 						<a th:href="@{/fiche/supprimer/{id}(id=${fiche.id})}">
 							<p type="text" class="btn btn-block" style="background-color: red; color: white">Supprimer
 							</p>
 						</a>
 					</div>
-
+				</span>
+				
+				<span th:if=${groupe2}>
 					<div class="form-group mr-3">
 						<a th:href="@{/fiche/modifier/{fiche}(fiche=${fiche.id})}">
 							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">
@@ -222,13 +228,16 @@
 							</p>
 						</a>
 					</div>
-
+				</span>
+				
 					<div class="form-group ">
 						<a href="/espace">
 							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour
 							</p>
 						</a>
 					</div>
+					
+					
 				</div>
 
 

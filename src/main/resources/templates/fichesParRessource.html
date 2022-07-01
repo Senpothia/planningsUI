@@ -28,18 +28,22 @@
 		<div class="row">
 			<div class="col">
 				<img class="img-fluid" src="/images/bandeau7.png" alt="" th:src="@{/images/bandeau7.png}" />
+
 			</div>
 		</div>
 		<!-- ----------------- -->
-		<span th:unless=${toutes}>
-			<div class="row d-flex justify-content-center">
+		
+			<span th:unless=${toutes}>
+				<div class="row d-flex justify-content-center">
 
-				<h1>Liste de mes fiches
-				</h1>
+					<h1>Liste de mes fiches
+					</h1>
 
-			</div>
+				</div>
 
-		</span>
+			</span>
+
+		
 
 		<span th:unless=${gestion}>
 			<span th:if=${toutes}>
@@ -63,8 +67,6 @@
 
 			</div>
 
-
-
 		</span>
 
 		<span th:if=${vide}>
@@ -87,7 +89,9 @@
 								<th scope="col">Date</th>
 								<th scope="col">Anomalie</th>
 								<th scope="col">Degré</th>
+
 								<th scope="col">Statut</th>
+
 								<th scope="col">Voir</th>
 							</tr>
 						</thead>
@@ -96,10 +100,21 @@
 
 								<td th:text="${fiche.numero}" />
 								<td th:text="${fiche.projet}" />
-								<td th:text="${fiche.date}" />
+								<td th:text="${#temporals.format(fiche.date, 'dd-MM-yyyy')}" />
 								<td th:text="${fiche.anomalie}" />
 								<td th:text="${fiche.degre}" />
-
+					
+					<span th:unless=${groupe2}>	
+					<span th:if=${groupe1}>
+						<td th:text="${fiche.statutString}" />
+					</span>	
+					
+					<span th:unless=${groupe1}>
+						<td th:text="${fiche.statutString}" />
+					</span>	
+					</span>	
+				
+					<span th:if=${groupe2}>
 								<span th:unless=${gestion}>
 									<td th:text="${fiche.statutString}" />
 
@@ -129,7 +144,7 @@
 									</span>
 								</span>
 
-
+					</span>
 								<td><a th:href="@{/fiche/voir/{id}(id=${fiche.id})}">
 										<p type="text" class="btn btn-block"
 											style="background-color: #7e60fb; color: white">Voir</p>
@@ -147,13 +162,15 @@
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-end">
 
-
+		<span th:if=${groupe1}>
 				<div class="form-group mr-3">
 					<a th:href="@{/projets/voir/tous}">
 						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Ajouter des
 							fiches</p>
 					</a>
 				</div>
+				
+		</span>
 				<div class="form-group ">
 					<a href="/espace">
 						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour</p>

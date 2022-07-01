@@ -29,7 +29,7 @@
 		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau3.png" alt="" th:src="@{/images/bandeau2.png}" />
+				<img class="img-fluid" src="/images/bandeau14.jpg" alt="" th:src="@{/images/bandeau14.jpg}" />
 			</div>
 		</div>
 		<!-- ----------------- -->
@@ -50,8 +50,10 @@
 							<th scope="col">Nom</th>
 							<th scope="col">Droit</th>
 							<th scope="col">Type</th>
-							<th scope="col">Actif</th>
-							<th scope="col">Retirer</th>
+							<span th:if=${groupe2}>
+								<th scope="col">Actif</th>
+								<th scope="col">Retirer</th>
+							</span>
 							<th scope="col">Voir</th>
 						</tr>
 					</thead>
@@ -61,29 +63,30 @@
 							<td th:text="${ressource.prenom +' '+ ressource.nom}" />
 							<td th:text="${ressource.role}" />
 							<td th:text="${ressource.type}" />
+							<span th:if=${groupe2}>
+								<span th:if="${ressource.enabled}">
+									<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #730800; color: white">Désactiver</p>
+										</a>
+									</td>
+								</span>
 
-							<span th:if="${ressource.enabled}">
-								<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+
+								<span th:unless="${ressource.enabled}">
+									<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #7e60fb; color: white">Activer</p>
+										</a>
+									</td>
+								</span>
+								<td><a
+										th:href="@{/ressources/projet/retirer/{id}/{projet}(id=${ressource.id}, projet=${projet.id})}">
 										<p type="text" class="btn btn-block"
-											style="background-color: #730800; color: white">Désactiver</p>
+											style="background-color:  #730800; color: white">Retirer</p>
 									</a>
 								</td>
 							</span>
-
-
-							<span th:unless="${ressource.enabled}">
-								<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
-										<p type="text" class="btn btn-block"
-											style="background-color: #7e60fb; color: white">Activer</p>
-									</a>
-								</td>
-							</span>
-							<td><a th:href="@{/ressources/projet/retirer/{id}/{projet}(id=${ressource.id}, projet=${projet.id})}">
-									<p type="text" class="btn btn-block"
-										style="background-color:  #730800; color: white">Retirer</p>
-								</a>
-							</td>
-
 							<td><a th:href="@{/ressources/voir/{id}/{masque}(id=${ressource.id}, masque=${false})}">
 									<p type="text" class="btn btn-block"
 										style="background-color: #7e60fb; color: white">Voir</p>
@@ -98,8 +101,8 @@
 			</div>
 
 		</div>
-		
-			<div class="row d-flex justify-content-center">
+
+		<div class="row d-flex justify-content-center">
 
 			<h2 th:text="${'Liste des ressources disponibles pour le projet ' + projet.nom}">Liste des projets</h2>
 
@@ -116,7 +119,9 @@
 							<th scope="col">Nom</th>
 							<th scope="col">Droit</th>
 							<th scope="col">Type</th>
-							<th scope="col">Ajouter</th>
+							<span th:if=${groupe2}>
+								<th scope="col">Ajouter</th>
+							</span>
 						</tr>
 					</thead>
 					<tbody>
@@ -125,11 +130,14 @@
 							<td th:text="${ressource.prenom +' '+ ressource.nom}" />
 							<td th:text="${ressource.role}" />
 							<td th:text="${ressource.type}" />
-							<td><a th:href="@{/ressources/projet/ajouter/{ressource}/{projet}(ressource=${ressource.id}, projet=${projet.id})}">
-									<p type="text" class="btn btn-block"
-										style="background-color: #7e60fb; color: white">Ajouter</p>
-								</a>
-							</td>
+							<span th:if=${groupe2}>
+								<td><a
+										th:href="@{/ressources/projet/ajouter/{ressource}/{projet}(ressource=${ressource.id}, projet=${projet.id})}">
+										<p type="text" class="btn btn-block"
+											style="background-color: #7e60fb; color: white">Ajouter</p>
+									</a>
+								</td>
+							</span>
 						</tr>
 
 					</tbody>

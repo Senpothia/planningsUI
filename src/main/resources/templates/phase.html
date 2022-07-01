@@ -41,6 +41,49 @@
 
 		</div>
 
+		<span th:if=${supprimer}>
+			<div class="row mt-3">
+				<div class="col d-flex justify-content-center">
+
+					<form class="formulaire" th:action="@{/supprimer/phase/{phase}(phase=${phase.id})}"
+						th:object="${login}" method="post">
+						<div>
+							<h3 style="color: red;" th:if="${error}">Erreur! Vérifiez vous
+								identifiants de connexion</h3>
+
+						</div>
+
+						<div>
+							<h3 style="color: red;" th:unless="${error}">Entrez vos identifiants pour valider la
+								suppression</h3>
+
+						</div>
+
+						<div class="form-group">
+							<label for="email">Email</label> <input type="text" class="form-control" name="user">
+
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label> <input type="password" class="form-control"
+								name="password">
+						</div>
+
+						<div class="float-right">
+
+							<button type="submit" class="btn"
+								style="background-color: red; color: white;">Supprimer</button>
+						</div>
+
+					</form>
+
+
+				</div>
+
+
+			</div>
+
+		</span>
+
 		<div class="col">
 
 			<table class="table table-striped">
@@ -128,18 +171,46 @@
 			</table>
 
 		</div>
-
-		<div class="row mt-3">
-			<div class="col d-flex justify-content-end">
+		<span th:unless=${supprimer}>
+			<div class="row mt-3">
+				<div class="col d-flex justify-content-end">
 
 			
-
+		
+				<span th:if=${groupe2}>
+					<div class="form-group mr-3">
+						<a
+							th:href="@{/phase/supprimer/{id}(id=${phase.id})}"><p
+								type="text" class="btn btn-block"
+								style="background-color: red; color: white">Supprimer</p></a>
+					</div>
+					
+				</span>
+			
+			
+			<span th:unless=${phase.actif}>
+				<span th:if=${groupe2}>
+					<div class="form-group mr-3">
+						<a
+							th:href="@{/phase/changer/statut/{phase}/{active}(phase=${phase.id}, active=${phase.actif})}"><p
+								type="text" class="btn btn-block"
+								style="background-color:  #7e60fb; color: white">Activer</p></a>
+					</div>
+					
+				</span>
+			</span>
+			
+			<span th:if=${phase.actif}>
+				<span th:if=${groupe2}>
 				<div class="form-group mr-3">
 					<a
-						th:href="@{/phase/supprimer/{id}(id=${phase.id})}"><p
+						th:href="@{/phase/changer/statut/{phase}/{active}(phase=${phase.id}, active=${phase.actif})}"><p
 							type="text" class="btn btn-block"
-							style="background-color: red; color: white">Supprimer</p></a>
+							style="background-color: #730800; color: white">Désactiver</p></a>
 				</div>
+				
+				</span>
+			</span>
 				
 					<div class="form-group mr-3 ">
 					<a
@@ -148,12 +219,15 @@
 							style="background-color: #7e60fb; color: white">Fiches</p></a>
 				</div>
 
+		<span th:if=${groupe2}>
 				<div class="form-group mr-3">
 					<a
 						th:href="@{/phase/modifier/{id}(id=${phase.id})}"><p
 							type="text" class="btn btn-block"
 							style="background-color: #7e60fb; color: white">Modifier</p></a>
 				</div>
+				
+		</span>
 
 				<div class="form-group ">
 					<a href="/espace"><p type="text" class="btn btn-block"
@@ -162,9 +236,9 @@
 			</div>
 
 
-		</div>
+			</div>
 
-+
+	</span>
 		<!-- footer -->
 
 		<!-- PIED DE PAGE -->

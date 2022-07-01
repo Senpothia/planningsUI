@@ -31,35 +31,13 @@
 		<div class="row">
 			<div class="col">
 				<img class="img-fluid" src="/images/bandeau3.png" alt="" th:src="@{/images/bandeau3.png}" />
-			bbbbb
+			aaaaaa
 			</div>
 		</div>
 
-		<!-- *********************************************
 		
-		<div class="message row">
-
-			<p>
-				<b>Pour créer une phase, remplir ce formulaire.</b>
-			</p>
-
-		</div>
 		
-		 -->
 		
-		<!-- ***********   Alerte erreur  ************ -->
-
-
-		<span th:if="${erreur}">
-			<div class="message row">
-
-				<p>
-					<b style="color: red;">Les sites, secteurs, voies longueurs
-						doivent avoir un nom unique! Enregistrement impossible!</b>
-				</p>
-
-			</div>
-		</span>
 
 		<!-- ********************************************* -->
 
@@ -74,7 +52,7 @@
 					<h3 th:text="${'Projet: ' + projet.nom + ' ; ressource: ' + ressource.nom + ' ' + ressource.nom}"
 						style="color: red;"></h3>
 					<h1>Phase</h1>
-					<!-- 
+					<!--
 					<div class="row mr-1">
 						<label for="text">Numéro</label> <input type="number" class="form-control" th:field="*{numero}">
 					</div>

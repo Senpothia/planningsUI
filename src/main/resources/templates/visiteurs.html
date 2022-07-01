@@ -21,88 +21,101 @@
 
 		<!-- ENTETE -->
 
+
 		<div th:replace="fragments/entete_post :: entete_post"></div>
 		<!-- ---------------- -->
+
 
 		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau7.png" alt="" th:src="@{/images/bandeau7.png}" />
-				
+				<img class="img-fluid" src="/images/bandeau16.jpg" alt="" th:src="@{/images/bandeau16.jpg}" />
 			</div>
 		</div>
 		<!-- ----------------- -->
 		<div class="row d-flex justify-content-center">
 
-			<h1 th:text="${'Liste des fiches pour la phase ' + phase.nom + ' du projet ' + projet.nom}">Liste des phases
-			</h1>
+			<h1>Liste des visiteurs</h1>
 
 		</div>
-		<span th:if=${vide}>
-			<div class="row d-flex justify-content-center">
-				<h1 th:text="${'La ' + phase.nom + ' ne comporte pas de fiches'}" style="color: red;"></h1>
-			</div>
-		</span>
 
-		<span th:unless=${vide}>
-			<div class="row">
 
-				<div class="col donnees" style="margin: 5px;">
+		<div class="row">
 
-					<table class="table table-striped">
-						<thead>
-							<tr>
+			<div class="col donnees" style="margin: 5px;">
 
-								<th scope="col">Numéro</th>
-								<th scope="col">Projet</th>
-								<th scope="col">Date</th>
-								<th scope="col">Anomalie</th>
-								<th scope="col">Degré</th>
-								<th scope="col">Statut</th>
-								<th scope="col">Voir</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="fiche, iStat: ${fiches}">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col"></th>
+							<th scope="col">Nom</th>
+							<th scope="col">Droit</th>
+							<th scope="col">Type</th>
+							<th scope="col">Actif</th>
+							<span th:if=${groupe3}>
+								<th scope="col">Droits</th>
+							</span>
 
-								<td th:text="${fiche.numero}" />
-								<td th:text="${fiche.projet}" />
-								<td th:text="${#temporals.format(fiche.date, 'dd-MM-yyyy')}" />
-								<td th:text="${fiche.anomalie}" />
-								<td th:text="${fiche.degre}" />
-								<td th:text="${fiche.statutString}" />
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="ressource, iStat: ${ressources}">
+							<th scope="row"><span th:text="${iStat.count}"></span></th>
+							<td th:text="${ressource.prenom +' '+ ressource.nom}" />
+							<td th:text="${ressource.role}" />
+							<td th:text="${ressource.type}" />
+							
+							<span th:unless=${groupe3}>
+									<td th:text="${ressource.statutString}" />
+							</span>
 
-								<td><a th:href="@{/fiche/voir/{id}(id=${fiche.id})}">
+							<span th:if=${groupe3}>
+								<span th:if="${ressource.enabled}">
+									<td><a th:href="@{/ressources/liste/visiteur/statut/{id}(id=${ressource.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #730800; color: white">Désactiver</p>
+										</a>
+									</td>
+								</span>
+
+
+								<span th:unless="${ressource.enabled}">
+									<td><a th:href="@{/ressources/liste/visiteur/statut/{id}(id=${ressource.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #7e60fb; color: white">Activer</p>
+										</a>
+									</td>
+								</span>
+
+
+								<td><a
+										th:href="@{/ressources/modifier/droits/{visiteur}/{id}(visiteur=${visiteur},id=${ressource.id})}">
 										<p type="text" class="btn btn-block"
-											style="background-color: #7e60fb; color: white">Voir</p>
+											style="background-color: #7e60fb; color: white">Modifier</p>
 									</a>
 								</td>
-							</tr>
 
-						</tbody>
-					</table>
-				</div>
+							</span>
+
+						</tr>
+
+					</tbody>
+				</table>
+
+
 			</div>
 
-		</span>
+
+		</div>
 
 		<div class="row mt-3">
-			<div class="col d-flex justify-content-end">
-
-			<span th:if=${groupe1}>
-				<div class="form-group mr-3">
-					<a th:href="@{/phase/fiches/ajouter/{phase}(phase=${phase.id})}">
-						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Ajouter des
-							fiches</p>
-					</a>
-				</div>
-			</span>
+			<div class="col d-flex justify-content-center">
 				<div class="form-group ">
 					<a href="/espace">
-						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour</p>
+						<p type="text" class="btn btn-block"
+							style="background-color: #7e60fb; color: white; width: 350px;">Retour</p>
 					</a>
 				</div>
-
 			</div>
 
 

@@ -29,7 +29,7 @@
 		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau3.png" alt="" th:src="@{/images/bandeau2.png}" />
+				<img class="img-fluid" src="/images/bandeau22.jpg" alt="" th:src="@{/images/bandeau22.jpg}" />
 			</div>
 		</div>
 		<!-- ----------------- -->
@@ -57,7 +57,7 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th scope="col"></th>
+							
 							<th scope="col">N°</th>
 							<th scope="col">Nom</th>
 							<th scope="col">Type</th>
@@ -71,12 +71,18 @@
 					</thead>
 					<tbody>
 						<tr th:each="projet, iStat: ${projets}">
-							<th scope="row"><span th:text="${iStat.count}"></span></th>
+							
 							<td th:text="${projet.numero}" />
 							<td th:text="${projet.nom}" />
 							<td th:text="${projet.type}" />
 							<td th:text="${#temporals.format(projet.date, 'dd-MM-yyyy')}" />
 							<td th:text="${projet.nomChef}" />
+							
+							<span th:unless=${groupe2}>
+							<td th:text="${projet.statutString}" />
+							</span>
+							
+						<span th:if=${groupe2}>
 							<span th:if="${projet.statut}">
 							<td><a
 								th:href="@{/projet/liste/statut/{id}(id=${projet.id})}"><p
@@ -91,6 +97,8 @@
 										type="text" class="btn btn-block"
 										style="background-color: #7e60fb; color: white">Activer</p></a>
 							</td></span>
+						</span>
+							
 							<td><a th:href="@{/projet/voir/{id}(id=${projet.id})}"><p type="text"
 										class="btn btn-block"
 										style="background-color: #7e60fb; color: white">Voir</p></a>
