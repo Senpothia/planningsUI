@@ -69,7 +69,10 @@ public class ProjetController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<ProjetAux> projets = microServicePlannnings.projetsTous(token);
+		Boolean vide = false;
+		if(projets.isEmpty()) {vide = true;}
 		model.addAttribute("projets", projets);
+		model.addAttribute("vide", vide);
 		model.addAttribute("access", "1");
 		return Constants.testUser(utilisateur, Constants.PROJETS);
 
@@ -103,8 +106,11 @@ public class ProjetController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<ProjetAux> projets = microServicePlannnings.modifierStatutProjetListe(id, token);
+		Boolean vide = false;
+		if(projets.isEmpty()) {vide = true;}
 		model.addAttribute("projets", projets);
 		model.addAttribute("access", "1");
+		model.addAttribute("vide", vide);
 		return Constants.testUser(utilisateur, Constants.PROJETS);
 		
 	}
@@ -129,9 +135,11 @@ public class ProjetController {
 			projets = microServicePlannnings.projetsParRessource(token, id, false);
 		}
 		
-		
+		Boolean vide = false;
+		if(projets.isEmpty()) {vide = true;}
 		model.addAttribute("projets", projets);
 		model.addAttribute("access", "2");
+		model.addAttribute("vide", vide);
 		return Constants.testUser(utilisateur, Constants.PROJETS);
 		
 	}
@@ -142,8 +150,11 @@ public class ProjetController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<ProjetAux> projets = microServicePlannnings.projetsTousActifs(token);
+		Boolean vide = false;
+		if(projets.isEmpty()) {vide = true;}
 		model.addAttribute("projets", projets);
 		model.addAttribute("access", "3");
+		model.addAttribute("vide", vide);
 		return Constants.testUser(utilisateur, Constants.PROJETS);
 
 	}

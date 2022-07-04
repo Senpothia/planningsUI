@@ -33,49 +33,59 @@
 			</div>
 		</div>
 		<!-- ----------------- -->
-		<div class="row d-flex justify-content-center">
 
-			<span th:if="${access == '1'}">
-				<h1>Liste de tous les projets</h1>
-			</span> <span th:if="${access == '2'}">
-				<h1>Liste
-					de mes projets en cours</h1>
-			</span> <span th:if="${access == '3'}">
-				<h1>Liste de tous les projets en cours</h1>
-			</span>
+		<span th:unless="${vide}">
+			<div class="row d-flex justify-content-center">
 
+				<span th:if="${access == '1'}">
+					<h1>Liste de tous les projets</h1>
+				</span> <span th:if="${access == '2'}">
+					<h1>Liste
+						de mes projets en cours</h1>
+				</span> <span th:if="${access == '3'}">
+					<h1>Liste de tous les projets en cours</h1>
+				</span>
 
+			</div>
+		</span>
 
-
-		</div>
-
-
-		<div class="row">
-
-			<div class="col donnees" style="margin: 5px;">
-
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							
-							<th scope="col">N°</th>
-							<th scope="col">Nom</th>
-							<th scope="col">Type</th>
-							<th scope="col">Date</th>
-							<th scope="col">Responsable</th>
-							<th scope="col">Actif</th>
-							<th scope="col">Consulter</th>
+		<span th:if="${vide}">
+			<div class="row d-flex justify-content-center">
 
 
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="projet, iStat: ${projets}">
-							
-							<td th:text="${projet.numero}" />
-							<td th:text="${projet.nom}" />
-							<td th:text="${projet.type}" />
-							<td th:text="${#temporals.format(projet.date, 'dd-MM-yyyy')}" />
+				<h1 style="color: red;">La liste des projets est vide</h1>
+
+			</div>
+		</span>
+
+
+		<span th:unless="${vide}">
+			<div class="row">
+
+				<div class="col donnees" style="margin: 5px;">
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+
+								<th scope="col">N°</th>
+								<th scope="col">Nom</th>
+								<th scope="col">Type</th>
+								<th scope="col">Date</th>
+								<th scope="col">Responsable</th>
+								<th scope="col">Actif</th>
+								<th scope="col">Consulter</th>
+
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="projet, iStat: ${projets}">
+
+								<td th:text="${projet.numero}" />
+								<td th:text="${projet.nom}" />
+								<td th:text="${projet.type}" />
+								<td th:text="${#temporals.format(projet.date, 'dd-MM-yyyy')}" />
 							<td th:text="${projet.nomChef}" />
 							
 							<span th:unless=${groupe2}>
@@ -115,6 +125,8 @@
 
 
 		</div>
+		
+		</span>
 
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-center">
