@@ -180,10 +180,19 @@ public class PhaseController {
 		String token = Constants.getToken(session);
 		List<PhaseAux> phases = microServicePlannnings.phasesParRessource(token, idRessource);
 		Boolean vide = false;
-		if (phases.isEmpty() || phases.size() < 2) {
+		if (phases.isEmpty()) {
+		
 			vide = true;
 		}
-		phases.remove(0);
+		for (PhaseAux p: phases) {
+			
+			if(p.getNumero() == 0) {
+				
+				phases.remove(p);
+			}
+			
+		}
+
 		model.addAttribute("phases", phases);
 		model.addAttribute("vide", vide);
 		model.addAttribute("ressource", utilisateur);
@@ -202,7 +211,6 @@ public class PhaseController {
 			model.addAttribute("phases", phases);
 		}else {
 			List<PhaseAux> phasesSans0 = new ArrayList<>();
-			System.out.println("Taille liste phases: " + phases.size());
 			for(PhaseAux ph: phases) {
 				
 				if(ph.getNumero() != 0) {
