@@ -54,6 +54,7 @@ public class Constants {
 	public static final String FICHES_ACTIVES = "fichesParStatut";
 	public static final String CREATION_FICHE_SPONTANEE = "creerFicheSpontanee";
 	public static final String CREATION_FICHE_SPONTANEE_PROJET = "creerFicheSpontaneeProjet";
+	public static final String SELECTION_RESSOURCE_POUR_PHASE = "selectionRessourcePourPhase";
 
 
 

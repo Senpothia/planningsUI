@@ -39,9 +39,13 @@ public class PhaseController {
 		String token = Constants.getToken(session);
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		List<UtilisateurAux> ressources = microServicePlannnings.toutesLesRessources(token);
+		// recherches des ressources associées au projet
+		List<UtilisateurAux> ressourcesAssociees = microServicePlannnings.ressourcesParProjet(token, idProjet);
+		
 		model.addAttribute("ressources", ressources);
+		model.addAttribute("ressourcesAssociees", ressourcesAssociees);
 		model.addAttribute("projet", projet);
-		return Constants.testUser(utilisateur, Constants.SELECTION_RESSOURCE);
+		return Constants.testUser(utilisateur, Constants.SELECTION_RESSOURCE_POUR_PHASE);
 	}
 
 	@GetMapping("/projet/ajouter/phase/associer/{projet}/{ressource}")
