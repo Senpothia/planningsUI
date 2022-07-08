@@ -176,10 +176,12 @@ public class FichesController {
 		Integer idRessource = utilisateur.getId();
 
 		List<FicheAux> fiches = microServicePlannnings.listeFicheParRessourceId(token, idRessource);
-
+		Boolean vide = false;
+		if(fiches.isEmpty()) { vide = true;}
 		model.addAttribute("fiches", fiches);
 		model.addAttribute("toutes", false);
 		model.addAttribute("gestion", false);
+		model.addAttribute("vide", vide);
 
 		return Constants.testUser(utilisateur, Constants.FICHES_RESSOURCE);
 	}
@@ -191,10 +193,12 @@ public class FichesController {
 		String token = Constants.getToken(session);
 
 		List<FicheAux> fiches = microServicePlannnings.toutesLesFiches(token);
-
+		Boolean vide = false;
+		if(fiches.isEmpty()) { vide = true;}
 		model.addAttribute("fiches", fiches);
 		model.addAttribute("toutes", true);
 		model.addAttribute("gestion", false);
+		model.addAttribute("vide", vide);
 
 		return Constants.testUser(utilisateur, Constants.FICHES_RESSOURCE);
 	}
@@ -227,10 +231,13 @@ public class FichesController {
 		String token = Constants.getToken(session);
 
 		List<FicheAux> fiches = microServicePlannnings.toutesLesFiches(token);
-
+		Boolean vide = false;
+		if(fiches.isEmpty()) { vide = true;}
 		model.addAttribute("fiches", fiches);
 		model.addAttribute("toutes", true);
 		model.addAttribute("gestion", true);
+		model.addAttribute("vide", vide);
+
 
 		return Constants.testUser(utilisateur, Constants.FICHES_RESSOURCE);
 	}
@@ -306,9 +313,12 @@ public class FichesController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<FicheAux> fiches = microServicePlannnings.toutesLesFichesspontanees(token);
+		Boolean vide = false;
+		if(fiches.isEmpty()) { vide = true;}
 		model.addAttribute("fiches", fiches);
 		model.addAttribute("toutes", true);
 		model.addAttribute("gestion", false);
+		model.addAttribute("vide", vide);
 
 		return Constants.testUser(utilisateur, Constants.FICHES_SPONTANEES);
 	}
@@ -342,13 +352,14 @@ public class FichesController {
 		String token = Constants.getToken(session);
 
 		List<FicheAux> fiches = microServicePlannnings.toutesLesFichesStatut(token, active);
-
+		Boolean vide = fiches.isEmpty();
+		model.addAttribute("fiches", fiches);
 		model.addAttribute("fiches", fiches);
 		model.addAttribute("toutes", false);
 		model.addAttribute("gestion", false);
 		model.addAttribute("statut", true);
 		model.addAttribute("active", active);
-		
+		model.addAttribute("vide", vide);
 
 		return Constants.testUser(utilisateur, Constants.FICHES_ACTIVES);
 	}
