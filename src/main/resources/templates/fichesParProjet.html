@@ -47,7 +47,7 @@
 		<span th:unless=${vide}>
 
 			<!--  début de row -->
-			<div class="row" th:each="phase, iStat: ${phases}">
+			<div class="row d-flex justify-content-center" th:each="phase, iStat: ${phases}">
 
 				<!--  début table présentation phase -->
 				<div class="col donnees" style="margin: 5px; color: red">
@@ -69,7 +69,6 @@
 							</tr>
 						</thead>
 						<tbody>
-
 
 							<td th:text="${phase.numero}" />
 							<td th:text="${phase.nom}" />
@@ -100,6 +99,8 @@
 
 
 				<!--  début table présentation des fiches -->
+				
+	<span th:unless=${phase.fiches.isEmpty()}>			
 				<div class="col donnees" style="margin: 5px;">
 
 					<table class="table table-striped">
@@ -135,8 +136,10 @@
 
 						</tbody>
 					</table>
+					
+					
 				</div>
-
+</span>
 				<!--  fin table présentation des fiches -->
 			</div>
 
@@ -162,7 +165,6 @@
 				</div>
 			</div>
 
-
 		</div>
 
 		<!-- PIED DE PAGE -->
@@ -170,7 +172,6 @@
 		<div th:replace="fragments/footer :: footer"></div>
 
 		<!-- ********************************************* -->
-
 
 	</div>
 	<!-- fin conteneur -->
