@@ -69,13 +69,17 @@
 				method="post" th:object="${phase}">
 
 				<div class="col">
-					<b>Pour créer une phase, remplir ce formulaire.</b>
+					<b>Pour modifier une phase, remplir ce formulaire.</b>
 					<h3 th:text="${'Projet: ' + projet.nom + ' ; ressource: ' + ressource.nom + ' ' + ressource.nom}"
 						style="color: red;"></h3>
 					<h1>Phase</h1>
+					
+					<!-- 
 					<div class="row mr-1">
 						<label for="text">Numéro</label> <input type="number" class="form-control" th:field="*{numero}">
 					</div>
+					
+					-->
 
 					<div class="row mr-1">
 						<label for="text">Nom</label> <input type="text" class="form-control" th:field="*{nom}">

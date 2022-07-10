@@ -95,9 +95,12 @@ public class FichesController {
 		PhaseAux phase = microServicePlannnings.phaseParId(token, idPhase);
 		Integer idProjet = phase.getIdProjet();
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
+		boolean vide = false;
+		if (fiches.isEmpty()) { vide = true;}
 		model.addAttribute("fiches", fiches);
 		model.addAttribute("phase", phase);
 		model.addAttribute("projet", projet);
+		model.addAttribute("vide", vide);
 
 		return Constants.testUser(utilisateur, Constants.LISTE_FICHES);
 	}
@@ -111,7 +114,11 @@ public class FichesController {
 
 		model.addAttribute("fiche", fiche);
 		model.addAttribute("supprimer", false);
-
+		Boolean auteur = false;
+		if (fiche.getIdAuteur() == utilisateur.getId()) {
+			auteur = true;
+		}
+		model.addAttribute("auteur", auteur);
 		return Constants.testUser(utilisateur, Constants.FICHE);
 	}
 
