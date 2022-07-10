@@ -140,6 +140,13 @@
 					
 				</div>
 </span>
+
+<span th:if=${phase.fiches.isEmpty()}>	
+<div class="row d-flex justify-content-center">
+				<h3 th:text="${'Cette phase ne comporte pas de fiches'}" style="color: red;"></h1>
+			</div>
+
+</span>
 				<!--  fin table présentation des fiches -->
 			</div>
 
