@@ -41,9 +41,11 @@ public class PhaseController {
 		List<UtilisateurAux> ressources = microServicePlannnings.toutesLesRessources(token);
 		// recherches des ressources associées au projet
 		List<UtilisateurAux> ressourcesAssociees = microServicePlannnings.ressourcesParProjet(token, idProjet);
-		
+		Boolean affectations = false;
+		if (!ressourcesAssociees.isEmpty()) { affectations = true;}
 		model.addAttribute("ressources", ressources);
 		model.addAttribute("ressourcesAssociees", ressourcesAssociees);
+		model.addAttribute("affectations", affectations);
 		model.addAttribute("projet", projet);
 		return Constants.testUser(utilisateur, Constants.SELECTION_RESSOURCE_POUR_PHASE);
 	}

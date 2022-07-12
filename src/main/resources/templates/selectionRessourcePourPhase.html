@@ -39,13 +39,13 @@
 
 		</div>
 		
+		<span th:if=${affectations}>
+		
 		<div class="row d-flex justify-content-center">
 
 			<h2 th:text="${'Choisissez une ressource pour le projet ' + projet.nom}" style="color: red;"></h2>
 
 		</div>
-		
-		
 				<div class="row">
 
 			<div class="col donnees" style="margin: 5px;">
@@ -77,7 +77,6 @@
 								</td>
 							</span>
 
-
 							<span th:unless="${ressource.enabled}">
 								<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
 										<p type="text" class="btn btn-block"
@@ -91,36 +90,38 @@
 								</a>
 							</td>
 
-							
-
-
-
 						</tr>
 
 					</tbody>
 				</table>
 
-
 			</div>
-
 
 		</div>
 		
+		</span>
+		
+		<span th:unless=${affectations}>
+		
+		<div class="row d-flex justify-content-center">
+
+			<h1 style="color: red;">Aucune ressource n'a été affectée à ce projet</h1>
+
+		</div>
+		
+		</span>
 		<div class="row d-flex justify-content-center">
 
 			<h1>Liste des ressources non affectées</h1>
 
 		</div>
 		
-
-		
 		<div class="row d-flex justify-content-center">
 
 			<h2 th:text="${'Choisissez une ressource pour le projet ' + projet.nom}" style="color: red;"></h2>
 
 		</div>
-
-
+		
 		<div class="row">
 
 			<div class="col donnees" style="margin: 5px;">
@@ -152,7 +153,6 @@
 								</td>
 							</span>
 
-
 							<span th:unless="${ressource.enabled}">
 								<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
 										<p type="text" class="btn btn-block"
@@ -166,18 +166,12 @@
 								</a>
 							</td>
 
-							
-
-
-
 						</tr>
 
 					</tbody>
 				</table>
 
-
 			</div>
-
 
 		</div>
 
@@ -191,7 +185,6 @@
 				</div>
 			</div>
 
-
 		</div>
 
 		<!-- PIED DE PAGE -->
@@ -199,7 +192,6 @@
 		<div th:replace="fragments/footer :: footer"></div>
 
 		<!-- ********************************************* -->
-
 
 	</div>
 	<!-- fin conteneur -->
