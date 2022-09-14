@@ -109,6 +109,37 @@
 						<label for="text">Résultat</label> <input type="text" class="form-control"
 							th:field="*{resultat}">
 					</div>
+					
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">Conformité</label> <select
+							class="form-control" id="exampleFormControlSelect1"
+							th:field="*{conforme}">
+							<option th:value="1" th:text="'Conforme'"></option>
+							<option th:value="0" th:text="'Non-conforme'"></option>
+							<option th:value="0" th:text="'Attente'"></option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">Suspendue</label> <select
+							class="form-control" id="exampleFormControlSelect1"
+							th:field="*{suspendu}">
+							<option th:value="1" th:text="'Oui'"></option>
+							<option th:value="0" th:text="'Non'"></option>
+							
+						</select>
+					</div>
+					
+					
+						<div class="form-group">
+						<label for="exampleFormControlSelect1">Actif</label> <select
+							class="form-control" id="exampleFormControlSelect1"
+							th:field="*{actif}">
+							<option th:value="1" th:text="'Oui'"></option>
+							<option th:value="0" th:text="'Non'"></option>
+							
+						</select>
+					</div>
 
 					<div class="bouton row">
 

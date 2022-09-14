@@ -9,7 +9,7 @@ public class FormCompte {
 	private String username;
 	private String password;
 	private String type;
-	
+	private String role;
 	
 	public FormCompte() {
 		super();
@@ -64,6 +64,16 @@ public class FormCompte {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	

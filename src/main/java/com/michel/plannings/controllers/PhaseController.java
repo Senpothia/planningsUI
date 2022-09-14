@@ -131,7 +131,7 @@ public class PhaseController {
 	@PostMapping("/projet/modifier/phase/{phase}")
 	public String modifierPhase(@PathVariable(name = "phase") Integer idPhase, Model model, HttpSession session,
 			PhaseAux phase) {
-
+		
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		microServicePlannnings.modifierPhase(token, phase, idPhase);
@@ -177,22 +177,26 @@ public class PhaseController {
 	@GetMapping("/projets/liste/phases/ressource/{ressource}")
 	public String listePhaseParId(@PathVariable(name = "ressource") Integer idRessource, Model model,
 			HttpSession session) {
-
+		
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<PhaseAux> phases = microServicePlannnings.phasesParRessource(token, idRessource);
 		Boolean vide = false;
-		if (phases.isEmpty()) {
-		
-			vide = true;
-		}
+		List<PhaseAux> zeros = new ArrayList<PhaseAux>();
 		for (PhaseAux p: phases) {
 			
 			if(p.getNumero() == 0) {
 				
-				phases.remove(p);
+				zeros.add(p);
 			}
 			
+		}
+		
+		phases.removeAll(zeros);
+		
+		if (phases.isEmpty()) {
+			
+			vide = true;
 		}
 
 		model.addAttribute("phases", phases);
@@ -220,14 +224,14 @@ public class PhaseController {
 				}
 			}
 			
-			if (phases.isEmpty()) {
+			if (phasesSans0.isEmpty()) {
 				vide = true;
 			}
 			model.addAttribute("phases", phasesSans0);
 		}
 
-		
 		model.addAttribute("vide", vide);
+		model.addAttribute("active", active);
 		model.addAttribute("ressource", utilisateur);
 		return Constants.testUser(utilisateur, Constants.PHASES_ACTIVES);
 	}

@@ -73,6 +73,18 @@
 						<label for="exampleInputEmail1">Type</label> <input type="text" class="form-control"
 							th:field="*{type}">
 					</div>
+					
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">Droits</label> <select class="form-control"
+							id="exampleFormControlSelect1" th:field="*{role}">
+							<option th:value="'USER'" th:text="VISITEUR"></option>
+							<option th:value="'LABO'" th:text="LABO"></option>
+							<option th:value="'BE'" th:text="BE"></option>
+							<option th:value="'CPROD'" th:text="CPROD"></option>
+							<option th:value="'RESBE'" th:text="RESBE"></option>
+
+						</select>
+					</div>
 
 					<div class="d-flex justify-content-end">
 

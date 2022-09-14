@@ -40,8 +40,8 @@ public class Constants {
 	public static final String FICHE = "fiche";
 	public static final String FICHES_PROJET = "fichesParProjet";
 	public static final String FICHES_RESSOURCE = "fichesParRessource";
-	public static final String MODIFIER_FICHE = "modifierfiche";
-	public static final String CONFIRMATION = "Confirmation";
+	public static final String MODIFIER_FICHE = "modifierFiche";
+	public static final String CONFIRMATION = "confirmation";
 	public static final String FICHES_SPONTANEES = "fichesSpontanees";
 	public static final String LISTE_VISITEURS = "visiteurs";
 	public static final String MODIFIER_DROITS = "modifierDroits";

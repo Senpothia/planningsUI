@@ -165,14 +165,16 @@
 						<label for="text">Réponse BE</label> <input type="text"
 							class="form-control" th:field="*{reponse}" th:value="*{reponse}">
 					</div>
-
-					<!--
-					<div class="row  mr-1">
-						<label for="text">Date</label> <input type="date"
-							class="form-control" th:field="*{date}">
+	
+						<div class="form-group">
+						<label for="exampleFormControlSelect1">Actif</label> <select
+							class="form-control" id="exampleFormControlSelect1"
+							th:field="*{statut}">
+							<option th:value="1" th:text="'Active'"></option>
+							<option th:value="0" th:text="'Inactive'"></option>
+							
+						</select>
 					</div>
-
-  -->
 
 					<div class="bouton row">
 

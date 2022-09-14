@@ -38,76 +38,86 @@
 			<h1>Liste des visiteurs</h1>
 
 		</div>
+		
+		<span th:if=${vide}>
+		
+		<div class="row d-flex justify-content-center">
 
+			<h2 style="color: red;">La liste des visiteurs est vide</h2>
 
-		<div class="row">
+		</div>
+		
+		</span>
 
-			<div class="col donnees" style="margin: 5px;">
+		<span th:unless=${vide}>
+			<div class="row">
 
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col"></th>
-							<th scope="col">Nom</th>
-							<th scope="col">Droit</th>
-							<th scope="col">Type</th>
-							<th scope="col">Actif</th>
-							<span th:if=${groupe3}>
-								<th scope="col">Droits</th>
-							</span>
+				<div class="col donnees" style="margin: 5px;">
 
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="ressource, iStat: ${ressources}">
-							<th scope="row"><span th:text="${iStat.count}"></span></th>
-							<td th:text="${ressource.prenom +' '+ ressource.nom}" />
-							<td th:text="${ressource.role}" />
-							<td th:text="${ressource.type}" />
-							
-							<span th:unless=${groupe3}>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">Nom</th>
+								<th scope="col">Droit</th>
+								<th scope="col">Type</th>
+								<th scope="col">Actif</th>
+								<span th:if=${groupe3}>
+									<th scope="col">Droits</th>
+								</span>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="ressource, iStat: ${ressources}">
+								<th scope="row"><span th:text="${iStat.count}"></span></th>
+								<td th:text="${ressource.prenom +' '+ ressource.nom}" />
+								<td th:text="${ressource.role}" />
+								<td th:text="${ressource.type}" />
+
+								<span th:unless=${groupe3}>
 									<td th:text="${ressource.statutString}" />
-							</span>
-
-							<span th:if=${groupe3}>
-								<span th:if="${ressource.enabled}">
-									<td><a th:href="@{/ressources/liste/visiteur/statut/{id}(id=${ressource.id})}">
-											<p type="text" class="btn btn-block"
-												style="background-color: #730800; color: white">Désactiver</p>
-										</a>
-									</td>
 								</span>
 
+								<span th:if=${groupe3}>
+									<span th:if="${ressource.enabled}">
+										<td><a th:href="@{/ressources/liste/visiteur/statut/{id}(id=${ressource.id})}">
+												<p type="text" class="btn btn-block"
+													style="background-color: #730800; color: white">Désactiver</p>
+											</a>
+										</td>
+									</span>
 
-								<span th:unless="${ressource.enabled}">
-									<td><a th:href="@{/ressources/liste/visiteur/statut/{id}(id=${ressource.id})}">
+
+									<span th:unless="${ressource.enabled}">
+										<td><a th:href="@{/ressources/liste/visiteur/statut/{id}(id=${ressource.id})}">
+												<p type="text" class="btn btn-block"
+													style="background-color: #7e60fb; color: white">Activer</p>
+											</a>
+										</td>
+									</span>
+
+
+									<td><a
+											th:href="@{/ressources/modifier/droits/{visiteur}/{id}(visiteur=${visiteur},id=${ressource.id})}">
 											<p type="text" class="btn btn-block"
-												style="background-color: #7e60fb; color: white">Activer</p>
+												style="background-color: #7e60fb; color: white">Modifier</p>
 										</a>
 									</td>
+
 								</span>
 
+							</tr>
 
-								<td><a
-										th:href="@{/ressources/modifier/droits/{visiteur}/{id}(visiteur=${visiteur},id=${ressource.id})}">
-										<p type="text" class="btn btn-block"
-											style="background-color: #7e60fb; color: white">Modifier</p>
-									</a>
-								</td>
+						</tbody>
+					</table>
 
-							</span>
 
-						</tr>
-
-					</tbody>
-				</table>
+				</div>
 
 
 			</div>
-
-
-		</div>
-
+		</span>
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-center">
 				<div class="form-group ">

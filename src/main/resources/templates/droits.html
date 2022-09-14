@@ -50,6 +50,7 @@
 							<th scope="col"></th>
 							<th scope="col">Nom</th>
 							<th scope="col">Droit</th>
+							<th scope="col">Autorisée</th>
 							<th scope="col">Type</th>
 							<span th:if=${groupe2}>
 								<th scope="col">Actif</th>
@@ -65,6 +66,7 @@
 							<th scope="row"><span th:text="${iStat.count}"></span></th>
 							<td th:text="${ressource.prenom +' '+ ressource.nom}" />
 							<td th:text="${ressource.role}" />
+							<td th:text="${ressource.autorise ? 'Oui' : 'Non'}" />
 							<td th:text="${ressource.type}" />
 
 							<span th:if=${groupe2}>

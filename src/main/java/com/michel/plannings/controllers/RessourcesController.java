@@ -168,7 +168,7 @@ public class RessourcesController {
 		utilisateurAux.setToken(formCompte.getPassword());
 		utilisateurAux.setUsername(formCompte.getUsername());
 		utilisateurAux.setType(formCompte.getType());
-		utilisateurAux.setRole("BE");
+		utilisateurAux.setRole(formCompte.getRole());
 		microServicePlannnings.ajouterRessource(utilisateurAux, token);
 		List<UtilisateurAux> ressources = microServicePlannnings.toutesLesRessources(token);
 		model.addAttribute("ressources", ressources);
@@ -249,8 +249,11 @@ public class RessourcesController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<UtilisateurAux> ressources = microServicePlannnings.toutsLesVisiteurs(token);
+		Boolean vide = false;
+		if (ressources.isEmpty()) { vide = true;}
 		model.addAttribute("ressources", ressources);
 		model.addAttribute("visiteur", true);
+		model.addAttribute("vide", vide);
 		return Constants.testUser(utilisateur, Constants.LISTE_VISITEURS);
 
 	}

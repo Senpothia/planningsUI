@@ -31,19 +31,25 @@
 			</div>
 		</div>
 		<!-- ----------------- -->
-		
-		
-		<span th:unless=${vide}>
+
+
+		<span th:if=${active}>
 			<div class="row d-flex justify-content-center">
 				<h1 th:text="${'Liste des phases actives'}"></h1>
 			</div>
-		</span> 
-		
+		</span>
+
+		<span th:unless=${active}>
+			<div class="row d-flex justify-content-center">
+				<h1 th:text="${'Liste des phases inactives'}"></h1>
+			</div>
+		</span>
+
 		<span th:if=${vide}>
 			<div class="row d-flex justify-content-center">
-				<h1 th:text="${'Pas de phases inactives'}" style="color: red;"></h1>
+				<h2 th:text="${active} ? 'La liste des phases active est vide' : 'La liste des phases inactive est vide'" style="color: red;"></h2>
 			</div>
-		</span> 
+		</span>
 
 		<span th:unless=${vide}>
 			<div class="row">
@@ -103,8 +109,8 @@
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-end">
 
-			
-		
+
+
 
 				<div class="form-group ">
 					<a href="/espace">
