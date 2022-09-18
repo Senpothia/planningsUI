@@ -57,6 +57,8 @@
 							<th scope="col">Phases</th>
 							<th scope="col">Ressources</th>
 							<th scope="col">Fiches</th>
+							<th scope="col">Notes</th>
+
 
 						</tr>
 					</thead>
@@ -114,6 +116,13 @@
 										style="background-color: #7e60fb; color: white">Voir</p>
 								</a>
 							</td>
+							
+							
+							<td><a th:href="@{/projet/voir/notes/{id}(id=${projet.id})}">
+									<p type="text" class="btn btn-block"
+										style="background-color: #7e60fb; color: white">Voir</p>
+								</a>
+							</td>
 
 
 
@@ -133,6 +142,15 @@
 
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-end">
+			
+					<span th:if=${groupe1}>
+						<div class="form-group mr-3">
+							<a th:href="@{/projet/ajouter/notes/{id}(id=${projet.id})}">
+								<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Ajouter des
+									notes</p>
+							</a>
+						</div>
+					</span>
 				
 					<span th:if=${groupe1}>
 						<div class="form-group mr-3">
