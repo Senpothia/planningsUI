@@ -26,5 +26,21 @@ public interface ProxyNote {
 	
 	@GetMapping("/projet/note/supprimer/{idNote}")
 	void supprimerSimpleNoteProjet(@RequestHeader("Authorization") String token,  @PathVariable(name = "idNote") Integer idNote);
-
+	
+	// *************************************************
+	
+	@PostMapping("/phase/note/ajouter")
+	void creerNotePhase(@RequestHeader("Authorization") String token, @RequestBody NoteAux note);
+	
+	@GetMapping("/notes/liste/{idPhase}")
+	List<NoteAux> obtenirListeNotesPhase(@RequestHeader("Authorization") String token,@PathVariable(name = "idPhase") Integer idPhase);
+	
+	@GetMapping("/phase/note/voir/{idNote}")
+	NoteAux obtenirSimpleNotePhase(@RequestHeader("Authorization") String token, @PathVariable(name = "idNote") Integer idNote);
+	
+	@GetMapping("/phase/note/supprimer/{idNote}")
+	void supprimerSimpleNotePhase(@RequestHeader("Authorization") String token, @PathVariable(name = "idNote") Integer idNote);
+	
+	@PostMapping("/phase/note/modifier")
+	void modifierNotePhase(@RequestHeader("Authorization") String token, @RequestBody NoteAux note);
 }

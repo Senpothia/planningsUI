@@ -55,10 +55,15 @@ public class Constants {
 	public static final String CREATION_FICHE_SPONTANEE = "creerFicheSpontanee";
 	public static final String CREATION_FICHE_SPONTANEE_PROJET = "creerFicheSpontaneeProjet";
 	public static final String SELECTION_RESSOURCE_POUR_PHASE = "selectionRessourcePourPhase";
-	public static final String CREATION_NOTE = "creerNote";
-	public static final String NOTES = "notes";
-	public static final String NOTE = "note";
-	public static final String MODIFIER_NOTE = "modifierNote";
+	public static final String CREATION_NOTE_PROJET = "creerNoteProjet";
+	public static final String NOTES_PROJET = "notesProjet";
+	public static final String NOTE_PROJET = "noteProjet";
+	public static final String MODIFIER_NOTE_PROJET = "modifierNoteProjet";
+	
+	public static final String CREATION_NOTE_PHASE = "creerNotePhase";
+	public static final String NOTES_PHASE = "notesPhase";
+	public static final String NOTE_PHASE = "notePhase";
+	public static final String MODIFIER_NOTE_PHASE = "modifierNotePhase";
 
 
 

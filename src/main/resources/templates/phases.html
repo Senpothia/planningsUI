@@ -61,6 +61,11 @@
 								<span th:if=${groupe1}>
 									<th scope="col">Fiches</th>
 								</span>
+								
+								<span th:if=${groupe1}>
+									<th scope="col">Notes</th>
+								</span>
+								
 								<th scope="col">Voir</th>
 							</tr>
 						</thead>
@@ -110,7 +115,13 @@
 										</a>
 									</td>
 								</span>
-
+								
+								
+								<td><a th:href="@{/phase/notes/ajouter/{idPhase}/{idProjet}(idPhase=${phase.id}, idProjet=${projet.id})}">
+										<p type="text" class="btn btn-block"
+											style="background-color: #7e60fb; color: white">Ajouter</p>
+									</a>
+								</td>
 
 								<td><a th:href="@{/phase/voir/{id}(id=${phase.id})}">
 										<p type="text" class="btn btn-block"

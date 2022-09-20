@@ -35,7 +35,7 @@ public class NoteProjetController {
 		note.setIdSource(idProjet);
 		note.setIdAuteur(utilisateur.getId());
 		model.addAttribute("note", note);
-		return Constants.testUser(utilisateur, Constants.CREATION_NOTE);
+		return Constants.testUser(utilisateur, Constants.CREATION_NOTE_PROJET);
 
 	}
 
@@ -73,7 +73,7 @@ public class NoteProjetController {
 		model.addAttribute("projet", projet);
 		model.addAttribute("notes", notes);
 		model.addAttribute("vide", vide);
-		return Constants.testUser(utilisateur, Constants.NOTES);
+		return Constants.testUser(utilisateur, Constants.NOTES_PROJET);
 
 	}
 
@@ -88,7 +88,7 @@ public class NoteProjetController {
 		model.addAttribute("noteProjet", true);
 		model.addAttribute("projet", projet);
 		model.addAttribute("note", note);
-		return Constants.testUser(utilisateur, Constants.NOTE);
+		return Constants.testUser(utilisateur, Constants.NOTE_PROJET);
 
 	}
 
@@ -103,7 +103,7 @@ public class NoteProjetController {
 		model.addAttribute("noteProjet", true);
 		model.addAttribute("projet", projet);
 		model.addAttribute("note", note);
-		return Constants.testUser(utilisateur, Constants.MODIFIER_NOTE);
+		return Constants.testUser(utilisateur, Constants.MODIFIER_NOTE_PROJET);
 
 	}
 	
