@@ -60,8 +60,8 @@ public class NotePhaseController {
 
 	}
 
-	@GetMapping("/notes/liste/{idPhase}")
-	public String afficherNotesPhase(@PathVariable(name = "idPhase") Integer idPhase, Model model,
+	@GetMapping("/notes/liste/{idPhase}/{idProjet}")
+	public String afficherNotesPhase(@PathVariable(name = "idPhase") Integer idPhase,@PathVariable(name = "idProjet") Integer idProjet, Model model,
 			HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
@@ -72,6 +72,7 @@ public class NotePhaseController {
 			vide = true;
 		}
 		PhaseAux phase = microServicePlannnings.phaseParId(token, idPhase);
+		model.addAttribute("projet", phase.getIdProjet());
 		model.addAttribute("noteProjet", false);
 		model.addAttribute("phase", phase);
 		model.addAttribute("notes", notes);
@@ -100,8 +101,10 @@ public class NotePhaseController {
 		
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
+		PhaseAux p = microServicePlannnings.phaseParId(token, idPhase);
 		microServicePlannnings.supprimerSimpleNotePhase(token, idNote);
-		return "redirect:/notes/liste/" + idPhase;
+		return "redirect:/notes/liste/" + idPhase + "/" + p.getIdProjet();
+		
 	}
 	
 	@GetMapping("/phase/note/modifier/{idNote}/{idPhase}")
@@ -134,7 +137,7 @@ public class NotePhaseController {
 			String token = Constants.getToken(session);
 			microServicePlannnings.modifierNotePhase(token, note);
 			return "redirect:/phase/note/voir/" + idNote +"/" + idPhase;
-			//return "ok";
+			
 		}
 	}
 }

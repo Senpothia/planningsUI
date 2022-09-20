@@ -63,7 +63,7 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>planningsUI</finalName>
+		<finalName>planningsUI1</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

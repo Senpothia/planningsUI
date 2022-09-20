@@ -222,7 +222,7 @@
 				
 					<div class="form-group mr-3 ">
 					<a
-						th:href="@{/notes/liste/{phase} (phase = ${phase.id})}"><p
+						th:href="@{/notes/liste/{phase}/{projet} (phase = ${phase.id}, projet=${phase.idProjet})}"><p
 							type="text" class="btn btn-block"
 							style="background-color: #7e60fb; color: white">Notes</p></a>
 				</div>
