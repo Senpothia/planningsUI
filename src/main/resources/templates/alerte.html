@@ -1,0 +1,160 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="/css/styles.css">
+
+	<title>Plannings</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+</head>
+
+<body>
+	<div class="container">
+
+
+		<!-- Entete -->
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
+		<!-- ---------------- -->
+
+		<div class="row">
+			<div class="col">
+				<img class="img-fluid" src="/images/bandeau16.jpg" th:src="@{/images/bandeau16.jpg}" />
+			</div>
+		</div>
+
+		<div class="row">
+
+			<h1>Présentation de l'alerte</h1>
+
+
+		</div>
+
+		<div class="col">
+
+			<div class="row">
+				<strong><label class="mr-1">Numéro: </label></strong>
+				<p th:text=${alerte.numero}></p>
+
+			</div>
+
+			<div class="row">
+				<strong><label class="mr-1">Date: </label></strong>
+				<p th:text="${#temporals.format(alerte.date, 'dd-MM-yyyy')}"></p>
+
+			</div>
+
+			<div class="row" >
+				<strong><label class="mr-1">Auteur: </label></strong>
+				<p th:text=${alerte.nomAuteur}></p>
+
+			</div>
+			
+			<div class="row" >
+				<strong><label class="mr-1">Auteur: </label></strong>
+				<p th:text=${alerte.urgenceString}></p>
+
+			</div>
+
+			<div class="row">
+				<strong><label>Texte: </label></strong>
+			</div>
+
+			<div class="row">
+				<p th:text=${alerte.texte}></p>
+			</div>
+
+		</div>
+
+		<div class="row mt-3">
+			<div class="col d-flex justify-content-end">
+
+			
+				
+				<div class="form-group mr-3">
+					<a
+						th:href="@{/alerte/supprimer/{idAlerte}(idAlerte=${alerte.id})}"><p
+							type="text" class="btn btn-block"
+							style="background-color: red; color: white">Supprimer</p></a>
+				</div>
+				
+					<div class="form-group mr-3">
+					<a
+						th:href="@{/alerte/modifier/{idAlerte}(idAlerte=${alerte.id})}"><p
+							type="text" class="btn btn-block"
+							style="background-color: #7e60fb; color: white">Modifier</p></a>
+				</div>
+				
+					<span th:unless=${alerte.actif}>
+				<span th:if=${groupe2}>
+					<div class="form-group mr-3">
+						<a
+							th:href="@{/alerte/changer/statut/{alerte}/{active}(alerte=${alerte.id}, active=${alerte.actif})}"><p
+								type="text" class="btn btn-block"
+								style="background-color:  #7e60fb; color: white">Activer</p></a>
+					</div>
+					
+				</span>
+			</span>
+			
+			<span th:if=${alerte.actif}>
+				<span th:if=${groupe2}>
+				<div class="form-group mr-3">
+					<a
+						th:href="@{/alerte/changer/statut/{alerte}/{active}(alerte=${alerte.id}, active=${alerte.actif})}"><p
+							type="text" class="btn btn-block"
+							style="background-color: #730800; color: white">Désactiver</p></a>
+				</div>
+				
+				</span>
+			</span>
+				
+				<div class="form-group ">
+					<a href="/espace"><p type="text" class="btn btn-block"
+							style="background-color: #7e60fb; color: white">Retour</p></a>
+				</div>
+			</div>
+
+
+		</div>
+
+
+
+		<!-- footer -->
+
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
+
+		<!-- footer -->
+	</div>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
+</html>

@@ -65,6 +65,12 @@ public class Constants {
 	public static final String NOTE_PHASE = "notePhase";
 	public static final String MODIFIER_NOTE_PHASE = "modifierNotePhase";
 
+	public static final String CREATION_ALERTE = "creerAlerte";
+	public static final String PROJET_ALERTES = "alertesProjet";
+	public static final String ALERTE = "alerte";
+	public static final String MODIFIER_ALERTE = "modifierAlerte";
+	public static final String ALERTES_STATUT = "alertesStatut";
+
 
 
 	public static String testUser(Utilisateur utilisateur, String template) {
