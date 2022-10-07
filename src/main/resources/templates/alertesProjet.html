@@ -72,7 +72,7 @@
 							<td th:text="${#temporals.format(alerte.date, 'dd-MM-yyyy')}" />
 							<td th:text="${alerte.nomAuteur}" />
 							<td th:text="${alerte.texte}" />
-							<td th:text="${alerte.texte}" />
+							<td th:text="${alerte.urgenceString}" />
 							<td th:text="${alerte.actifString}" />
 							<td><a th:href="@{/alerte/voir/{idAlerte}(idAlerte=${alerte.id})}"><p
 										type="text" class="btn btn-block"
