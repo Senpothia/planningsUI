@@ -35,7 +35,7 @@ public class FicheAux {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+ 
 	public FicheAux(Integer id, Integer numero, LocalDateTime date, String dateString, String service, String degre,
 			String projet, String code, String produit, String circonstance, String observation, String document,
 			String incidence, String solution, String domaine, String objet, String reponse, Integer idAuteur,
