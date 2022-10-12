@@ -18,6 +18,7 @@ import com.michel.plannings.models.Login;
 import com.michel.plannings.models.NoteAux;
 import com.michel.plannings.models.PhaseAux;
 import com.michel.plannings.models.ProjetAux;
+import com.michel.plannings.models.SuiteAux;
 import com.michel.plannings.models.UtilisateurAux;
 import com.michel.plannings.models.forms.FormFiche;
 
@@ -27,15 +28,6 @@ import com.michel.plannings.models.forms.FormFiche;
 public interface MicroServicePlannings extends ProxyGlobal{
 
 	
-	
-	
-
-	
-
-	
-
-	
-	
 
 	
 
@@ -44,13 +36,9 @@ public interface MicroServicePlannings extends ProxyGlobal{
 	
 
 	
-
 	
 
 	
-
-
-
 
 	
 

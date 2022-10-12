@@ -12,6 +12,7 @@ public class AlerteAux {
 	private String nomAuteur;
 	private Integer idAuteur;
 	private Integer idProjet;
+	private String nomProjet;
 	private Integer urgence;
 	private String urgenceString;
 	private Boolean actif;
@@ -24,9 +25,8 @@ public class AlerteAux {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	public AlerteAux(Integer id, Integer numero, LocalDateTime date, String stringDate, String texte, String nomAuteur,
-			Integer idAuteur, Integer idProjet, Integer urgence, String urgenceString, Boolean actif,
+			Integer idAuteur, Integer idProjet, String nomProjet, Integer urgence, String urgenceString, Boolean actif,
 			String actifString, Boolean suspendu, String suspenduString) {
 		super();
 		this.id = id;
@@ -37,6 +37,7 @@ public class AlerteAux {
 		this.nomAuteur = nomAuteur;
 		this.idAuteur = idAuteur;
 		this.idProjet = idProjet;
+		this.nomProjet = nomProjet;
 		this.urgence = urgence;
 		this.urgenceString = urgenceString;
 		this.actif = actif;
@@ -44,7 +45,6 @@ public class AlerteAux {
 		this.suspendu = suspendu;
 		this.suspenduString = suspenduString;
 	}
-
 
 	public Integer getId() {
 		return id;
@@ -150,16 +150,20 @@ public class AlerteAux {
 		this.suspenduString = suspenduString;
 	}
 
-
 	public String getUrgenceString() {
 		return urgenceString;
 	}
 
-
 	public void setUrgenceString(String urgenceString) {
 		this.urgenceString = urgenceString;
 	}
-	
-	
+
+	public String getNomProjet() {
+		return nomProjet;
+	}
+
+	public void setNomProjet(String nomProjet) {
+		this.nomProjet = nomProjet;
+	}
 
 }

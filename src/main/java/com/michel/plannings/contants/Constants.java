@@ -11,6 +11,8 @@ public class Constants {
 	
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+	
+
 	public static final String PAGE_ACCUEIL = "accueil";
 	public static final String AIDE = "aide";
 	public static final String PRESENTATION = "presentation";
@@ -70,7 +72,19 @@ public class Constants {
 	public static final String ALERTE = "alerte";
 	public static final String MODIFIER_ALERTE = "modifierAlerte";
 	public static final String ALERTES_STATUT = "alertesStatut";
+	public static final String HISTORIQUES_PROJET = "historiquesProjet";
 
+	public static final String CREATION_SERIE = "creerHistoriqueProjet";
+	public static final String CREATION_SUITE = "creerHistoriquePhase";
+	public static final String NOTES_SERIE = "notesProjetHistorique";
+	public static final String CREATION_NOTE_SERIE = "creerNoteSerie";
+
+	public static final String HISTORIQUES_PHASE = "historiquesPhase";
+	public static final String NOTES_SUITE = "notesPhaseHistorique";
+
+
+
+	public static final String CREATION_NOTE_SUITE = "creerNoteSuite";
 
 
 	public static String testUser(Utilisateur utilisateur, String template) {

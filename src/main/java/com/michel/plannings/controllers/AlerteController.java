@@ -55,7 +55,6 @@ public class AlerteController {
 			alerte.setIdAuteur(utilisateur.getId());
 			String token = Constants.getToken(session);
 			microServicePlannnings.creerAlerte(token, alerte);
-			// return "ok";
 			return "redirect:/projet/voir/alertes/" + idProjet;
 
 		}
@@ -114,7 +113,6 @@ public class AlerteController {
 		} else {
 
 			alerte.setId(idAlerte);
-			// alerte.setIdProjet(idPhase);
 			alerte.setIdAuteur(utilisateur.getId());
 			String token = Constants.getToken(session);
 			microServicePlannnings.modifierAlerte(token, alerte);
@@ -154,6 +152,7 @@ public class AlerteController {
 		if (alertes.isEmpty()) {
 			vide = true;
 		}
+		
 		model.addAttribute("alertes", alertes);
 		model.addAttribute("vide", vide);
 		model.addAttribute("statut", actif);

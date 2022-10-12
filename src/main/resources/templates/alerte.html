@@ -55,6 +55,12 @@
 				<p th:text="${#temporals.format(alerte.date, 'dd-MM-yyyy')}"></p>
 
 			</div>
+			
+			<div class="row">
+				<strong><label class="mr-1">Projet: </label></strong>
+				<p th:text=${alerte.nomProjet}></p>
+
+			</div>
 
 			<div class="row" >
 				<strong><label class="mr-1">Auteur: </label></strong>

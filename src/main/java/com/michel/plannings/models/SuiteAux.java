@@ -3,6 +3,7 @@ package com.michel.plannings.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 public class SuiteAux {
 
 	private Integer id;
@@ -43,6 +44,8 @@ public class SuiteAux {
 		this.phase = phase;
 		this.notes = notes;
 	}
+	
+	
 
 	public Integer getId() {
 		return id;

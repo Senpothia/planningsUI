@@ -12,6 +12,10 @@ public class NoteAux {
 	private String texte;
 	private Integer idAuteur;
 	private Integer idSource; // source: projet ou phase
+	private String nomProjet;
+	private String nomPhase;
+	private String nomSerie;
+	private String nomSuite;
 
 	public NoteAux() {
 		super();
@@ -19,7 +23,7 @@ public class NoteAux {
 	}
 
 	public NoteAux(Integer id, Integer numero, LocalDateTime date, String stringDate, String nomAuteur, String texte,
-			Integer idAuteur, Integer idSource) {
+			Integer idAuteur, Integer idSource, String nomProjet, String nomPhase, String nomSerie, String nomSuite) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -29,6 +33,10 @@ public class NoteAux {
 		this.texte = texte;
 		this.idAuteur = idAuteur;
 		this.idSource = idSource;
+		this.nomProjet = nomProjet;
+		this.nomPhase = nomPhase;
+		this.nomSerie = nomSerie;
+		this.nomSuite = nomSuite;
 	}
 
 	public Integer getId() {
@@ -93,6 +101,38 @@ public class NoteAux {
 
 	public void setNomAuteur(String nomAuteur) {
 		this.nomAuteur = nomAuteur;
+	}
+
+	public String getNomProjet() {
+		return nomProjet;
+	}
+
+	public void setNomProjet(String nomProjet) {
+		this.nomProjet = nomProjet;
+	}
+
+	public String getNomPhase() {
+		return nomPhase;
+	}
+
+	public void setNomPhase(String nomPhase) {
+		this.nomPhase = nomPhase;
+	}
+
+	public String getNomSerie() {
+		return nomSerie;
+	}
+
+	public void setNomSerie(String nomSerie) {
+		this.nomSerie = nomSerie;
+	}
+
+	public String getNomSuite() {
+		return nomSuite;
+	}
+
+	public void setNomSuite(String nomSuite) {
+		this.nomSuite = nomSuite;
 	}
 
 }
