@@ -145,4 +145,22 @@ public class SerieController {
 		return Constants.testUser(utilisateur, Constants.NOTE_PROJET);
 
 	}
+	
+	@GetMapping("/projet/historique/supprimer/{idSerie}")
+	public String supprimerSerie(@PathVariable(name = "idSerie") Integer idSerie, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		SuiteAux serie = microServicePlannnings.obtenirSerieParId(token, idSerie);
+		Integer idProjet = serie.getIdProjet();
+		microServicePlannnings.supprimerSerie(token, idSerie);
+		return "redirect:/projet/voir/series/" + idProjet;
+		
+	}
+	
+	
+	
+	
+	
+	
 }

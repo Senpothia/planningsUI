@@ -149,5 +149,20 @@ public class SuiteController {
 		return Constants.testUser(utilisateur, Constants.NOTE_PHASE);
 
 	}
+	
+	@GetMapping("/phase/historique/supprimer/{idSuite}")
+	public String supprimerSuite(@PathVariable(name = "idSuite") Integer idSuite, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		SuiteAux suite = microServicePlannnings.obtenirSuiteParId(token, idSuite);
+		Integer idPhase = suite.getPhase().getId();
+		microServicePlannnings.supprimerSuite(token, idSuite);
+		return "redirect:/phase/voir/suites/" + idPhase;
+	}
+	
+	
+	
+	
 
 }
