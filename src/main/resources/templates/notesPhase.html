@@ -38,6 +38,39 @@
 			<h1>Liste de toutes les notes</h1>
 
 		</div>
+		
+		<div class="col">
+
+			<table class="table table-striped">
+				<thead>
+
+				</thead>
+				<tbody>
+					
+
+					<tr>
+						<th scope="row">Projet</th>
+						<td th:text="${phase.projet}" />
+
+					</tr>
+
+			
+					<tr>
+						<th scope="row">Phase</th>
+						<td th:text="${phase.nom}" />
+
+					</tr>
+						
+					<tr>
+						<th scope="row">Description</th>
+						<td th:text="${phase.description}" />
+
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
 
 		<span th:if=${vide}>
 			<div class="row d-flex justify-content-center">
