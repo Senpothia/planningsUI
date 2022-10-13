@@ -39,7 +39,6 @@ public class PhaseController {
 		String token = Constants.getToken(session);
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		List<UtilisateurAux> ressources = microServicePlannnings.toutesLesRessources(token);
-		// recherches des ressources associées au projet
 		List<UtilisateurAux> ressourcesAssociees = microServicePlannnings.ressourcesParProjet(token, idProjet);
 		Boolean affectations = false;
 		if (!ressourcesAssociees.isEmpty()) { affectations = true;}
