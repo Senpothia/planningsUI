@@ -140,4 +140,30 @@ public class NotePhaseController {
 			
 		}
 	}
+	
+	@GetMapping("/changer/statut/note/phase/{idNote}/{idPhase}")
+	public String changerStatutNotePhase(@PathVariable(name = "idNote") Integer idNote, @PathVariable(name = "idPhase") Integer idPhase, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		microServicePlannnings.changerStatutNotePhase(token, idNote);
+		
+		return "redirect:/phase/note/voir/" + idNote +"/" + idPhase;
+	}
+	
+	
+	@GetMapping("/changer/statut/note/phase/liste/{idNote}/{idPhase}/{idProjet}")
+	public String changerStatutNotePhaseListe(@PathVariable(name = "idNote") Integer idNote, @PathVariable(name = "idPhase") Integer idPhase,
+			@PathVariable(name = "idProjet") Integer idProjet, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		microServicePlannnings.changerStatutNotePhase(token, idNote);
+		return "redirect:/notes/liste/" + idPhase + "/" + idProjet ;
+		//return "ok";
+		
+	}
+	
+	
+	
 }

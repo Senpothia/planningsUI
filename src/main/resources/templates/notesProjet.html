@@ -93,6 +93,7 @@
 								<th scope="col" style="width: 10%">Date</th>
 								<th scope="col" style="width: 20%">Auteur</th>
 								<th scope="col" style="width: 50%">Texte</th>
+								<th scope="col">Active</th>
 								<th scope="col" style="width: 15%">Consulter</th>
 
 							</tr>
@@ -103,6 +104,24 @@
 							<td th:text="${#temporals.format(note.date, 'dd-MM-yyyy')}" />
 							<td th:text="${note.nomAuteur}" />
 							<td th:text="${note.texte}" />
+							
+								<span th:if=${groupe2}>
+							<span th:if="${note.active}">
+							<td><a
+								th:href="@{/changer/statut/note/projet/liste/{idNote}/{idProjet}(idNote=${note.id}, idProjet=${projet.id})}"><p
+										type="text" class="btn btn-block"
+										style="background-color: #730800; color: white">Désactiver</p></a>
+							</td></span>
+							
+							 
+							<span th:unless="${note.active}">
+							<td><a
+								th:href="@{/changer/statut/note/projet/liste/{idNote}/{idProjet}(idNote=${note.id}, idProjet=${projet.id})}"><p
+										type="text" class="btn btn-block"
+										style="background-color: #7e60fb; color: white">Activer</p></a>
+							</td></span>
+						</span>
+						
 							<td><a th:href="@{/projet/note/voir/{idNote}/{idProjet}(idNote=${note.id}, idProjet=${projet.id})}"><p
 										type="text" class="btn btn-block"
 										style="background-color: #7e60fb; color: white">voir</p></a></td>

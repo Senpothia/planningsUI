@@ -135,4 +135,22 @@ public class NoteProjetController {
 		return "redirect:/projet/voir/" + idProjet;
 
 	}
+	
+	@GetMapping("/changer/statut/note/projet/{idNote}/{idProjet}")
+	public String changerStatutNotePhase(@PathVariable(name = "idNote") Integer idNote, @PathVariable(name = "idProjet") Integer idProjet, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		microServicePlannnings.changerStatutNoteProjet(token, idNote);
+		return "redirect:/projet/note/voir/" + idNote +"/" + idProjet;
+	}
+	
+	@GetMapping("/changer/statut/note/projet/liste/{idNote}/{idProjet}")
+	public String changerStatutNotePhaseListe(@PathVariable(name = "idNote") Integer idNote, @PathVariable(name = "idProjet") Integer idProjet, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		microServicePlannnings.changerStatutNoteProjet(token, idNote);
+		return "redirect:/projet/voir/notes/" + idProjet;
+	}
 }

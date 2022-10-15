@@ -16,6 +16,8 @@ public class NoteAux {
 	private String nomPhase;
 	private String nomSerie;
 	private String nomSuite;
+	private Boolean active;
+	private String activeString;
 
 	public NoteAux() {
 		super();
@@ -23,7 +25,8 @@ public class NoteAux {
 	}
 
 	public NoteAux(Integer id, Integer numero, LocalDateTime date, String stringDate, String nomAuteur, String texte,
-			Integer idAuteur, Integer idSource, String nomProjet, String nomPhase, String nomSerie, String nomSuite) {
+			Integer idAuteur, Integer idSource, String nomProjet, String nomPhase, String nomSerie, String nomSuite,
+			Boolean active, String activeString) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -37,6 +40,8 @@ public class NoteAux {
 		this.nomPhase = nomPhase;
 		this.nomSerie = nomSerie;
 		this.nomSuite = nomSuite;
+		this.active = active;
+		this.activeString = activeString;
 	}
 
 	public Integer getId() {
@@ -133,6 +138,22 @@ public class NoteAux {
 
 	public void setNomSuite(String nomSuite) {
 		this.nomSuite = nomSuite;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public String getActiveString() {
+		return activeString;
+	}
+
+	public void setActiveString(String activeString) {
+		this.activeString = activeString;
 	}
 
 }

@@ -1,23 +1,22 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="fr">
+
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-<link rel="stylesheet" href="/css/styles.css">
+	<link rel="stylesheet" href="/css/styles.css">
 
-<title>Plannings</title>
-<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+	<title>Plannings</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
 </head>
+
 <body>
 	<div class="container">
 
@@ -32,8 +31,7 @@
 
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau16.jpg"
-					th:src="@{/images/bandeau16.jpg}" />
+				<img class="img-fluid" src="/images/bandeau16.jpg" th:src="@{/images/bandeau16.jpg}" />
 			</div>
 		</div>
 
@@ -102,6 +100,30 @@
 							type="text" class="btn btn-block"
 							style="background-color: red; color: white">Supprimer</p></a>
 				</div>
+				
+					<span th:unless=${note.active}>
+				<span th:if=${groupe2}>
+					<div class="form-group mr-3">
+						<a
+							th:href="@{/changer/statut/note/phase/{idNote}/{idPhase}(idNote=${note.id}, idPhase=${phase.id})}"><p
+								type="text" class="btn btn-block"
+								style="background-color:  #7e60fb; color: white">Activer</p></a>
+					</div>
+					
+				</span>
+			</span>
+			
+			<span th:if=${note.active}>
+				<span th:if=${groupe2}>
+				<div class="form-group mr-3">
+					<a
+						th:href="@{/changer/statut/note/phase/{idNote}/{idPhase}(idNote=${note.id}, idPhase=${phase.id})}"><p
+							type="text" class="btn btn-block"
+							style="background-color: #730800; color: white">Désactiver</p></a>
+				</div>
+				
+				</span>
+			</span>
 				
 					<div class="form-group mr-3">
 					<a
