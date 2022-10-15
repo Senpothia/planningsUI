@@ -35,7 +35,7 @@ public class NoteProjetController {
 		note.setIdSource(idProjet);
 		note.setIdAuteur(utilisateur.getId());
 		model.addAttribute("note", note);
-		return Constants.testUser(utilisateur, Constants.CREATION_NOTE_SERIE);
+		return Constants.testUser(utilisateur, Constants.CREATION_NOTE_PROJET);
 
 	}
 

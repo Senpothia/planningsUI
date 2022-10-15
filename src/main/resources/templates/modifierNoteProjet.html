@@ -76,6 +76,17 @@
 						<label for="text">Date</label> <input type="date"
 							class="form-control" th:field="*{stringDate}"  th:value="*{stringDate}" required="required">
 					</div>
+					
+					
+						<div class="form-group">
+						<label for="exampleFormControlSelect1">Active</label> <select
+							class="form-control" id="exampleFormControlSelect1"
+							th:field="*{active}">
+							<option th:value="1" th:text="'Active'"></option>
+							<option th:value="0" th:text="'Inactive'"></option>
+							
+						</select>
+					</div>
  
 
 					<div class="bouton row">
