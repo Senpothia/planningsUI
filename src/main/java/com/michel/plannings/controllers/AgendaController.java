@@ -34,7 +34,7 @@ public class AgendaController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<TacheAux> taches = microServicePlannnings.obtenirTachesParRessourceId(token, utilisateur.getId());
-		TacheAux t = taches.get(0);
+		
 		Boolean vide = true;
 		if(!taches.isEmpty()) {
 			vide = false;
