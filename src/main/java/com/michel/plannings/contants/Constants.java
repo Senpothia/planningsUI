@@ -8,10 +8,8 @@ import javax.servlet.http.HttpSession;
 import com.michel.plannings.models.Utilisateur;
 
 public class Constants {
-	
-	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-	
+	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public static final String PAGE_ACCUEIL = "accueil";
 	public static final String AIDE = "aide";
@@ -61,7 +59,7 @@ public class Constants {
 	public static final String NOTES_PROJET = "notesProjet";
 	public static final String NOTE_PROJET = "noteProjet";
 	public static final String MODIFIER_NOTE_PROJET = "modifierNoteProjet";
-	
+
 	public static final String CREATION_NOTE_PHASE = "creerNotePhase";
 	public static final String NOTES_PHASE = "notesPhase";
 	public static final String NOTE_PHASE = "notePhase";
@@ -82,10 +80,15 @@ public class Constants {
 	public static final String HISTORIQUES_PHASE = "historiquesPhase";
 	public static final String NOTES_SUITE = "notesPhaseHistorique";
 
-
-
 	public static final String CREATION_NOTE_SUITE = "creerNoteSuite";
 
+	public static final String AGENDA = "agenda";
+
+	public static final String CREER_TACHE = "creerTache";
+
+	public static final String TACHE = "tache";
+
+	public static final String MODIFIER_TACHE = "modifierTache";
 
 	public static String testUser(Utilisateur utilisateur, String template) {
 
@@ -97,20 +100,18 @@ public class Constants {
 
 			return template;
 	}
-	
+
 	public static String getToken(HttpSession session) {
-		
+
 		String token = (String) session.getAttribute("TOKEN");
 		token = "Bearer " + token;
 		return token;
 	}
-	
+
 	public static String convertDateToString(LocalDateTime date) {
-		
-		String convertedDate =  date.format(formatter);
+
+		String convertedDate = date.format(formatter);
 		return convertedDate;
 	}
-	
-	
 
 }

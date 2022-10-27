@@ -60,7 +60,7 @@ public class ProjetController {
 
 		}
 
-	}
+	} 
 	
 	@GetMapping("/projets/voir/tous")
 	public String tousProjets(Model model, HttpSession session) {

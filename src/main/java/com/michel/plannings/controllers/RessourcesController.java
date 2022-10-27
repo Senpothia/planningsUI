@@ -71,7 +71,7 @@ public class RessourcesController {
 		model.addAttribute("ressource", ressource);
 		return Constants.testUser(utilisateur, Constants.AFFECTATIONS);
 
-	}
+	} 
 	/*
 	 * Permet d'obtenir la liste complète des projets actifs et de distinguer les
 	 * projets affectés à la ressource choisie dans la templete ressource

@@ -17,17 +17,16 @@ public class UtilisateurAux {
 	private String statutString;
 	private String token;
 	private String role;
+	private List<TacheAux> agenda;
 
 	public UtilisateurAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public UtilisateurAux(Integer id, String nom, String prenom, String nomString, String type, String email,
 			String username, String password, boolean enabled, boolean autorise, String statutString, String token,
-			String role) {
+			String role, List<com.michel.plannings.models.TacheAux> agenda) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -42,9 +41,8 @@ public class UtilisateurAux {
 		this.statutString = statutString;
 		this.token = token;
 		this.role = role;
+		this.agenda = agenda;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -142,18 +140,20 @@ public class UtilisateurAux {
 		this.nomString = nomString;
 	}
 
-
-
 	public boolean isAutorise() {
 		return autorise;
 	}
 
-
-
 	public void setAutorise(boolean autorise) {
 		this.autorise = autorise;
 	}
-	
-	
+
+	public List<TacheAux> getAgenda() {
+		return agenda;
+	}
+
+	public void setAgenda(List<TacheAux> agenda) {
+		this.agenda = agenda;
+	}
 
 }
