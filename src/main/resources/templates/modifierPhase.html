@@ -45,7 +45,7 @@
 		</div>
 		
 		 -->
-		
+
 		<!-- ***********   Alerte erreur  ************ -->
 
 
@@ -64,16 +64,14 @@
 
 		<div class="container">
 
-			<form
-				th:action="@{/projet/modifier/phase/{phase}(phase=${phase.id})}"
-				method="post" th:object="${phase}">
+			<form th:action="@{/projet/modifier/phase/{phase}(phase=${phase.id})}" method="post" th:object="${phase}">
 
 				<div class="col">
 					<b>Pour modifier une phase, remplir ce formulaire.</b>
 					<h3 th:text="${'Projet: ' + projet.nom + ' ; ressource: ' + ressource.prenom + ' ' + ressource.nom}"
 						style="color: red;"></h3>
 					<h1>Phase</h1>
-					
+
 					<!-- 
 					<div class="row mr-1">
 						<label for="text">Numéro</label> <input type="number" class="form-control" th:field="*{numero}">
@@ -109,36 +107,50 @@
 						<label for="text">Résultat</label> <input type="text" class="form-control"
 							th:field="*{resultat}">
 					</div>
-					
+
 					<div class="form-group">
-						<label for="exampleFormControlSelect1">Conformité</label> <select
-							class="form-control" id="exampleFormControlSelect1"
-							th:field="*{conforme}">
+						<label for="exampleFormControlSelect1">Conformité</label> <select class="form-control"
+							id="exampleFormControlSelect1" th:field="*{conforme}">
 							<option th:value="1" th:text="'Conforme'"></option>
 							<option th:value="0" th:text="'Non-conforme'"></option>
 							<option th:value="0" th:text="'Attente'"></option>
 						</select>
 					</div>
-					
+
 					<div class="form-group">
-						<label for="exampleFormControlSelect1">Suspendue</label> <select
-							class="form-control" id="exampleFormControlSelect1"
-							th:field="*{suspendu}">
+						<label for="exampleFormControlSelect1">Suspendue</label> <select class="form-control"
+							id="exampleFormControlSelect1" th:field="*{suspendu}">
 							<option th:value="1" th:text="'Oui'"></option>
 							<option th:value="0" th:text="'Non'"></option>
-							
+
 						</select>
 					</div>
-					
-					
-						<div class="form-group">
-						<label for="exampleFormControlSelect1">Actif</label> <select
-							class="form-control" id="exampleFormControlSelect1"
-							th:field="*{actif}">
+
+
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">Actif</label> <select class="form-control"
+							id="exampleFormControlSelect1" th:field="*{actif}">
 							<option th:value="1" th:text="'Oui'"></option>
 							<option th:value="0" th:text="'Non'"></option>
-							
+
 						</select>
+					</div>
+
+
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">Passable</label> <select class="form-control"
+							id="exampleFormControlSelect1" th:field="*{passable}">
+							<option th:value="1" th:text="'Oui'"></option>
+							<option th:value="0" th:text="'Non'"></option>
+
+						</select>
+					</div>
+
+
+
+					<div class="row  mr-1">
+						<label for="text">Reserve</label> <input type="text" class="form-control"
+							th:field="*{reserve}">
 					</div>
 
 					<div class="bouton row">

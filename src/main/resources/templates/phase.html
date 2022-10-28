@@ -166,6 +166,19 @@
 
 					</tr>
 					
+					<tr>
+						<th scope="row">Reserve:</th>
+						<td th:text="${phase.passableString}" />
+
+					</tr>
+					
+					<span th:if=${phase.passable}>
+					<tr>
+						<th scope="row">Reserve:</th>
+						<td th:text="${phase.reserve}" />
+
+					</tr>
+					</span>
 				
 				</tbody>
 			</table>

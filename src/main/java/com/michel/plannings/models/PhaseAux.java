@@ -19,6 +19,9 @@ public class PhaseAux {
 	private String description;
 	private String complement; // Complément d'information: échantillons, version, etc.
 	private String resultat;
+	private String reserve;
+	private Boolean passable;
+	private String passableString;
 	private Boolean conforme;
 	private Boolean actif;
 	private Boolean suspendu;
@@ -32,10 +35,12 @@ public class PhaseAux {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	public PhaseAux(Integer id, Integer numero, String projet, Integer idProjet, String nom, LocalDateTime debut,
 			String dateDebutString, LocalDateTime fin, String dateFinString, Integer idRessource, String nomRessource,
-			String description, String complement, String resultat, Boolean conforme, Boolean actif, Boolean suspendu,
-			String conformeString, String actifString, String suspenduString, List<FicheAux> fiches) {
+			String description, String complement, String resultat, String reserve, Boolean passable,
+			String passableString, Boolean conforme, Boolean actif, Boolean suspendu, String conformeString,
+			String actifString, String suspenduString, List<FicheAux> fiches) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -51,6 +56,9 @@ public class PhaseAux {
 		this.description = description;
 		this.complement = complement;
 		this.resultat = resultat;
+		this.reserve = reserve;
+		this.passable = passable;
+		this.passableString = passableString;
 		this.conforme = conforme;
 		this.actif = actif;
 		this.suspendu = suspendu;
@@ -59,6 +67,8 @@ public class PhaseAux {
 		this.suspenduString = suspenduString;
 		this.fiches = fiches;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -227,5 +237,37 @@ public class PhaseAux {
 	public void setProjet(String projet) {
 		this.projet = projet;
 	}
+
+
+	public String getReserve() {
+		return reserve;
+	}
+
+
+	public void setReserve(String reserve) {
+		this.reserve = reserve;
+	}
+
+
+	public Boolean getPassable() {
+		return passable;
+	}
+
+
+	public void setPassable(Boolean passable) {
+		this.passable = passable;
+	}
+
+
+	public String getPassableString() {
+		return passableString;
+	}
+
+
+	public void setPassableString(String passableString) {
+		this.passableString = passableString;
+	}
+	
+	
 
 }
