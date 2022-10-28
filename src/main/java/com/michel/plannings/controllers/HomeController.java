@@ -66,10 +66,9 @@ public class HomeController {
 				
 				return Constants.ALERTE_BLOCAGE;
 			}
-
-			model.addAttribute("utilisateur", utilisateur);
-			model.addAttribute("authentification", true);
-
+			
+			utilisateur = userConnexion.obtenirUtilisateur(session, model);
+			
 			return Constants.ESPACE_PERSONEL;
 
 		} else {

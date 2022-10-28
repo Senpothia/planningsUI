@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col">
 				<img class="img-fluid" src="/images/bandeau7.png" alt="" th:src="@{/images/bandeau7.png}" />
-			
+
 			</div>
 		</div>
 		<!-- ----------------- -->
@@ -61,11 +61,11 @@
 								<span th:if=${groupe1}>
 									<th scope="col">Fiches</th>
 								</span>
-								
+
 								<span th:if=${groupe1}>
 									<th scope="col">Notes</th>
 								</span>
-								
+
 								<th scope="col">Voir</th>
 							</tr>
 						</thead>
@@ -77,10 +77,6 @@
 								<td th:text="${phase.nomRessource}" />
 								<td th:text="${phase.suspenduString}" />
 								<td th:text="${phase.conformeString}" />
-
-
-								
-
 								<span th:unless=${groupe2}>
 									<td th:text="${phase.actifString}" />
 								</span>
@@ -88,7 +84,8 @@
 
 								<span th:if=${groupe2}>
 									<span th:if="${phase.actif}">
-										<td><a th:href="@{/phase/changer/statut/{phase}/{active}(phase=${phase.id}, active=${phase.actif})}">
+										<td><a
+												th:href="@{/phase/changer/statut/{phase}/{active}(phase=${phase.id}, active=${phase.actif})}">
 												<p type="text" class="btn btn-block"
 													style="background-color: #730800; color: white">Désactiver</p>
 											</a>
@@ -97,7 +94,8 @@
 
 
 									<span th:unless="${phase.actif}">
-										<td><a th:href="@{/phase/changer/statut/{phase}/{active}(phase=${phase.id}, active=${phase.actif})}">
+										<td><a
+												th:href="@{/phase/changer/statut/{phase}/{active}(phase=${phase.id}, active=${phase.actif})}">
 												<p type="text" class="btn btn-block"
 													style="background-color: #7e60fb; color: white">Activer</p>
 											</a>
@@ -107,22 +105,23 @@
 
 
 
-								<span th:if=${groupe1}>
+								<span th:if="${groupe1}">
 
 									<td><a th:href="@{/phase/fiches/ajouter/{id}(id=${phase.id})}">
 											<p type="text" class="btn btn-block"
 												style="background-color: #7e60fb; color: white">Ajouter</p>
 										</a>
 									</td>
-								</span>
-								
-								
-								<td><a th:href="@{/phase/notes/ajouter/{idPhase}/{idProjet}(idPhase=${phase.id}, idProjet=${projet.id})}">
-										<p type="text" class="btn btn-block"
-											style="background-color: #7e60fb; color: white">Ajouter</p>
-									</a>
-								</td>
 
+
+
+									<td><a
+											th:href="@{/phase/notes/ajouter/{idPhase}/{idProjet}(idPhase=${phase.id}, idProjet=${projet.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #7e60fb; color: white">Ajouter</p>
+										</a>
+									</td>
+								</span>
 								<td><a th:href="@{/phase/voir/{id}(id=${phase.id})}">
 										<p type="text" class="btn btn-block"
 											style="background-color: #7e60fb; color: white">Voir</p>
