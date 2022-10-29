@@ -61,10 +61,19 @@
 				<div class="row d-flex justify-content-center">
 					<p th:text="'email: ' + ${utilisateur.username}"></p>
 				</div>
+				
+					<div class="row d-flex justify-content-center">
+				
+					 <span th:if="${utilisateur.role == 'LABO'}">Droits: LABO</span>
+					 <span th:if="${utilisateur.role == 'BE'}">Droits: Developpeur</span>
+					 <span th:if="${utilisateur.role == 'RESBE'}">Droits: Responsable BE</span>
+					 <span th:if="${utilisateur.role == 'CPROD'}">Droits: Chef produit</span>
+					  <span th:if="${utilisateur.role == 'USER'}">Droits: Visiteur</span>
+				</div>
 
 
 				<div class="row d-flex justify-content-center">
-					<a href="/compte/modifier"><button type="button" class="btn mb-1 bouton2"
+					<a href="/compte/modifier"><button type="button" class="btn mb-1 bouton2 mt-3"
 							style="background-color: #7e60fb; color: white;">Modifier</button></a>
 				</div>
 

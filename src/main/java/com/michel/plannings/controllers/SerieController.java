@@ -36,7 +36,8 @@ public class SerieController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 
-		List<SuiteAux> series = microServicePlannnings.obtenirSeriesParProjet(token, idProjet);
+		//List<SuiteAux> series = microServicePlannnings.obtenirSeriesParProjet(token, idProjet);
+		List<SuiteAux> series = microServicePlannnings.obtenirSeriesParProjetAuteur(token, idProjet, utilisateur.getId());
 		Boolean vide = false;
 		if (series.isEmpty()) {
 			vide = true;

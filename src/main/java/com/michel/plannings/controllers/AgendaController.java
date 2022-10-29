@@ -133,8 +133,7 @@ public class AgendaController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		tache.setId(idTache);
-		System.out.println("heure deb: " + tache.getHeureDebut());
-		System.out.println("heure fin: " + tache.getHeureFin());
+	
 		microServicePlannnings.modifierTache(token, tache);
 		return Constants.testUser(utilisateur, "redirect:/tache/voir/" + idTache);
 	}

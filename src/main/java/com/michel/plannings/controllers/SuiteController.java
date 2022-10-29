@@ -36,7 +36,8 @@ public class SuiteController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 
-		List<SuiteAux> suites = microServicePlannnings.obtenirSuitesParPhase(token, idPhase);
+		//List<SuiteAux> suites = microServicePlannnings.obtenirSuitesParPhase(token, idPhase);
+		List<SuiteAux> suites = microServicePlannnings.obtenirSuitesParPhaseAuteur(token, idPhase, utilisateur.getId());
 		Boolean vide = false;
 		if (suites.isEmpty()) {
 			vide = true;

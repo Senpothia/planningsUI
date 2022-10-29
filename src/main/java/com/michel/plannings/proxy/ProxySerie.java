@@ -33,4 +33,9 @@ public interface ProxySerie {
 	
 	@GetMapping("/projet/historique/supprimer/{idSerie}")
 	void supprimerSerie(@RequestHeader("Authorization") String token, @PathVariable(name = "idSerie") Integer idSerie);
+	
+	@GetMapping("/series/projet/{idProjet}/{idAuteur}")
+	List<SuiteAux> obtenirSeriesParProjetAuteur(@RequestHeader("Authorization") String token,@PathVariable(name = "idProjet") Integer idProjet,@PathVariable(name = "idAuteur") Integer idAuteur);
+	
+	
 }

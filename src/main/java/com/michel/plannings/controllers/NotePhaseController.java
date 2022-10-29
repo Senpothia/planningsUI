@@ -66,7 +66,8 @@ public class NotePhaseController {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		List<NoteAux> notes = microServicePlannnings.obtenirListeNotesPhase(token, idPhase);
+		//List<NoteAux> notes = microServicePlannnings.obtenirListeNotesPhase(token, idPhase);
+		List<NoteAux> notes = microServicePlannnings.obtenirListeNotesPhaseAuteur(token, idPhase, utilisateur.getId());
 		Boolean vide = false;
 		if (notes.isEmpty()) {
 			vide = true;

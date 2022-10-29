@@ -37,6 +37,12 @@ public interface ProxyNote {
 	@GetMapping("/notes/liste/{idPhase}")
 	List<NoteAux> obtenirListeNotesPhase(@RequestHeader("Authorization") String token,@PathVariable(name = "idPhase") Integer idPhase);
 	
+	@GetMapping("/notes/liste/{idPhase}/{idAuteur}")
+	List<NoteAux> obtenirListeNotesPhaseAuteur(@RequestHeader("Authorization") String token, @PathVariable(name = "idPhase") Integer idPhase, @PathVariable(name = "idAuteur")Integer idAuteur);
+	
+	@GetMapping("/notes/projet/{idProjet}/{idAuteur}")
+	List<NoteAux> obtenirNotesProjetAuteur(@RequestHeader("Authorization") String token, @PathVariable(name = "idProjet") Integer idProjet, @PathVariable(name = "idAuteur") Integer idAuteur);
+	
 	@GetMapping("/phase/note/voir/{idNote}")
 	NoteAux obtenirSimpleNotePhase(@RequestHeader("Authorization") String token, @PathVariable(name = "idNote") Integer idNote);
 	

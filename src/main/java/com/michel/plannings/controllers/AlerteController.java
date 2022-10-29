@@ -67,7 +67,8 @@ public class AlerteController {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		List<AlerteAux> alertes = microServicePlannnings.obtenirAlertesParProjet(token, idProjet);
+		//List<AlerteAux> alertes = microServicePlannnings.obtenirAlertesParProjet(token, idProjet);
+		List<AlerteAux> alertes = microServicePlannnings.obtenirAlertesParProjetAuteur(token, idProjet, utilisateur.getId());
 		Boolean vide = false;
 		if (alertes.isEmpty()) {
 			vide = true;
@@ -147,7 +148,8 @@ public class AlerteController {
 		
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		List<AlerteAux> alertes = microServicePlannnings.obtenirListeActives(token, actif);
+		//List<AlerteAux> alertes = microServicePlannnings.obtenirListeActives(token, actif);
+		List<AlerteAux> alertes = microServicePlannnings.obtenirListeActivesAuteur(token, actif, utilisateur.getId());
 		Boolean vide = false;
 		if (alertes.isEmpty()) {
 			vide = true;

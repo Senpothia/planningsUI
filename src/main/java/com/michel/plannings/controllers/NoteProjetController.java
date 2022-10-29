@@ -63,7 +63,8 @@ public class NoteProjetController {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		List<NoteAux> notes = microServicePlannnings.obtenirNotesProjet(token, idProjet);
+		//List<NoteAux> notes = microServicePlannnings.obtenirNotesProjet(token, idProjet);
+		List<NoteAux> notes = microServicePlannnings.obtenirNotesProjetAuteur(token, idProjet, utilisateur.getId());
 		Boolean vide = false;
 		if (notes.isEmpty()) {
 			vide = true;

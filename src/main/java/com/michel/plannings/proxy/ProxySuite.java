@@ -31,5 +31,7 @@ public interface ProxySuite {
 	
 	@GetMapping("/phase/historique/supprimer/{idSuite}")
 	void supprimerSuite(@RequestHeader("Authorization") String token, @PathVariable(name = "idSuite") Integer idSuite);
-
+	
+	@GetMapping("/suites/phase/{idPhase}/{idAuteur}")
+	List<SuiteAux> obtenirSuitesParPhaseAuteur(@RequestHeader("Authorization") String token,  @PathVariable(name = "idPhase") Integer idPhase, @PathVariable(name = "idAuteur") Integer idAuteur);
 }

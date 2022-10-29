@@ -32,5 +32,10 @@ public interface ProxyAlerte {
 	
 	@GetMapping("/alertes/liste/actives/{actif}")
 	List<AlerteAux> obtenirListeActives(@RequestHeader("Authorization") String token, @PathVariable(name = "actif") Boolean actif);
-
+	
+	@GetMapping("/alertes/projet/{idProjet}/{idAuteur}")
+	List<AlerteAux> obtenirAlertesParProjetAuteur(@RequestHeader("Authorization") String token,@PathVariable(name = "idProjet") Integer idProjet,@PathVariable(name = "idAuteur") Integer idAuteur);
+	
+	@GetMapping("/alertes/liste/actives/{actif}/{idAuteur}")
+	List<AlerteAux> obtenirListeActivesAuteur(@RequestHeader("Authorization") String token,@PathVariable(name = "actif") Boolean actif,@PathVariable(name = "idAuteur") Integer idAuteur);
 }
