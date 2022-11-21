@@ -84,13 +84,14 @@ public class PhaseController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<PhaseAux> phases = microServicePlannnings.phasesParProjetId(token, idProjet);
-
-		if (phases.isEmpty() || phases.size() < 2) {
+		
+		phases.remove(0);
+		if (phases.isEmpty()) {
 			model.addAttribute("vide", true);
 		} else {
 			model.addAttribute("vide", false);
 		}
-		phases.remove(0);
+		
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		model.addAttribute("phases", phases);

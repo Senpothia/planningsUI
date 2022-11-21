@@ -120,7 +120,6 @@ public class ProjetController {
 		
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String role = utilisateur.getRole();
-		
 		String token = Constants.getToken(session);
 		List<ProjetAux> projets = new ArrayList<>();
 		if(role.equals("CPROD")) {
