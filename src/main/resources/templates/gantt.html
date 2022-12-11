@@ -1,0 +1,87 @@
+<html>
+
+<head>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+		google.charts.load('current', {'packages': ['gantt']});
+		google.charts.setOnLoadCallback(drawChart);
+
+		function drawChart() {
+
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Task ID');
+			data.addColumn('string', 'Task Name');
+			data.addColumn('string', 'Resource');
+			data.addColumn('date', 'Start Date');
+			data.addColumn('date', 'End Date');
+			data.addColumn('number', 'Duration');
+			data.addColumn('number', 'Percent Complete');
+			data.addColumn('string', 'Dependencies');
+
+			tab1 = ['2014Spring', 'Spring 2014', 'spring',
+				new Date('2015-2-22'), new Date('2015-2-24'), 0, 100, null];
+
+			tab2 = ['2014Summer', 'Summer 2014', 'summer',
+				new Date('2015-2-24'), new Date('2015-2-26'), 0, 100, null];
+			tab3 = ['2014Autumn', 'Autumn 2014', 'autumn',
+				new Date('2015-2-26'), new Date('2015-2-28'), 0, 100, null];
+			tab4 = ['2014Winter', 'Winter 2014', 'winter',
+				new Date('2015-2-28'), new Date('2015-3-2'), 0, 100, null];
+			tab5 = ['2015Spring', 'Spring 2015', 'spring',
+				new Date('2015-3-2'), new Date('2015-3-6'), 0, 50, null];
+
+			tab6 = ['2015Summer', 'Summer 2015', 'summer',
+				new Date('2015-3-6'), new Date('2015-3-9'), 0, 0, null];
+			tab7 = ['2015Autumn', 'Autumn 2015', 'autumn',
+				new Date('2015-3-9'), new Date('2015-3-12'), 0, 0, null];
+			tab8 = ['2015Winter', 'Winter 2015', 'winter',
+				new Date('2015-3-12'), new Date('2015-3-16'), 0, 0, null];
+			tab9 = ['Football', 'Football Season', 'sports',
+				new Date('2015-3-16'), new Date('2015-3-19'), 0, 100, null];
+			tab10 = ['Baseball', 'Baseball Season', 'sports',
+				new Date('2015-3-19'), new Date('2015-3-23'), 0, 14, null];
+			tab11 = ['Basketball', 'Basketball Season', 'sports',
+				new Date('2015-3-23'), new Date('2015-3-27'), 0, 86, null];
+			tab12 = ['Hockey', 'Hockey Season', 'sports',
+				new Date('2015-3-27'), new Date('2015-3-30'), 0, 89, null];
+			tab13 = ['Hockey2', 'Hockey Season2', 'sports2',
+				new Date('2015-3-30'), new Date('2015-4-2'), 0, 89, null];
+			tab14 = ['Hockey3', 'Hockey Season3', 'sports3',
+				new Date('2015-4-2'), new Date('2015-4-7'), 0, 89, null];
+
+			data.addRows([
+				tab1,
+				tab2,
+				tab3,
+				tab4,
+				tab5,
+				tab6,
+				tab7,
+				tab8,
+				tab9,
+				tab10,
+				tab11,
+				tab12,
+				tab13,
+				tab14,
+			]);
+
+			var options = {
+				height: 2000,
+				gantt: {
+					trackHeight: 30
+				}
+			};
+
+			var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+			chart.draw(data, options);
+		}
+	</script>
+</head>
+
+<body>
+	<div id="chart_div"></div>
+</body>
+
+</html>

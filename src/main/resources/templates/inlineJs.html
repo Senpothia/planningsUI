@@ -1,0 +1,40 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+	<title>Plannings</title>
+
+	<script th:inline="javascript">
+		var nom = [[${projet.nom}]];
+		var tableau = /*[[${tab}]]*/ null;
+		var liste = /*[[${liste}]]*/ null;
+
+
+	</script>
+
+	<script>
+		console.log("Nom du projet: " + nom);
+		console.log(liste[0]);
+		console.log(tableau[0]);
+
+	</script>
+
+</head>
+
+<body>
+	OK
+
+</body>
+
+</html>

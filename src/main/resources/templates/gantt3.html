@@ -1,0 +1,150 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+	<title>Plannings</title><meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+	<title>Plannings</title>
+	
+	<script th:inline="javascript">
+		var nom = /*[[${projet.nom}]]*/ null;
+		var tableau = /*[[${tab}]]*/ null;
+		var liste = /*[[${liste}]]*/ null;
+		
+		
+		
+		const lignes = [];
+		
+		for(i=0; i<tableau.length; i++){
+			
+			l = new Array(tableau[i].taskId, tableau[i].taskName, tableau[i].ressource, 
+			new Date(tableau[i].startDate),new Date(tableau[i].endDate) , tableau[i].duration, tableau[i].percent, tableau[i].dependencies);
+			lignes.push(l);
+		}
+
+	</script>
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+		google.charts.load('current', {'packages': ['gantt']});
+		google.charts.setOnLoadCallback(drawChart);
+		
+		console.log("Nom du projet: " + nom);
+		console.log(liste[0]);
+		console.log(tableau[0]);
+		console.log(lignes[0]);
+		console.log("Nombre de lignes: " + lignes.length);
+		
+
+		function drawChart() {
+
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Task ID');
+			data.addColumn('string', 'Task Name');
+			data.addColumn('string', 'Resource');
+			data.addColumn('date', 'Start Date');
+			data.addColumn('date', 'End Date');
+			data.addColumn('number', 'Duration');
+			data.addColumn('number', 'Percent Complete');
+			data.addColumn('string', 'Dependencies');
+
+			data.addRows(lignes);
+
+			var options = {
+				height: 900,
+				gantt: {
+					trackHeight: 30
+				}
+			};
+
+			var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+			chart.draw(data, options);
+		}
+	</script>
+</head>
+
+<body>
+<div class="container">
+	<!-- ENTETE -->
+
+
+		<div th:replace="fragments/entete_post :: entete_post"></div>
+	
+		<!-- ---------------- -->
+		
+			<div class="row">
+
+			<h1>Diagramme de Gantt</h1>
+
+		</div>
+
+		<div class="col">
+
+			<table class="table table-striped">
+				<thead>
+
+
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">Projet</th>
+						<td th:text="${projet.nom}" />
+
+					</tr>
+
+
+					<tr>
+						<th scope="row">Date</th>
+						<td th:text="${#temporals.format(projet.date, 'dd-MM-yyyy')}" />
+
+					</tr>
+
+
+					<tr>
+						<th scope="row">Créé par</th>
+						<td th:text="${projet.nomChef}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Type</th>
+						<td th:text="${projet.type}" />
+
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+		
+		
+
+	<div id="chart_div"></div>
+	
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+	
+</div>
+	
+</body>
+
+</html>
