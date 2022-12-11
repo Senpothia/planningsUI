@@ -45,14 +45,7 @@
 	<script type="text/javascript">
 		google.charts.load('current', {'packages': ['gantt']});
 		google.charts.setOnLoadCallback(drawChart);
-		
-		console.log("Nom du projet: " + nom);
-		console.log(liste[0]);
-		console.log(tableau[0]);
-		console.log(lignes[0]);
-		console.log("Nombre de lignes: " + lignes.length);
-		
-
+	 	var hauteur = lignes.length * 30 + 40;
 		function drawChart() {
 
 			var data = new google.visualization.DataTable();
@@ -68,7 +61,7 @@
 			data.addRows(lignes);
 
 			var options = {
-				height: 900,
+				height: hauteur,
 				gantt: {
 					trackHeight: 30
 				}
@@ -134,10 +127,20 @@
 
 		</div>
 
-		
-		
-
 	<div id="chart_div"></div>
+	
+		<div class="row mt-3">
+			<div class="col d-flex justify-content-end">
+			
+				<div class="form-group ">
+					<a th:href="@{/projet/voir/{idProjet}(idProjet=${projet.id})}">
+						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour projet</p>
+					</a>
+				</div>
+
+			</div>
+
+		</div>
 	
 		<!-- PIED DE PAGE -->
 

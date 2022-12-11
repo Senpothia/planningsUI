@@ -1,6 +1,6 @@
 package com.michel.plannings.models;
 
-public class GanttRow {
+public class GanttRow implements Comparable <GanttRow>{
 	
 	private String taskId;
 	private String taskName;
@@ -95,6 +95,24 @@ public class GanttRow {
 
 	public void setRessource(String ressource) {
 		this.ressource = ressource;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "GanttRow [taskId=" + taskId + ", taskName=" + taskName + ", ressource=" + ressource + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", duration=" + duration + ", percent=" + percent
+				+ ", dependencies=" + dependencies + "]";
+	}
+
+
+
+	@Override
+	public int compareTo(GanttRow ganttRow) {
+		int id = Integer.parseInt(this.taskId);
+		int idRow = Integer.parseInt(ganttRow.taskId);
+		return (id - idRow);
 	}
 	
 	
