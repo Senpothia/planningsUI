@@ -198,10 +198,12 @@ public class PhaseController {
 			
 			vide = true;
 		}
+		
+		UtilisateurAux ressource = microServicePlannnings.obtenirRessourceParId(idRessource, token);
 
 		model.addAttribute("phases", phases);
 		model.addAttribute("vide", vide);
-		model.addAttribute("ressource", utilisateur);
+		model.addAttribute("ressource", ressource);
 		return Constants.testUser(utilisateur, Constants.PHASES_RESSOURCE);
 	}
 

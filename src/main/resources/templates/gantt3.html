@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+	
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -24,6 +25,7 @@
 	<title>Plannings</title>
 	
 	<script th:inline="javascript">
+	
 		var nom = /*[[${projet.nom}]]*/ null;
 		var tableau = /*[[${tab}]]*/ null;
 		var liste = /*[[${liste}]]*/ null;
@@ -37,6 +39,17 @@
 			l = new Array(tableau[i].taskId, tableau[i].taskName, tableau[i].ressource, 
 			new Date(tableau[i].startDate),new Date(tableau[i].endDate) , tableau[i].duration, tableau[i].percent, tableau[i].dependencies);
 			lignes.push(l);
+		}
+		
+		
+		function HTMLtoPdf(){
+			
+			console.log("impression")
+			
+			var doc = new jsPDF();
+			doc.text('Hello world',10,10)
+			doc.save('testDoc.pdf')
+			
 		}
 
 	</script>
@@ -75,6 +88,7 @@
 </head>
 
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <div class="container">
 	<!-- ENTETE -->
 
@@ -83,12 +97,13 @@
 	
 		<!-- ---------------- -->
 		
+		<section id="graphic">
 			<div class="row">
 
 			<h1>Diagramme de Gantt</h1>
 
 		</div>
-
+	
 		<div class="col">
 
 			<table class="table table-striped">
@@ -126,11 +141,17 @@
 			</table>
 
 		</div>
-
+		</section>
 	<div id="chart_div"></div>
 	
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-end">
+			
+				<div class="form-group mr-3">
+				
+						<button onclick="HTMLtoPdf()"  type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">PDF</button>
+					
+				</div>
 			
 				<div class="form-group ">
 					<a th:href="@{/projet/voir/{idProjet}(idProjet=${projet.id})}">
