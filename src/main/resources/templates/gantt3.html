@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-	
+
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -13,7 +13,8 @@
 
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
 	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
-	<title>Plannings</title><meta charset="utf-8" />
+	<title>Plannings</title>
+	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<!-- Bootstrap CSS -->
@@ -23,33 +24,33 @@
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
 	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
 	<title>Plannings</title>
-	
+
 	<script th:inline="javascript">
-	
+
 		var nom = /*[[${projet.nom}]]*/ null;
 		var tableau = /*[[${tab}]]*/ null;
 		var liste = /*[[${liste}]]*/ null;
-		
-		
-		
+
+
+
 		const lignes = [];
-		
-		for(i=0; i<tableau.length; i++){
-			
-			l = new Array(tableau[i].taskId, tableau[i].taskName, tableau[i].ressource, 
-			new Date(tableau[i].startDate),new Date(tableau[i].endDate) , tableau[i].duration, tableau[i].percent, tableau[i].dependencies);
+
+		for (i = 0; i < tableau.length; i++) {
+
+			l = new Array(tableau[i].taskId, tableau[i].taskName, tableau[i].ressource,
+				new Date(tableau[i].startDate), new Date(tableau[i].endDate), tableau[i].duration, tableau[i].percent, tableau[i].dependencies);
 			lignes.push(l);
 		}
-		
-		
-		function HTMLtoPdf(){
-			
+
+
+		function HTMLtoPdf() {
+
 			console.log("impression")
-			
+
 			var doc = new jsPDF();
-			doc.text('Hello world',10,10)
+			doc.text('Hello world', 10, 10)
 			doc.save('testDoc.pdf')
-			
+
 		}
 
 	</script>
@@ -58,7 +59,10 @@
 	<script type="text/javascript">
 		google.charts.load('current', {'packages': ['gantt']});
 		google.charts.setOnLoadCallback(drawChart);
-	 	var hauteur = lignes.length * 30 + 40;
+		var hauteur = lignes.length * 30 + 40;
+		if (hauteur < 310) {
+			hauteur = 310
+		}
 		function drawChart() {
 
 			var data = new google.visualization.DataTable();
@@ -88,40 +92,40 @@
 </head>
 
 <body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<div class="container">
-	<!-- ENTETE -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<div class="container">
+		<!-- ENTETE -->
 
 
 		<div th:replace="fragments/entete_post :: entete_post"></div>
-	
+
 		<!-- ---------------- -->
-		
+
 		<section id="graphic">
 			<div class="row">
 
-			<h1>Diagramme de Gantt</h1>
+				<h1>Diagramme de Gantt</h1>
 
-		</div>
-	
-		<div class="col">
+			</div>
 
-			<table class="table table-striped">
-				<thead>
+			<div class="col">
 
-
-				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">Projet</th>
-						<td th:text="${projet.nom}" />
-
-					</tr>
+				<table class="table table-striped">
+					<thead>
 
 
-					<tr>
-						<th scope="row">Date</th>
-						<td th:text="${#temporals.format(projet.date, 'dd-MM-yyyy')}" />
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">Projet</th>
+							<td th:text="${projet.nom}" />
+
+						</tr>
+
+
+						<tr>
+							<th scope="row">Date</th>
+							<td th:text="${#temporals.format(projet.date, 'dd-MM-yyyy')}" />
 
 					</tr>
 

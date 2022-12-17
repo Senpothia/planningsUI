@@ -34,15 +34,44 @@ public class PhaseController {
 	@GetMapping("/projet/ajouter/phase/{projet}")
 	public String ajouterPhaseProjet(@PathVariable(name = "projet") Integer idProjet, Model model,
 			HttpSession session) {
-
+		
+		System.out.println("ajouter phase");
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		List<UtilisateurAux> ressources = microServicePlannnings.toutesLesRessources(token);
+		System.out.println("Taille ressourses: " + ressources.size());
 		List<UtilisateurAux> ressourcesAssociees = microServicePlannnings.ressourcesParProjet(token, idProjet);
+		System.out.println("Taille ressoursesAssociees: " + ressourcesAssociees.size());
+		List<UtilisateurAux> copyListRessources = new ArrayList<>(ressources);
+		System.out.println("Taille copie liste ressources: " + copyListRessources.size());
+		List<Integer> indices = new ArrayList<>();
+		for(UtilisateurAux u1: ressources) {
+			
+			Integer idRessource = u1.getId();
+			for(UtilisateurAux u2: ressourcesAssociees) {
+				
+				Integer idRassociee = u2.getId();
+				if(idRassociee == idRessource) {
+					
+					indices.add(ressources.indexOf(u1));
+				}
+			}
+			
+		}
+		
+		List<UtilisateurAux> suppressions = new ArrayList<>();
+		for(int i=0; i<indices.size();i++) {
+			
+			suppressions.add(ressources.get(i));
+			
+		}
+		ressources.removeAll(suppressions);
+		
 		Boolean affectations = false;
 		if (!ressourcesAssociees.isEmpty()) { affectations = true;}
 		model.addAttribute("ressources", ressources);
+	
 		model.addAttribute("ressourcesAssociees", ressourcesAssociees);
 		model.addAttribute("affectations", affectations);
 		model.addAttribute("projet", projet);

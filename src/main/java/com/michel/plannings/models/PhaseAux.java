@@ -29,6 +29,7 @@ public class PhaseAux {
 	private String actifString;
 	private String suspenduString;
 	private List<FicheAux> fiches;
+	private Integer avancement;
 
 	public PhaseAux() {
 		super();
@@ -36,11 +37,13 @@ public class PhaseAux {
 	}
 
 	
+
+
 	public PhaseAux(Integer id, Integer numero, String projet, Integer idProjet, String nom, LocalDateTime debut,
 			String dateDebutString, LocalDateTime fin, String dateFinString, Integer idRessource, String nomRessource,
 			String description, String complement, String resultat, String reserve, Boolean passable,
 			String passableString, Boolean conforme, Boolean actif, Boolean suspendu, String conformeString,
-			String actifString, String suspenduString, List<FicheAux> fiches) {
+			String actifString, String suspenduString, List<FicheAux> fiches, Integer avancement) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -66,7 +69,9 @@ public class PhaseAux {
 		this.actifString = actifString;
 		this.suspenduString = suspenduString;
 		this.fiches = fiches;
+		this.avancement = avancement;
 	}
+
 
 
 
@@ -266,6 +271,16 @@ public class PhaseAux {
 
 	public void setPassableString(String passableString) {
 		this.passableString = passableString;
+	}
+
+
+	public Integer getAvancement() {
+		return avancement;
+	}
+
+
+	public void setAvancement(Integer avancement) {
+		this.avancement = avancement;
 	}
 	
 	
