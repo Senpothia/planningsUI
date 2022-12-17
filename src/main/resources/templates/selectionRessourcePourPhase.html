@@ -38,143 +38,155 @@
 			<h1>Liste des ressources affectées au projet</h1>
 
 		</div>
-		
+
 		<span th:if=${affectations}>
-		
-		<div class="row d-flex justify-content-center">
 
-			<h2 th:text="${'Choisissez une ressource pour le projet ' + projet.nom}" style="color: red;"></h2>
+			<div class="row d-flex justify-content-center">
 
-		</div>
-				<div class="row">
+				<h2 th:text="${'Choisissez une ressource pour le projet ' + projet.nom}" style="color: red;"></h2>
 
-			<div class="col donnees" style="margin: 5px;">
+			</div>
+			<div class="row">
 
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col"></th>
-							<th scope="col">Nom</th>
-							<th scope="col">Droit</th>
-							<th scope="col">Type</th>
-							<th scope="col">Actif</th>
-							<th scope="col">Sélection</th>
-							
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="ressource, iStat: ${ressourcesAssociees}">
-							<th scope="row"><span th:text="${iStat.count}"></span></th>
-							<td th:text="${ressource.prenom +' '+ ressource.nom}" />
-							<td th:text="${ressource.role}" />
-							<td th:text="${ressource.type}" />
+				<div class="col donnees" style="margin: 5px;">
 
-							<span th:if="${ressource.enabled}">
-								<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">Nom</th>
+								<th scope="col">Droit</th>
+								<th scope="col">Type</th>
+								<th scope="col">Actif</th>
+								<th scope="col">Sélection</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="ressource, iStat: ${ressourcesAssociees}">
+								<th scope="row"><span th:text="${iStat.count}"></span></th>
+								<td th:text="${ressource.prenom +' '+ ressource.nom}" />
+								<td th:text="${ressource.role}" />
+								<td th:text="${ressource.type}" />
+
+								<span th:if="${ressource.enabled}">
+									<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #730800; color: white">Désactiver</p>
+										</a>
+									</td>
+								</span>
+
+								<span th:unless="${ressource.enabled}">
+									<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #7e60fb; color: white">Activer</p>
+										</a>
+									</td>
+								</span>
+								<td><a
+										th:href="@{/projet/ajouter/phase/associer/{projet}/{ressource}(projet=${projet.id}, ressource=${ressource.id})}">
 										<p type="text" class="btn btn-block"
-											style="background-color: #730800; color: white">Désactiver</p>
+											style="background-color: #7e60fb; color: white">Choisir</p>
 									</a>
 								</td>
-							</span>
 
-							<span th:unless="${ressource.enabled}">
-								<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
-										<p type="text" class="btn btn-block"
-											style="background-color: #7e60fb; color: white">Activer</p>
-									</a>
-								</td>
-							</span>
-							<td><a th:href="@{/projet/ajouter/phase/associer/{projet}/{ressource}(projet=${projet.id}, ressource=${ressource.id})}">
-									<p type="text" class="btn btn-block"
-										style="background-color: #7e60fb; color: white">Choisir</p>
-								</a>
-							</td>
+							</tr>
 
-						</tr>
+						</tbody>
+					</table>
 
-					</tbody>
-				</table>
+				</div>
 
 			</div>
 
-		</div>
-		
 		</span>
-		
+
 		<span th:unless=${affectations}>
-		
-		<div class="row d-flex justify-content-center">
 
-			<h1 style="color: red;">Aucune ressource n'a été affectée à ce projet</h1>
+			<div class="row d-flex justify-content-center">
 
-		</div>
-		
+				<h1 style="color: red;">Aucune ressource n'a été affectée à ce projet</h1>
+
+			</div>
+
 		</span>
 		<div class="row d-flex justify-content-center">
 
 			<h1>Liste des ressources non affectées</h1>
 
 		</div>
-		
-		<div class="row d-flex justify-content-center">
 
-			<h2 th:text="${'Choisissez une ressource pour le projet ' + projet.nom}" style="color: red;"></h2>
+		<span th:unless=${affectationsTotales}>
+			<div class="row d-flex justify-content-center">
 
-		</div>
-		
-		<div class="row">
-
-			<div class="col donnees" style="margin: 5px;">
-
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col"></th>
-							<th scope="col">Nom</th>
-							<th scope="col">Droit</th>
-							<th scope="col">Type</th>
-							<th scope="col">Actif</th>
-							<th scope="col">Sélection</th>
-							
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="ressource, iStat: ${ressources}">
-							<th scope="row"><span th:text="${iStat.count}"></span></th>
-							<td th:text="${ressource.prenom +' '+ ressource.nom}" />
-							<td th:text="${ressource.role}" />
-							<td th:text="${ressource.type}" />
-
-							<span th:if="${ressource.enabled}">
-								<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
-										<p type="text" class="btn btn-block"
-											style="background-color: #730800; color: white">Désactiver</p>
-									</a>
-								</td>
-							</span>
-
-							<span th:unless="${ressource.enabled}">
-								<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
-										<p type="text" class="btn btn-block"
-											style="background-color: #7e60fb; color: white">Activer</p>
-									</a>
-								</td>
-							</span>
-							<td><a th:href="@{/projet/ajouter/phase/associer/{projet}/{ressource}(projet=${projet.id}, ressource=${ressource.id})}">
-									<p type="text" class="btn btn-block"
-										style="background-color: #7e60fb; color: white">Choisir</p>
-								</a>
-							</td>
-
-						</tr>
-
-					</tbody>
-				</table>
+				<h2 th:text="${'Choisissez une ressource pour le projet ' + projet.nom}" style="color: red;"></h2>
 
 			</div>
 
-		</div>
+			<div class="row">
 
+				<div class="col donnees" style="margin: 5px;">
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">Nom</th>
+								<th scope="col">Droit</th>
+								<th scope="col">Type</th>
+								<th scope="col">Actif</th>
+								<th scope="col">Sélection</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="ressource, iStat: ${ressources}">
+								<th scope="row"><span th:text="${iStat.count}"></span></th>
+								<td th:text="${ressource.prenom +' '+ ressource.nom}" />
+								<td th:text="${ressource.role}" />
+								<td th:text="${ressource.type}" />
+
+								<span th:if="${ressource.enabled}">
+									<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #730800; color: white">Désactiver</p>
+										</a>
+									</td>
+								</span>
+
+								<span th:unless="${ressource.enabled}">
+									<td><a th:href="@{/ressources/liste/statut/{id}(id=${ressource.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #7e60fb; color: white">Activer</p>
+										</a>
+									</td>
+								</span>
+								<td><a
+										th:href="@{/projet/ajouter/phase/associer/{projet}/{ressource}(projet=${projet.id}, ressource=${ressource.id})}">
+										<p type="text" class="btn btn-block"
+											style="background-color: #7e60fb; color: white">Choisir</p>
+									</a>
+								</td>
+
+							</tr>
+
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+		</span>
+
+		<span th:if=${affectationsTotales}>
+
+			<div class="row d-flex justify-content-center">
+
+				<h2 style="color: red;">Toutes les ressources ont été affectées</h2>
+
+			</div>
+		</span>
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-center">
 				<div class="form-group ">

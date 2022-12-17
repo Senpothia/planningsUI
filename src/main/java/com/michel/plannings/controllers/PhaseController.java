@@ -34,7 +34,7 @@ public class PhaseController {
 	@GetMapping("/projet/ajouter/phase/{projet}")
 	public String ajouterPhaseProjet(@PathVariable(name = "projet") Integer idProjet, Model model,
 			HttpSession session) {
-		
+
 		System.out.println("ajouter phase");
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
@@ -45,35 +45,46 @@ public class PhaseController {
 		System.out.println("Taille ressoursesAssociees: " + ressourcesAssociees.size());
 		List<UtilisateurAux> copyListRessources = new ArrayList<>(ressources);
 		System.out.println("Taille copie liste ressources: " + copyListRessources.size());
-		List<Integer> indices = new ArrayList<>();
-		for(UtilisateurAux u1: ressources) {
+	
+		if (!ressources.isEmpty()) {
 			
-			Integer idRessource = u1.getId();
-			for(UtilisateurAux u2: ressourcesAssociees) {
-				
-				Integer idRassociee = u2.getId();
-				if(idRassociee == idRessource) {
-					
-					indices.add(ressources.indexOf(u1));
+			List<Integer> indices = new ArrayList<>();
+			for (UtilisateurAux u1 : ressources) {
+
+				Integer idRessource = u1.getId();
+				for (UtilisateurAux u2 : ressourcesAssociees) {
+
+					Integer idRassociee = u2.getId();
+					if (idRassociee == idRessource) {
+
+						indices.add(ressources.indexOf(u1));
+					}
 				}
 			}
 			
+			List<UtilisateurAux> suppressions = new ArrayList<>();
+			for (int i = 0; i < indices.size(); i++) {
+
+				suppressions.add(ressources.get(i));
+
+			}
+			ressources.removeAll(suppressions);
+
 		}
-		
-		List<UtilisateurAux> suppressions = new ArrayList<>();
-		for(int i=0; i<indices.size();i++) {
+		Boolean affectationsTotales = false;
+		if(ressources.isEmpty()) {
 			
-			suppressions.add(ressources.get(i));
-			
+			 affectationsTotales = true;
 		}
-		ressources.removeAll(suppressions);
-		
+
 		Boolean affectations = false;
-		if (!ressourcesAssociees.isEmpty()) { affectations = true;}
+		if (!ressourcesAssociees.isEmpty()) {
+			affectations = true;
+		}
 		model.addAttribute("ressources", ressources);
-	
 		model.addAttribute("ressourcesAssociees", ressourcesAssociees);
 		model.addAttribute("affectations", affectations);
+		model.addAttribute("affectationsTotales", affectationsTotales);
 		model.addAttribute("projet", projet);
 		return Constants.testUser(utilisateur, Constants.SELECTION_RESSOURCE_POUR_PHASE);
 	}
@@ -113,14 +124,14 @@ public class PhaseController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<PhaseAux> phases = microServicePlannnings.phasesParProjetId(token, idProjet);
-		
+
 		phases.remove(0);
 		if (phases.isEmpty()) {
 			model.addAttribute("vide", true);
 		} else {
 			model.addAttribute("vide", false);
 		}
-		
+
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		model.addAttribute("phases", phases);
@@ -160,7 +171,7 @@ public class PhaseController {
 	@PostMapping("/projet/modifier/phase/{phase}")
 	public String modifierPhase(@PathVariable(name = "phase") Integer idPhase, Model model, HttpSession session,
 			PhaseAux phase) {
-		
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		microServicePlannnings.modifierPhase(token, phase, idPhase);
@@ -206,28 +217,28 @@ public class PhaseController {
 	@GetMapping("/projets/liste/phases/ressource/{ressource}")
 	public String listePhaseParId(@PathVariable(name = "ressource") Integer idRessource, Model model,
 			HttpSession session) {
-		
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		List<PhaseAux> phases = microServicePlannnings.phasesParRessource(token, idRessource);
 		Boolean vide = false;
 		List<PhaseAux> zeros = new ArrayList<PhaseAux>();
-		for (PhaseAux p: phases) {
-			
-			if(p.getNumero() == 0) {
-				
+		for (PhaseAux p : phases) {
+
+			if (p.getNumero() == 0) {
+
 				zeros.add(p);
 			}
-			
+
 		}
-		
+
 		phases.removeAll(zeros);
-		
+
 		if (phases.isEmpty()) {
-			
+
 			vide = true;
 		}
-		
+
 		UtilisateurAux ressource = microServicePlannnings.obtenirRessourceParId(idRessource, token);
 
 		model.addAttribute("phases", phases);
@@ -246,15 +257,15 @@ public class PhaseController {
 		if (phases.isEmpty()) {
 			vide = true;
 			model.addAttribute("phases", phases);
-		}else {
+		} else {
 			List<PhaseAux> phasesSans0 = new ArrayList<>();
-			for(PhaseAux ph: phases) {
-				
-				if(ph.getNumero() != 0) {
+			for (PhaseAux ph : phases) {
+
+				if (ph.getNumero() != 0) {
 					phasesSans0.add(ph);
 				}
 			}
-			
+
 			if (phasesSans0.isEmpty()) {
 				vide = true;
 			}
