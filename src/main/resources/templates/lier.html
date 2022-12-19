@@ -167,9 +167,19 @@
 				</div>
 			</div>
 			
-		<span th:unless=${supprimer}>
+	
 			<div class="row mt-3">
 				<div class="col d-flex justify-content-end">
+				
+				<span th:if=${groupe2}>
+					<div class="form-group mr-3">
+						<a th:href="@{/projet/gantt/{id}(id=${projet.id})}">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Gantt
+							</p>
+						</a>
+					</div>
+
+				</span>
 
 			<div class="form-group ">
 					<a th:href="@{/projet/voir/{idProjet}(idProjet=${projet.id})}">
@@ -181,7 +191,7 @@
 
 			</div>
 
-	</span>
+	
 		<!-- footer -->
 
 		<!-- PIED DE PAGE -->

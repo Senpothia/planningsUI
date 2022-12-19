@@ -28,6 +28,8 @@ public class ProjetController {
 
 	@Autowired
 	private UserConnexion userConnexion;
+	
+	
 
 	@GetMapping("/projets/access")
 	public String accueilProjets(Model model, HttpSession session) {
@@ -208,7 +210,7 @@ public class ProjetController {
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, idProjet);
-
+		
 		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
 		int i = 1;
 		while (i < ganttRows.size()) {
