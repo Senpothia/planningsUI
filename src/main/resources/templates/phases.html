@@ -58,6 +58,7 @@
 								<th scope="col">Suspendue</th>
 								<th scope="col">Conformité</th>
 								<th scope="col">Active</th>
+								<!-- 
 								<span th:if=${groupe1}>
 									<th scope="col">Fiches</th>
 								</span>
@@ -65,7 +66,8 @@
 								<span th:if=${groupe1}>
 									<th scope="col">Notes</th>
 								</span>
-
+								-->
+								<th scope="col">Liaisons</th>
 								<th scope="col">Voir</th>
 							</tr>
 						</thead>
@@ -103,8 +105,16 @@
 									</span>
 								</span>
 
+								<span th:if="${groupe1}">
 
+									<td><a th:href="@{/phase/liaison/ajouter/{id}(id=${phase.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #7e60fb; color: white">Gérer</p>
+										</a>
+									</td>
+								</span>
 
+								<!-- 
 								<span th:if="${groupe1}">
 
 									<td><a th:href="@{/phase/fiches/ajouter/{id}(id=${phase.id})}">
@@ -122,6 +132,7 @@
 										</a>
 									</td>
 								</span>
+								-->
 								<td><a th:href="@{/phase/voir/{id}(id=${phase.id})}">
 										<p type="text" class="btn btn-block"
 											style="background-color: #7e60fb; color: white">Voir</p>
@@ -139,7 +150,7 @@
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-end">
 
-				
+
 				<span th:if=${groupe2}>
 					<div class="form-group mr-3">
 						<a th:href="@{/projet/gantt/{id}(id=${projet.id})}">

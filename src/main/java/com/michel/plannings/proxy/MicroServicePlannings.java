@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import com.michel.plannings.models.AlerteAux;
+import com.michel.plannings.models.Dependance;
 import com.michel.plannings.models.FicheAux;
 import com.michel.plannings.models.GanttRow;
 import com.michel.plannings.models.Login;
@@ -28,6 +30,10 @@ import com.michel.plannings.models.forms.FormFiche;
 //@FeignClient(name = "plannings", url = "http://46.105.35.7:8103/")
 @FeignClient(name = "plannings", url = "http://localhost:8103/")
 public interface MicroServicePlannings extends ProxyGlobal{
+
+	
+
+	
 
 	
 

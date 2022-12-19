@@ -90,6 +90,8 @@ public class Constants {
 
 	public static final String MODIFIER_TACHE = "modifierTache";
 
+	public static final String LIER_PHASE = "lier";
+
 	public static String testUser(Utilisateur utilisateur, String template) {
 
 		if (utilisateur == null) {

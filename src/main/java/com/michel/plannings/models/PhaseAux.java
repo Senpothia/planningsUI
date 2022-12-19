@@ -30,20 +30,21 @@ public class PhaseAux {
 	private String suspenduString;
 	private List<FicheAux> fiches;
 	private Integer avancement;
+	private Boolean liaison;// flag indiquant une liaison avec une phase spécifique (passée en paramètre
+							// d'une méthode)
+	private List<PhaseAux> dependances;
 
 	public PhaseAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-
 	public PhaseAux(Integer id, Integer numero, String projet, Integer idProjet, String nom, LocalDateTime debut,
 			String dateDebutString, LocalDateTime fin, String dateFinString, Integer idRessource, String nomRessource,
 			String description, String complement, String resultat, String reserve, Boolean passable,
 			String passableString, Boolean conforme, Boolean actif, Boolean suspendu, String conformeString,
-			String actifString, String suspenduString, List<FicheAux> fiches, Integer avancement) {
+			String actifString, String suspenduString, List<FicheAux> fiches, Integer avancement, Boolean liaison,
+			List<PhaseAux> dependances) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -70,10 +71,9 @@ public class PhaseAux {
 		this.suspenduString = suspenduString;
 		this.fiches = fiches;
 		this.avancement = avancement;
+		this.liaison = liaison;
+		this.dependances = dependances;
 	}
-
-
-
 
 	public Integer getId() {
 		return id;
@@ -243,46 +243,54 @@ public class PhaseAux {
 		this.projet = projet;
 	}
 
-
 	public String getReserve() {
 		return reserve;
 	}
-
 
 	public void setReserve(String reserve) {
 		this.reserve = reserve;
 	}
 
-
 	public Boolean getPassable() {
 		return passable;
 	}
-
 
 	public void setPassable(Boolean passable) {
 		this.passable = passable;
 	}
 
-
 	public String getPassableString() {
 		return passableString;
 	}
-
 
 	public void setPassableString(String passableString) {
 		this.passableString = passableString;
 	}
 
-
 	public Integer getAvancement() {
 		return avancement;
 	}
 
-
 	public void setAvancement(Integer avancement) {
 		this.avancement = avancement;
 	}
-	
+
+	public Boolean getLiaison() {
+		return liaison;
+	}
+
+	public void setLiaison(Boolean liaison) {
+		this.liaison = liaison;
+	}
+
+	public List<PhaseAux> getDependances() {
+		return dependances;
+	}
+
+	public void setDependances(List<PhaseAux> dependances) {
+		this.dependances = dependances;
+	}
+
 	
 
 }

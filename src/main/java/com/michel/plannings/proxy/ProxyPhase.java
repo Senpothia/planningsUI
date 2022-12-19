@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.michel.plannings.models.Dependance;
 import com.michel.plannings.models.PhaseAux;
 import com.michel.plannings.models.ProjetAux;
 
@@ -52,4 +53,10 @@ public interface ProxyPhase {
 	@GetMapping("/phase/vide/liste/projet/{projet}")
 	PhaseAux phaseVideParProjetId(@RequestHeader("Authorization") String token,@PathVariable (name="projet") Integer idProjet);
 	
+	@GetMapping("/phase/liaison/selection/{phase}/{dependance}/{statut}")
+	void creerLiaison(@RequestHeader("Authorization") String token, @PathVariable(name = "phase") Integer idPhase, @PathVariable(name = "dependance") Integer idDependance, @PathVariable(name = "statut") boolean statut);
+	
+	@GetMapping("/phase/liaison/dependances/{phase}")
+	List<Dependance> obtenirDependances(@RequestHeader("Authorization") String token,@PathVariable(name = "phase") Integer idPhase);
+
 }  
