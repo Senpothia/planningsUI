@@ -34,6 +34,7 @@ public class PhaseAux {
 							// d'une méthode)
 	private List<PhaseAux> dependances;
 	private Boolean conflit;
+	private Boolean antecedent;
 
 	public PhaseAux() {
 		super();
@@ -45,7 +46,7 @@ public class PhaseAux {
 			String description, String complement, String resultat, String reserve, Boolean passable,
 			String passableString, Boolean conforme, Boolean actif, Boolean suspendu, String conformeString,
 			String actifString, String suspenduString, List<FicheAux> fiches, Integer avancement, Boolean liaison,
-			List<PhaseAux> dependances, Boolean conflit) {
+			List<PhaseAux> dependances, Boolean conflit, Boolean antecedent) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -75,6 +76,7 @@ public class PhaseAux {
 		this.liaison = liaison;
 		this.dependances = dependances;
 		this.conflit = conflit;
+		this.antecedent = antecedent;
 	}
 
 	public Integer getId() {
@@ -299,6 +301,14 @@ public class PhaseAux {
 
 	public void setConflit(Boolean conflit) {
 		this.conflit = conflit;
+	}
+
+	public Boolean getAntecedent() {
+		return antecedent;
+	}
+
+	public void setAntecedent(Boolean antecedent) {
+		this.antecedent = antecedent;
 	}
 
 }

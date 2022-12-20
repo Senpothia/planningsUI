@@ -61,4 +61,7 @@ public interface ProxyPhase {
 	
 	@PostMapping("/phase/modifier/liaison/{phase}")
 	void modifierPhasePourLiaison(@RequestHeader("Authorization") String token, @RequestBody PhaseAux phase, @PathVariable(name = "phase") Integer idPhase);
+	
+	@GetMapping("/phase/liaison/antecedents/{phase}")
+	List<Dependance> obtenirAntecedents(@RequestHeader("Authorization") String token, @PathVariable(name = "phase") Integer idPhase);
 }  

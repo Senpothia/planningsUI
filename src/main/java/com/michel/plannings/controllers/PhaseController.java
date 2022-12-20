@@ -354,7 +354,26 @@ public class PhaseController {
 				}
 			}
 		}
+		
+		List<Dependance> antecedents = microServicePlannnings.obtenirAntecedents(token, idPhase);
+		
+		if (!antecedents.isEmpty()) {
 
+			System.out.println("Vérification des antécedents");
+			for (PhaseAux p : copyPhasesProjet) {
+
+				Integer id1 = p.getId();
+
+				for (Dependance a : antecedents) {
+
+					if (id1 == a.getSuivante()) {
+
+						p.setAntecedent(true);
+					}
+				}
+			}
+		}
+		
 		model.addAttribute("phases", copyPhasesProjet);
 		return Constants.testUser(utilisateur, Constants.LIER_PHASE);
 	}
