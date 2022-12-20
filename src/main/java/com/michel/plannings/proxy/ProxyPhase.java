@@ -58,5 +58,7 @@ public interface ProxyPhase {
 	
 	@GetMapping("/phase/liaison/dependances/{phase}")
 	List<Dependance> obtenirDependances(@RequestHeader("Authorization") String token,@PathVariable(name = "phase") Integer idPhase);
-
+	
+	@PostMapping("/phase/modifier/liaison/{phase}")
+	void modifierPhasePourLiaison(@RequestHeader("Authorization") String token, @RequestBody PhaseAux phase, @PathVariable(name = "phase") Integer idPhase);
 }  

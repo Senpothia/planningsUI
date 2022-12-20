@@ -1,5 +1,6 @@
 package com.michel.plannings.controllers;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -334,6 +335,10 @@ public class PhaseController {
 			for (PhaseAux p : copyPhasesProjet) {
 
 				Integer id1 = p.getId();
+				if(phase.getDebut().isBefore(p.getFin())) {
+					System.err.println("Conflit");
+					p.setConflit(true);
+				}
 
 				for (Dependance d : dependances) {
 
@@ -360,5 +365,108 @@ public class PhaseController {
 		microServicePlannnings.creerLiaison(token, idPhase, idDependance, statut);
 
 		return Constants.testUser(utilisateur, "redirect:/phase/liaison/ajouter/" + idPhase);
+	}
+	
+	@GetMapping("/phase/liaison/modifier/{phase}")
+	public String modifierPhaseLiaison(@PathVariable(name = "phase") Integer idPhase, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		
+		PhaseAux phase = microServicePlannnings.phaseParId(token, idPhase);
+		System.err.println("taille liste dépendances: " + phase.getDependances().size());
+		ProjetAux projet = microServicePlannnings.projetParId(token, phase.getIdProjet());
+		UtilisateurAux ressource = microServicePlannnings.obtenirRessourceParId(phase.getIdRessource(), token);
+		model.addAttribute("phase", phase);
+		model.addAttribute("projet", projet);
+		model.addAttribute("ressource", ressource);
+
+		Integer idProjet = phase.getIdProjet();
+		List<PhaseAux> phases = microServicePlannnings.phasesParProjetId(token, idProjet);
+
+		phases.remove(0);
+		if (phases.isEmpty()) {
+			model.addAttribute("vide", true);
+		} else {
+			model.addAttribute("vide", false);
+		}
+
+		List<PhaseAux> copyPhasesProjet = new ArrayList<PhaseAux>(phases);
+
+		for (PhaseAux p : phases) {
+
+			if (p.getId() == idPhase) {
+
+				copyPhasesProjet.remove(p);
+			}
+		}
+
+		List<Dependance> dependances = microServicePlannnings.obtenirDependances(token, idPhase);
+		System.err.println("Taille liste dependances: " + dependances.size());
+		if (!dependances.isEmpty()) {
+
+			System.out.println("Vérification des liaisons");
+			for (PhaseAux p : copyPhasesProjet) {
+
+				Integer id1 = p.getId();
+				if(phase.getDebut().isBefore(p.getFin())) {
+					System.err.println("Conflit");
+					p.setConflit(true);
+				}
+
+				for (Dependance d : dependances) {
+
+					if (id1 == d.getAntecedente()) {
+
+						p.setLiaison(true);
+					}
+				}
+			}
+		}
+
+		model.addAttribute("phases", copyPhasesProjet);
+		return Constants.testUser(utilisateur, Constants.LIER_MODIFIER_PHASE);
+		
+	}
+	
+	@PostMapping("/phase/modifier/liaison/{phase}")
+	public String modifierPhasePourLiaison(PhaseAux phase, @PathVariable(name = "phase") Integer idPhase, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		microServicePlannnings.modifierPhasePourLiaison(token, phase, idPhase);
+		
+		return "redirect:/phase/liaison/ajouter/" + idPhase ;
+	}
+	
+	
+	@GetMapping("/phase/liste/dependances/modifier/{phase}/{dependance}")
+	public String modifierLiaisonDependance(@PathVariable(name = "phase") Integer idPhase,@PathVariable(name = "dependance") Integer idDependance, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		
+		PhaseAux phase = microServicePlannnings.phaseParId(token, idPhase);
+		PhaseAux dependance = microServicePlannnings.phaseParId(token, idDependance);
+		ProjetAux projet = microServicePlannnings.projetParId(token, phase.getIdProjet());
+		List<PhaseAux> phases = new ArrayList<>();
+		phases.add(dependance);
+		model.addAttribute("phase", phase);
+		model.addAttribute("phases", phases);
+		model.addAttribute("ressource", utilisateur);
+		model.addAttribute("projet", projet);
+		model.addAttribute("dependance", dependance);
+		
+		return Constants.testUser(utilisateur, Constants.LIAISON_MODIFIER_DEPENDANCE);
+	}
+	
+	@PostMapping("/phase/modifier/liaison/{phase}/{dependance}")
+	public String modifierDependancePourLiaison(PhaseAux dependance, @PathVariable(name = "phase") Integer idPhase,@PathVariable(name = "dependance") Integer idDependance, Model model, HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		microServicePlannnings.modifierPhasePourLiaison(token, dependance, idDependance);
+		
+		return "redirect:/phase/liaison/ajouter/" + idPhase ;
 	}
 }

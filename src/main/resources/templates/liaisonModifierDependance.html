@@ -101,17 +101,11 @@
 
 		</div>
 		
-		<div class="col d-flex justify-content-end">
-			<div class="row">
-					<a th:href="@{/phase/liaison/modifier/{phase}(phase=${phase.id})}">
-						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">modifier</p>
-					</a>
-				</div>
-			</div>
-		
+		<div>
+				
 		<div class="row d-flex text-align-left">
 		
-			<h2 th:text="${'Dépendance: liste des phases pour le projet ' + projet.nom}">Liste des phases</h2>
+			<h2 th:text="${'Dépendance pour le projet ' + projet.nom}">Dépendance</h2>
 
 		</div>
 		
@@ -129,9 +123,6 @@
 								<th scope="col">Ressource</th>
 								<th scope="col">Date de début</th>
 								<th scope="col">Date de fin</th>
-								<th scope="col">Modifier</th>
-								<th scope="col">Liaison</th>
-							
 								
 							</tr>
 						</thead>
@@ -151,41 +142,6 @@
 								<span th:if=${p.conflit} >
 								<td style="color: red; font-weight: bold;" th:text="${#temporals.format(p.fin, 'dd-MM-yyyy')}" />
 								</span>
-
-
-								<span th:if=${groupe2}>
-								
-								
-										<td><a
-												th:href="@{/phase/liste/dependances/modifier/{phase}/{dependance}(phase=${phase.id}, dependance=${p.id})}">
-												<p type="text" class="btn btn-block"
-													style="background-color:#7e60fb ; color: white">Modifier</p>
-											</a>
-										</td>
-									
-									
-									
-									<span th:if="${p.liaison}">
-										<td><a
-												th:href="@{/phase/liaison/selection/{phase}/{dependance}/{statut}(phase=${phase.id},dependance=${p.id}, statut=${p.liaison})}">
-												<p type="text" class="btn btn-block"
-													style="background-color: #730800; color: white">Retirer</p>
-											</a>
-										</td>
-									</span>
-
-
-									<span th:unless="${p.liaison}">
-										<td><a
-												th:href="@{/phase/liaison/selection/{phase}/{dependance}/{statut}(phase=${phase.id},dependance=${p.id}, statut=${p.liaison})}">
-												<p type="text" class="btn btn-block"
-													style="background-color: #7e60fb; color: white">Ajouter</p>
-											</a>
-										</td>
-									</span>
-								</span>
-
-							
 								
 							</tr>
 
@@ -193,31 +149,33 @@
 					</table>
 				</div>
 			</div>
-			
-	
-			<div class="row mt-3">
-				<div class="col d-flex justify-content-end">
-				
-				<span th:if=${groupe2}>
-					<div class="form-group mr-3">
-						<a th:href="@{/projet/gantt/{id}(id=${projet.id})}">
-							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Gantt
-							</p>
-						</a>
+		
+				<form th:action="@{/phase/modifier/liaison/{phase}/{dependance}(phase=${phase.id}, dependance=${dependance.id})}" method="post" th:object="${dependance}">
+					
+					
+					<div class="row  mr-1 mb-3">
+						<label for="text">Début</label> <input type="date" class="form-control"
+							th:field="*{dateDebutString}" th:value="*{dateDebutString}">
 					</div>
 
-				</span>
+					<div class="row  mr-1 mb-3">
+						<label for="text">Fin</label> <input type="date" class="form-control"
+							th:field="*{dateFinString}" th:value="*{dateFinString}">
+					</div>
+					
+					<div class="bouton row">
 
-			<div class="form-group ">
-					<a th:href="@{/projet/voir/{idProjet}(idProjet=${projet.id})}">
-						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour projet</p>
-					</a>
-				</div>
-			</div>
-
-
-			</div>
-
+						<div class="col">
+							<div class="d-flex justify-content-end">
+								<a class="btn mb-1 mr-1 bouton2" style="background-color: #7e60fb; color: white;"
+									href="/espace" role="button">Annuler</a> <input type="submit"
+									class="btn mb-1 bouton2" style="background-color: #7e60fb; color: white;"
+									value="Enregistrer">
+							</div>
+						</div>
+					</div>
+				
+				</form>
 	
 		<!-- footer -->
 

@@ -92,6 +92,10 @@ public class Constants {
 
 	public static final String LIER_PHASE = "lier";
 
+	public static final String LIER_MODIFIER_PHASE = "liaisonModifierPhase";
+
+	public static final String LIAISON_MODIFIER_DEPENDANCE = "liaisonModifierDependance";
+
 	public static String testUser(Utilisateur utilisateur, String template) {
 
 		if (utilisateur == null) {
