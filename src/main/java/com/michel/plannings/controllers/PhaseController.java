@@ -1,6 +1,7 @@
 package com.michel.plannings.controllers;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -327,6 +328,14 @@ public class PhaseController {
 			}
 		}
 
+		for (PhaseAux p : copyPhasesProjet) {
+
+			if (phase.getDebut().isBefore(p.getFin())) {
+				System.err.println("Conflit");
+				p.setConflit(true);
+			}
+		}
+
 		List<Dependance> dependances = microServicePlannnings.obtenirDependances(token, idPhase);
 		System.err.println("Taille liste dependances: " + dependances.size());
 		if (!dependances.isEmpty()) {
@@ -335,10 +344,6 @@ public class PhaseController {
 			for (PhaseAux p : copyPhasesProjet) {
 
 				Integer id1 = p.getId();
-				if(phase.getDebut().isBefore(p.getFin())) {
-					System.err.println("Conflit");
-					p.setConflit(true);
-				}
 
 				for (Dependance d : dependances) {
 
@@ -366,13 +371,14 @@ public class PhaseController {
 
 		return Constants.testUser(utilisateur, "redirect:/phase/liaison/ajouter/" + idPhase);
 	}
-	
+
 	@GetMapping("/phase/liaison/modifier/{phase}")
-	public String modifierPhaseLiaison(@PathVariable(name = "phase") Integer idPhase, Model model, HttpSession session) {
-		
+	public String modifierPhaseLiaison(@PathVariable(name = "phase") Integer idPhase, Model model,
+			HttpSession session) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		
+
 		PhaseAux phase = microServicePlannnings.phaseParId(token, idPhase);
 		System.err.println("taille liste dépendances: " + phase.getDependances().size());
 		ProjetAux projet = microServicePlannnings.projetParId(token, phase.getIdProjet());
@@ -401,6 +407,13 @@ public class PhaseController {
 			}
 		}
 
+		for (PhaseAux p : copyPhasesProjet) {
+
+			if (phase.getDebut().isBefore(p.getFin())) {
+				System.err.println("Conflit");
+				p.setConflit(true);
+			}
+		}
 		List<Dependance> dependances = microServicePlannnings.obtenirDependances(token, idPhase);
 		System.err.println("Taille liste dependances: " + dependances.size());
 		if (!dependances.isEmpty()) {
@@ -409,10 +422,6 @@ public class PhaseController {
 			for (PhaseAux p : copyPhasesProjet) {
 
 				Integer id1 = p.getId();
-				if(phase.getDebut().isBefore(p.getFin())) {
-					System.err.println("Conflit");
-					p.setConflit(true);
-				}
 
 				for (Dependance d : dependances) {
 
@@ -426,26 +435,39 @@ public class PhaseController {
 
 		model.addAttribute("phases", copyPhasesProjet);
 		return Constants.testUser(utilisateur, Constants.LIER_MODIFIER_PHASE);
-		
+
 	}
-	
+
 	@PostMapping("/phase/modifier/liaison/{phase}")
-	public String modifierPhasePourLiaison(PhaseAux phase, @PathVariable(name = "phase") Integer idPhase, Model model, HttpSession session) {
-		
+	public String modifierPhasePourLiaison(PhaseAux phase, @PathVariable(name = "phase") Integer idPhase, Model model,
+			HttpSession session) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
+
+		LocalDateTime debut = LocalDateTime.parse(phase.getDateDebutString()+ " " + "00:00:00",
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		LocalDateTime fin = LocalDateTime.parse(phase.getDateFinString()+ " " + "00:00:00",
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		if (fin.isBefore(debut)) {
+			
+			model.addAttribute("phase", idPhase);
+			return "alerteDates";
+			//return "redirect:/phase/liaison/ajouter/" + idPhase;
+		}
+
 		microServicePlannnings.modifierPhasePourLiaison(token, phase, idPhase);
-		
-		return "redirect:/phase/liaison/ajouter/" + idPhase ;
+
+		return "redirect:/phase/liaison/ajouter/" + idPhase;
 	}
-	
-	
+
 	@GetMapping("/phase/liste/dependances/modifier/{phase}/{dependance}")
-	public String modifierLiaisonDependance(@PathVariable(name = "phase") Integer idPhase,@PathVariable(name = "dependance") Integer idDependance, Model model, HttpSession session) {
-		
+	public String modifierLiaisonDependance(@PathVariable(name = "phase") Integer idPhase,
+			@PathVariable(name = "dependance") Integer idDependance, Model model, HttpSession session) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		
+
 		PhaseAux phase = microServicePlannnings.phaseParId(token, idPhase);
 		PhaseAux dependance = microServicePlannnings.phaseParId(token, idDependance);
 		ProjetAux projet = microServicePlannnings.projetParId(token, phase.getIdProjet());
@@ -456,17 +478,28 @@ public class PhaseController {
 		model.addAttribute("ressource", utilisateur);
 		model.addAttribute("projet", projet);
 		model.addAttribute("dependance", dependance);
-		
+
 		return Constants.testUser(utilisateur, Constants.LIAISON_MODIFIER_DEPENDANCE);
 	}
-	
+
 	@PostMapping("/phase/modifier/liaison/{phase}/{dependance}")
-	public String modifierDependancePourLiaison(PhaseAux dependance, @PathVariable(name = "phase") Integer idPhase,@PathVariable(name = "dependance") Integer idDependance, Model model, HttpSession session) {
-		
+	public String modifierDependancePourLiaison(PhaseAux dependance, @PathVariable(name = "phase") Integer idPhase,
+			@PathVariable(name = "dependance") Integer idDependance, Model model, HttpSession session) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
+		LocalDateTime debut = LocalDateTime.parse(dependance.getDateDebutString()+ " " + "00:00:00",
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		LocalDateTime fin = LocalDateTime.parse(dependance.getDateFinString()+ " " + "00:00:00",
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		if (fin.isBefore(debut)) {
+			
+			model.addAttribute("phase", idPhase);
+			return "alerteDates";
+			//return "redirect:/phase/liaison/ajouter/" + idPhase;
+		}
 		microServicePlannnings.modifierPhasePourLiaison(token, dependance, idDependance);
-		
-		return "redirect:/phase/liaison/ajouter/" + idPhase ;
+
+		return "redirect:/phase/liaison/ajouter/" + idPhase;
 	}
 }
