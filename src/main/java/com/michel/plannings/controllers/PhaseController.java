@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.michel.plannings.contants.Constants;
 import com.michel.plannings.models.Dependance;
 import com.michel.plannings.models.FicheAux;
+import com.michel.plannings.models.GanttRow;
 import com.michel.plannings.models.Login;
 import com.michel.plannings.models.PhaseAux;
 import com.michel.plannings.models.ProjetAux;
@@ -296,7 +297,6 @@ public class PhaseController {
 	}
 
 	@GetMapping("/phase/liaison/ajouter/{idPhase}")
-
 	public String lierPhase(@PathVariable(name = "idPhase") Integer idPhase, Model model, HttpSession session) {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
@@ -375,20 +375,47 @@ public class PhaseController {
 		}
 		
 		model.addAttribute("phases", copyPhasesProjet);
+		
+		//  Diagramme de gantt
+		
+		
+		//ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
+		model.addAttribute("projet", projet);
+		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, idProjet);
+		
+		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
+		int i = 1;
+		while (i < ganttRows.size()) {
+
+			tab[i - 1] = ganttRows.get(i);
+
+			i++;
+
+		}
+		model.addAttribute("tab", tab);
+		
+		//***************************
 		return Constants.testUser(utilisateur, Constants.LIER_PHASE);
 	}
 
-	@GetMapping("/phase/liaison/selection/{phase}/{dependance}/{statut}")
+	@GetMapping("/phase/liaison/selection/{phase}/{dependance}/{statut}/{conflit}")
 	public String selectionnerLiaisonPhase(@PathVariable(name = "phase") Integer idPhase,
 			@PathVariable(name = "dependance") Integer idDependance, @PathVariable(name = "statut") Boolean statut,
-			Model model, HttpSession session) {
+			@PathVariable(name = "conflit") Boolean conflit, Model model, HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-
-		microServicePlannnings.creerLiaison(token, idPhase, idDependance, statut);
-
-		return Constants.testUser(utilisateur, "redirect:/phase/liaison/ajouter/" + idPhase);
+		if(!conflit) {
+			
+			microServicePlannnings.creerLiaison(token, idPhase, idDependance, statut);
+			return Constants.testUser(utilisateur, "redirect:/phase/liaison/ajouter/" + idPhase);
+			
+		}else {
+			
+			
+			return "redirect:/phase/liste/dependances/modifier/" + idPhase + "/"+ idDependance + "/" + conflit;
+		}
+	
 	}
 
 	@GetMapping("/phase/liaison/modifier/{phase}")
@@ -472,7 +499,6 @@ public class PhaseController {
 			
 			model.addAttribute("phase", idPhase);
 			return "alerteDates";
-			//return "redirect:/phase/liaison/ajouter/" + idPhase;
 		}
 
 		microServicePlannnings.modifierPhasePourLiaison(token, phase, idPhase);
@@ -480,15 +506,16 @@ public class PhaseController {
 		return "redirect:/phase/liaison/ajouter/" + idPhase;
 	}
 
-	@GetMapping("/phase/liste/dependances/modifier/{phase}/{dependance}")
+	@GetMapping("/phase/liste/dependances/modifier/{phase}/{dependance}/{conflit}")
 	public String modifierLiaisonDependance(@PathVariable(name = "phase") Integer idPhase,
-			@PathVariable(name = "dependance") Integer idDependance, Model model, HttpSession session) {
+			@PathVariable(name = "dependance") Integer idDependance, @PathVariable(name = "conflit") Boolean conflit, Model model, HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 
 		PhaseAux phase = microServicePlannnings.phaseParId(token, idPhase);
 		PhaseAux dependance = microServicePlannnings.phaseParId(token, idDependance);
+		dependance.setConflit(conflit);
 		ProjetAux projet = microServicePlannnings.projetParId(token, phase.getIdProjet());
 		List<PhaseAux> phases = new ArrayList<>();
 		phases.add(dependance);
@@ -497,6 +524,13 @@ public class PhaseController {
 		model.addAttribute("ressource", utilisateur);
 		model.addAttribute("projet", projet);
 		model.addAttribute("dependance", dependance);
+		if(conflit) {
+			model.addAttribute("conflitDates", true);
+	
+		}else {
+			
+			model.addAttribute("conflitDates", false);
+		}
 
 		return Constants.testUser(utilisateur, Constants.LIAISON_MODIFIER_DEPENDANCE);
 	}
@@ -515,7 +549,6 @@ public class PhaseController {
 			
 			model.addAttribute("phase", idPhase);
 			return "alerteDates";
-			//return "redirect:/phase/liaison/ajouter/" + idPhase;
 		}
 		microServicePlannnings.modifierPhasePourLiaison(token, dependance, idDependance);
 

@@ -41,7 +41,13 @@
 
 		</div>
 
-
+		<span th:if=${conflitDates}>
+			<div class="row">
+	
+				<h4 style="color: red;">Vous devez résoudre le conflit de dates avant de lier les phases</h4>
+	
+			</div>
+		</span>
 
 		<div class="col">
 
@@ -98,7 +104,35 @@
 				</tbody>
 			</table>
 			
+			<span th:if=${conflitDates}>
+			<form th:action="@{/phase/modifier/liaison/{phase}(phase=${phase.id})}" method="post" th:object="${phase}">
+					
+					
+					<div class="row  mr-1 mb-3">
+						<label for="text">Début</label> <input type="date" class="form-control"
+							th:field="*{dateDebutString}" th:value="*{dateDebutString}">
+					</div>
 
+					<div class="row  mr-1 mb-3">
+						<label for="text">Fin</label> <input type="date" class="form-control"
+							th:field="*{dateFinString}" th:value="*{dateFinString}">
+					</div>
+					
+					<div class="bouton row">
+
+						<div class="col">
+							<div class="d-flex justify-content-end">
+								<a class="btn mb-1 mr-1 bouton2" style="background-color: #7e60fb; color: white;"
+									href="/espace" role="button">Annuler</a> <input type="submit"
+									class="btn mb-1 bouton2" style="background-color: #7e60fb; color: white;"
+									value="Enregistrer">
+							</div>
+						</div>
+					</div>
+				
+				</form>
+			
+			</span>
 		</div>
 		
 		<div>
