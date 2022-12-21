@@ -140,6 +140,25 @@ public class PhaseController {
 		model.addAttribute("projet", projet);
 		model.addAttribute("phases", phases);
 
+		// Diagramme de Gantt
+
+		// ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
+		model.addAttribute("projet", projet);
+		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, idProjet);
+
+		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
+		int i = 1;
+		while (i < ganttRows.size()) {
+
+			tab[i - 1] = ganttRows.get(i);
+
+			i++;
+
+		}
+		model.addAttribute("tab", tab);
+
+		// ***************************
+
 		return Constants.testUser(utilisateur, Constants.PHASES);
 	}
 
@@ -354,9 +373,9 @@ public class PhaseController {
 				}
 			}
 		}
-		
+
 		List<Dependance> antecedents = microServicePlannnings.obtenirAntecedents(token, idPhase);
-		
+
 		if (!antecedents.isEmpty()) {
 
 			System.out.println("Vérification des antécedents");
@@ -373,16 +392,15 @@ public class PhaseController {
 				}
 			}
 		}
-		
+
 		model.addAttribute("phases", copyPhasesProjet);
-		
-		//  Diagramme de gantt
-		
-		
-		//ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
+
+		// Diagramme de gantt
+
+		// ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, idProjet);
-		
+
 		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
 		int i = 1;
 		while (i < ganttRows.size()) {
@@ -393,8 +411,8 @@ public class PhaseController {
 
 		}
 		model.addAttribute("tab", tab);
-		
-		//***************************
+
+		// ***************************
 		return Constants.testUser(utilisateur, Constants.LIER_PHASE);
 	}
 
@@ -405,17 +423,16 @@ public class PhaseController {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		if(!conflit) {
-			
+		if (!conflit) {
+
 			microServicePlannnings.creerLiaison(token, idPhase, idDependance, statut);
 			return Constants.testUser(utilisateur, "redirect:/phase/liaison/ajouter/" + idPhase);
-			
-		}else {
-			
-			
-			return "redirect:/phase/liste/dependances/modifier/" + idPhase + "/"+ idDependance + "/" + conflit;
+
+		} else {
+
+			return "redirect:/phase/liste/dependances/modifier/" + idPhase + "/" + idDependance + "/" + conflit;
 		}
-	
+
 	}
 
 	@GetMapping("/phase/liaison/modifier/{phase}")
@@ -491,12 +508,12 @@ public class PhaseController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 
-		LocalDateTime debut = LocalDateTime.parse(phase.getDateDebutString()+ " " + "00:00:00",
+		LocalDateTime debut = LocalDateTime.parse(phase.getDateDebutString() + " " + "00:00:00",
 				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		LocalDateTime fin = LocalDateTime.parse(phase.getDateFinString()+ " " + "00:00:00",
+		LocalDateTime fin = LocalDateTime.parse(phase.getDateFinString() + " " + "00:00:00",
 				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		if (fin.isBefore(debut)) {
-			
+
 			model.addAttribute("phase", idPhase);
 			return "alerteDates";
 		}
@@ -508,7 +525,8 @@ public class PhaseController {
 
 	@GetMapping("/phase/liste/dependances/modifier/{phase}/{dependance}/{conflit}")
 	public String modifierLiaisonDependance(@PathVariable(name = "phase") Integer idPhase,
-			@PathVariable(name = "dependance") Integer idDependance, @PathVariable(name = "conflit") Boolean conflit, Model model, HttpSession session) {
+			@PathVariable(name = "dependance") Integer idDependance, @PathVariable(name = "conflit") Boolean conflit,
+			Model model, HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
@@ -524,11 +542,11 @@ public class PhaseController {
 		model.addAttribute("ressource", utilisateur);
 		model.addAttribute("projet", projet);
 		model.addAttribute("dependance", dependance);
-		if(conflit) {
+		if (conflit) {
 			model.addAttribute("conflitDates", true);
-	
-		}else {
-			
+
+		} else {
+
 			model.addAttribute("conflitDates", false);
 		}
 
@@ -541,12 +559,12 @@ public class PhaseController {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		LocalDateTime debut = LocalDateTime.parse(dependance.getDateDebutString()+ " " + "00:00:00",
+		LocalDateTime debut = LocalDateTime.parse(dependance.getDateDebutString() + " " + "00:00:00",
 				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		LocalDateTime fin = LocalDateTime.parse(dependance.getDateFinString()+ " " + "00:00:00",
+		LocalDateTime fin = LocalDateTime.parse(dependance.getDateFinString() + " " + "00:00:00",
 				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		if (fin.isBefore(debut)) {
-			
+
 			model.addAttribute("phase", idPhase);
 			return "alerteDates";
 		}
