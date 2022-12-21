@@ -496,6 +496,25 @@ public class PhaseController {
 			}
 		}
 
+		// Diagramme de gantt
+
+		// ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
+		model.addAttribute("projet", projet);
+		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, idProjet);
+
+		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
+		int i = 1;
+		while (i < ganttRows.size()) {
+
+			tab[i - 1] = ganttRows.get(i);
+
+			i++;
+
+		}
+		model.addAttribute("tab", tab);
+
+		// ***************************
+
 		model.addAttribute("phases", copyPhasesProjet);
 		return Constants.testUser(utilisateur, Constants.LIER_MODIFIER_PHASE);
 
@@ -549,6 +568,25 @@ public class PhaseController {
 
 			model.addAttribute("conflitDates", false);
 		}
+
+		// Diagramme de gantt
+
+		// ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
+		model.addAttribute("projet", projet);
+		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, phase.getIdProjet());
+
+		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
+		int i = 1;
+		while (i < ganttRows.size()) {
+
+			tab[i - 1] = ganttRows.get(i);
+
+			i++;
+
+		}
+		model.addAttribute("tab", tab);
+
+		// ***************************
 
 		return Constants.testUser(utilisateur, Constants.LIAISON_MODIFIER_DEPENDANCE);
 	}
