@@ -43,4 +43,11 @@ public class Dependance {
 		this.suivante = suivante;
 	}
 
+	@Override
+	public String toString() {
+		return "Dependance [id=" + id + ", antecedente=" + antecedente + ", suivante=" + suivante + "]";
+	}
+	
+	
+
 }

@@ -589,7 +589,7 @@ public class PhaseController {
 		// ***************************
 
 		return Constants.testUser(utilisateur, Constants.LIAISON_MODIFIER_DEPENDANCE);
-	}
+	 }
 
 	@PostMapping("/phase/modifier/liaison/{phase}/{dependance}")
 	public String modifierDependancePourLiaison(PhaseAux dependance, @PathVariable(name = "phase") Integer idPhase,

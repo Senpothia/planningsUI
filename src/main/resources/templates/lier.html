@@ -228,19 +228,29 @@
 
 								<span th:if=${groupe2}>
 								
-								
+									<span th:unless="${p.antecedent}">
 										<td><a
 												th:href="@{/phase/liste/dependances/modifier/{phase}/{dependance}/{conflit}(phase=${phase.id}, dependance=${p.id},conflit=${p.conflit})}">
 												<p type="text" class="btn btn-block"
 													style="background-color:#7e60fb ; color: white">Modifier</p>
 											</a>
 										</td>
+									</span>
 									
+										<span th:if="${p.antecedent}">
+										
+											<td>
+													<p type="text" class="btn btn-block"
+														style="background-color: gray; color: white">Invalide</p>
+												
+											</td>
+									
+									</span>
 									
 									<span th:unless="${p.antecedent}">
 										<span th:if="${p.liaison}">
 											<td><a
-													th:href="@{/phase/liaison/selection/{phase}/{dependance}/{statut}(phase=${phase.id},dependance=${p.id},statut=${p.liaison})}">
+													th:href="@{/phase/liaison/selection/{phase}/{dependance}/{statut}/{conflit}(phase=${phase.id},dependance=${p.id},statut=${p.liaison}, conflit=${p.conflit})}">
 													<p type="text" class="btn btn-block"
 														style="background-color: #730800; color: white">Retirer</p>
 												</a>

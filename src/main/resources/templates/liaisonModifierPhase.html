@@ -28,7 +28,7 @@
 			<div th:replace="fragments/entete_init :: entete_init"></div>
 		</span>
 		<!-- ---------------- -->
-	
+
 		<!--
 		<div class="row">
 			<div class="col">
@@ -36,8 +36,8 @@
 			</div>
 		</div>
 		-->
-		
-			<script th:inline="javascript">
+
+		<script th:inline="javascript">
 
 			var nom = /*[[${projet.nom}]]*/ null;
 			var tableau = /*[[${tab}]]*/ null;
@@ -109,7 +109,7 @@
 		</div>
 
 		<div id="chart_div"></div>
-		
+
 		<div class="row">
 
 			<h2>Présentation de la Phase à lier</h2>
@@ -188,6 +188,12 @@
 					<div class="row  mr-1 mb-3">
 						<label for="text">Fin</label> <input type="date" class="form-control"
 							th:field="*{dateFinString}" th:value="*{dateFinString}">
+					</div>
+					
+					<div class="row  mr-1">
+						<label for="text">Décalage</label> <input type="number" min="-30" max="30" 
+						class="form-control"
+							th:field="*{decalage}">
 					</div>
 					
 					<div class="bouton row">
