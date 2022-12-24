@@ -30,8 +30,6 @@ public class ProjetController {
 
 	@Autowired
 	private UserConnexion userConnexion;
-	
-	
 
 	@GetMapping("/projets/access")
 	public String accueilProjets(Model model, HttpSession session) {
@@ -65,7 +63,7 @@ public class ProjetController {
 
 		}
 
- 	 }
+	}
 
 	@GetMapping("/projets/voir/tous")
 	public String tousProjets(Model model, HttpSession session) {
@@ -213,12 +211,12 @@ public class ProjetController {
 		model.addAttribute("projet", projet);
 		List<Dependance> dependances = microServicePlannnings.obtenirDependancesProjet(token, idProjet);
 		System.err.println("nombre de liaisons: " + dependances.size());
-		if(!dependances.isEmpty()) {
-			
+		if (!dependances.isEmpty()) {
+
 			model.addAttribute("liaisons", true);
 		}
 		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, idProjet);
-		
+
 		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
 		int i = 1;
 		while (i < ganttRows.size()) {
@@ -231,35 +229,35 @@ public class ProjetController {
 		System.err.println("Taille row : " + tab.length);
 		model.addAttribute("tab", tab);
 		model.addAttribute("supprimer", false);
-		
+		model.addAttribute("test", false);
+
 		return Constants.testUser(utilisateur, "gantt");
 
 	}
-	
+
 	@GetMapping("/projet/liaisons/supprimer/{projet}")
-	public String supprimerLiaisons(@PathVariable(name = "projet") Integer idProjet, Model model, HttpSession session, Login login) {
-		
+	public String supprimerLiaisons(@PathVariable(name = "projet") Integer idProjet, Model model, HttpSession session,
+			Login login) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		
+
 		Boolean test = userConnexion.confirmerUtilisateur(login, session);
-		if (test) {
-			
-		}
-		model.addAttribute("test", true);
-		model.addAttribute("supprimer", true);
-		model.addAttribute("login", login);
 		
+		model.addAttribute("supprimer", true);
+		model.addAttribute("test", false);
+		model.addAttribute("login", login);
+
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		List<Dependance> dependances = microServicePlannnings.obtenirDependancesProjet(token, idProjet);
 		System.err.println("nombre de liaisons: " + dependances.size());
-		if(!dependances.isEmpty()) {
-			
+		if (!dependances.isEmpty()) {
+
 			model.addAttribute("liaisons", true);
 		}
 		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, idProjet);
-		
+
 		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
 		int i = 1;
 		while (i < ganttRows.size()) {
@@ -271,13 +269,13 @@ public class ProjetController {
 		}
 		model.addAttribute("tab", tab);
 		return Constants.testUser(utilisateur, "gantt");
-	
+
 	}
-	
+
 	@PostMapping("/projet/liaisons/supprimer/{projet}")
-	public String traiterSuppressionsLiaisons(@PathVariable(name = "projet") Integer idProjet, Model model, HttpSession session, Login login) {
-		
-		
+	public String traiterSuppressionsLiaisons(@PathVariable(name = "projet") Integer idProjet, Model model,
+			HttpSession session, Login login) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 
@@ -285,9 +283,32 @@ public class ProjetController {
 		if (test) {
 			microServicePlannnings.supprimerLiaisions(token, idProjet);
 		}
+
+		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
+		model.addAttribute("projet", projet);
+		List<Dependance> dependances = microServicePlannnings.obtenirDependancesProjet(token, idProjet);
+		System.err.println("nombre de liaisons: " + dependances.size());
+		if (!dependances.isEmpty()) {
+
+			model.addAttribute("liaisons", true);
+		}
+		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, idProjet);
+
+		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
+		int i = 1;
+		while (i < ganttRows.size()) {
+
+			tab[i - 1] = ganttRows.get(i);
+
+			i++;
+
+		}
+		System.err.println("Taille row : " + tab.length);
+		model.addAttribute("tab", tab);
+		model.addAttribute("supprimer", false);
 		model.addAttribute("test", test);
-		return Constants.testUser(utilisateur, "redirect:/projet/gantt/" + idProjet);
+		model.addAttribute("resultat", true);
+		return Constants.testUser(utilisateur, "gantt");
 	}
-	
-	
+
 }

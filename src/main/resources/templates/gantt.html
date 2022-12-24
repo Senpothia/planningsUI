@@ -217,33 +217,33 @@
 
 				</div>
 				
-				<span th:unless=${test}>
-
-			<div class="row">
-
-				<h1 style"color: red;">La supression des liaisons est rejetée!</h1>
-
-			</div>
-
-
-		</span>
-		
-		<span th:if=${test}>
-
-			<div class="row">
-
-				<h1 style"color: green;">Les liaisons ont été supprimées</h1>
-
-			</div>
-
-
-		</span>
+			
 
 			</span>
 			
 		</span>
+		<span th:if=${resultat}>
+			<span th:unless=${test}>
+
+					<div class="row">
+		
+						<h1 style="color: red;">La supression des liaisons est rejetée!</h1>
+		
+					</div>
+
+				</span>
+		
+				<span th:if=${test}>
+
+					<div class="row">
+		
+						<h1 style="color: green;">Les liaisons ont été supprimé</h1>
 	
+		
+					</div>
+				</span>
 	
+			</span>
 		<!-- PIED DE PAGE -->
 
 		<div th:replace="fragments/footer :: footer"></div>
