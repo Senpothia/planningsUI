@@ -64,4 +64,10 @@ public interface ProxyPhase {
 	
 	@GetMapping("/phase/liaison/antecedents/{phase}")
 	List<Dependance> obtenirAntecedents(@RequestHeader("Authorization") String token, @PathVariable(name = "phase") Integer idPhase);
+	
+	@GetMapping("/phase/projet/supprimer/liaisons/{projet}")
+	void supprimerLiaisions(@RequestHeader("Authorization") String token, @PathVariable(name = "projet") Integer idProjet);
+	
+	@GetMapping("/phase/projet/dependances/{projet}")
+	List<Dependance> obtenirDependancesProjet(@RequestHeader("Authorization") String token, @PathVariable(name = "projet") Integer idProjet);
 }  

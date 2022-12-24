@@ -3,18 +3,19 @@ package com.michel.plannings.models;
 public class Dependance {
 
 	private Integer id;
-
+	private Integer projet;		 // id du projet
 	private Integer antecedente; // id de la dépendance
-	private Integer suivante; // id de la phase considérée relativement à la dépendance
+	private Integer suivante; 	 // id de la phase considérée relativement à la dépendance
 
 	public Dependance() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Dependance(Integer id, Integer antecedente, Integer suivante) {
+	public Dependance(Integer id, Integer projet, Integer antecedente, Integer suivante) {
 		super();
 		this.id = id;
+		this.projet = projet;
 		this.antecedente = antecedente;
 		this.suivante = suivante;
 	}
@@ -43,11 +44,17 @@ public class Dependance {
 		this.suivante = suivante;
 	}
 
+	public Integer getProjet() {
+		return projet;
+	}
+
+	public void setProjet(Integer projet) {
+		this.projet = projet;
+	}
+
 	@Override
 	public String toString() {
 		return "Dependance [id=" + id + ", antecedente=" + antecedente + ", suivante=" + suivante + "]";
 	}
-	
-	
 
 }

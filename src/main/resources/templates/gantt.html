@@ -1,11 +1,68 @@
-<html>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+	<title>Plannings</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+	<title>Plannings</title>
+
+	<script th:inline="javascript">
+
+		var nom = /*[[${projet.nom}]]*/ null;
+		var tableau = /*[[${tab}]]*/ null;
+		var liste = /*[[${liste}]]*/ null;
+
+
+
+		const lignes = [];
+
+		for (i = 0; i < tableau.length; i++) {
+
+			l = new Array(tableau[i].taskId, tableau[i].taskName, tableau[i].ressource,
+				new Date(tableau[i].startDate), new Date(tableau[i].endDate), tableau[i].duration, tableau[i].percent, tableau[i].dependencies);
+			lignes.push(l);
+		}
+
+
+		function HTMLtoPdf() {
+
+			console.log("impression")
+
+			var doc = new jsPDF();
+			doc.text('Hello world', 10, 10)
+			doc.save('testDoc.pdf')
+
+		}
+
+	</script>
+
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 		google.charts.load('current', {'packages': ['gantt']});
 		google.charts.setOnLoadCallback(drawChart);
-
+		var hauteur = lignes.length * 30 + 40;
+		if (hauteur < 310) {
+			hauteur = 310
+		}
 		function drawChart() {
 
 			var data = new google.visualization.DataTable();
@@ -18,56 +75,10 @@
 			data.addColumn('number', 'Percent Complete');
 			data.addColumn('string', 'Dependencies');
 
-			tab1 = ['2014Spring', 'Spring 2014', 'spring',
-				new Date('2015-2-22'), new Date('2015-2-24'), 0, 100, null];
-
-			tab2 = ['2014Summer', 'Summer 2014', 'summer',
-				new Date('2015-2-24'), new Date('2015-2-26'), 0, 100, null];
-			tab3 = ['2014Autumn', 'Autumn 2014', 'autumn',
-				new Date('2015-2-26'), new Date('2015-2-28'), 0, 100, null];
-			tab4 = ['2014Winter', 'Winter 2014', 'winter',
-				new Date('2015-2-28'), new Date('2015-3-2'), 0, 100, null];
-			tab5 = ['2015Spring', 'Spring 2015', 'spring',
-				new Date('2015-3-2'), new Date('2015-3-6'), 0, 50, null];
-
-			tab6 = ['2015Summer', 'Summer 2015', 'summer',
-				new Date('2015-3-6'), new Date('2015-3-9'), 0, 0, null];
-			tab7 = ['2015Autumn', 'Autumn 2015', 'autumn',
-				new Date('2015-3-9'), new Date('2015-3-12'), 0, 0, null];
-			tab8 = ['2015Winter', 'Winter 2015', 'winter',
-				new Date('2015-3-12'), new Date('2015-3-16'), 0, 0, null];
-			tab9 = ['Football', 'Football Season', 'sports',
-				new Date('2015-3-16'), new Date('2015-3-19'), 0, 100, null];
-			tab10 = ['Baseball', 'Baseball Season', 'sports',
-				new Date('2015-3-19'), new Date('2015-3-23'), 0, 14, null];
-			tab11 = ['Basketball', 'Basketball Season', 'sports',
-				new Date('2015-3-23'), new Date('2015-3-27'), 0, 86, null];
-			tab12 = ['Hockey', 'Hockey Season', 'sports',
-				new Date('2015-3-27'), new Date('2015-3-30'), 0, 89, null];
-			tab13 = ['Hockey2', 'Hockey Season2', 'sports2',
-				new Date('2015-3-30'), new Date('2015-4-2'), 0, 89, null];
-			tab14 = ['Hockey3', 'Hockey Season3', 'sports3',
-				new Date('2015-4-2'), new Date('2015-4-7'), 0, 89, null];
-
-			data.addRows([
-				tab1,
-				tab2,
-				tab3,
-				tab4,
-				tab5,
-				tab6,
-				tab7,
-				tab8,
-				tab9,
-				tab10,
-				tab11,
-				tab12,
-				tab13,
-				tab14,
-			]);
+			data.addRows(lignes);
 
 			var options = {
-				height: 2000,
+				height: hauteur,
 				gantt: {
 					trackHeight: 30
 				}
@@ -81,7 +92,164 @@
 </head>
 
 <body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<div class="container">
+		<!-- ENTETE -->
+
+
+		<div th:replace="fragments/entete_post :: entete_post"></div>
+
+		<!-- ---------------- -->
+
+
+
+		<section id="graphic">
+			<div class="row">
+
+				<h1>Diagramme de Gantt</h1>
+
+			</div>
+
+			<div class="col">
+
+				<table class="table table-striped">
+					<thead>
+
+
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">Projet</th>
+							<td th:text="${projet.nom}" />
+
+						</tr>
+
+
+						<tr>
+							<th scope="row">Date</th>
+							<td th:text="${#temporals.format(projet.date, 'dd-MM-yyyy')}" />
+
+					</tr>
+
+
+					<tr>
+						<th scope="row">Créé par</th>
+						<td th:text="${projet.nomChef}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Type</th>
+						<td th:text="${projet.type}" />
+
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+		</section>
 	<div id="chart_div"></div>
+	
+	<span th:unless=${supprimer}>
+		<div class="row mt-3">
+			<div class="col d-flex justify-content-end">
+				
+				<span th:if=${liaisons}>
+				<div class="form-group mr-3">
+				
+						<a th:href="@{/projet/liaisons/supprimer/{idProjet}(idProjet=${projet.id})}">
+						<p type="text" class="btn btn-block" style="background-color: red; color: white">Supprimer liaisons</p>
+					</a>
+				</div>
+				</span>
+				
+				<div class="form-group ">
+					<a th:href="@{/projet/voir/{idProjet}(idProjet=${projet.id})}">
+						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour projet</p>
+					</a>
+				</div>
+
+			</div>
+
+		</div>
+		</span>
+					
+		<span th:if=${groupe2}>
+		
+			<span th:if=${supprimer}>
+				<div class="row mt-3">
+					<div class="col d-flex justify-content-center">
+
+						<form class="formulaire" th:action="@{/projet/liaisons/supprimer/{projet}(projet=${projet.id})}"
+							th:object="${login}" method="post">
+							<div>
+								<h3 style="color: red;" th:if="${error}">Erreur! Vérifiez vous
+									identifiants de connexion</h3>
+
+							</div>
+
+							<div>
+								<h3 style="color: red;" th:unless="${error}">Entrez vos identifiants pour valider la
+									suppression</h3>
+
+							</div>
+
+							<div class="form-group">
+								<label for="email">Email</label> <input type="text" class="form-control" name="user">
+
+							</div>
+							<div class="form-group">
+								<label for="password">Password</label> <input type="password" class="form-control"
+									name="password">
+							</div>
+
+							<div class="float-right">
+
+								<button type="submit" class="btn"
+									style="background-color: red; color: white;">Supprimer</button>
+							</div>
+
+						</form>
+
+
+					</div>
+
+
+				</div>
+				
+				<span th:unless=${test}>
+
+			<div class="row">
+
+				<h1 style"color: red;">La supression des liaisons est rejetée!</h1>
+
+			</div>
+
+
+		</span>
+		
+		<span th:if=${test}>
+
+			<div class="row">
+
+				<h1 style"color: green;">Les liaisons ont été supprimées</h1>
+
+			</div>
+
+
+		</span>
+
+			</span>
+			
+		</span>
+	
+	
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+	
+</div>
+	
 </body>
 
 </html>

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.michel.plannings.contants.Constants;
+import com.michel.plannings.models.Dependance;
 import com.michel.plannings.models.GanttRow;
+import com.michel.plannings.models.Login;
 import com.michel.plannings.models.ProjetAux;
 import com.michel.plannings.models.Utilisateur;
 import com.michel.plannings.models.UtilisateurAux;
@@ -209,6 +211,53 @@ public class ProjetController {
 
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
+		List<Dependance> dependances = microServicePlannnings.obtenirDependancesProjet(token, idProjet);
+		System.err.println("nombre de liaisons: " + dependances.size());
+		if(!dependances.isEmpty()) {
+			
+			model.addAttribute("liaisons", true);
+		}
+		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, idProjet);
+		
+		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
+		int i = 1;
+		while (i < ganttRows.size()) {
+
+			tab[i - 1] = ganttRows.get(i);
+
+			i++;
+
+		}
+		System.err.println("Taille row : " + tab.length);
+		model.addAttribute("tab", tab);
+		model.addAttribute("supprimer", false);
+		
+		return Constants.testUser(utilisateur, "gantt");
+
+	}
+	
+	@GetMapping("/projet/liaisons/supprimer/{projet}")
+	public String supprimerLiaisons(@PathVariable(name = "projet") Integer idProjet, Model model, HttpSession session, Login login) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		
+		Boolean test = userConnexion.confirmerUtilisateur(login, session);
+		if (test) {
+			
+		}
+		model.addAttribute("test", true);
+		model.addAttribute("supprimer", true);
+		model.addAttribute("login", login);
+		
+		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
+		model.addAttribute("projet", projet);
+		List<Dependance> dependances = microServicePlannnings.obtenirDependancesProjet(token, idProjet);
+		System.err.println("nombre de liaisons: " + dependances.size());
+		if(!dependances.isEmpty()) {
+			
+			model.addAttribute("liaisons", true);
+		}
 		List<GanttRow> ganttRows = microServicePlannnings.ganttProjetParId(token, idProjet);
 		
 		GanttRow[] tab = new GanttRow[ganttRows.size() - 1];
@@ -221,8 +270,24 @@ public class ProjetController {
 
 		}
 		model.addAttribute("tab", tab);
-
-		return Constants.testUser(utilisateur, "gantt3");
-
+		return Constants.testUser(utilisateur, "gantt");
+	
 	}
+	
+	@PostMapping("/projet/liaisons/supprimer/{projet}")
+	public String traiterSuppressionsLiaisons(@PathVariable(name = "projet") Integer idProjet, Model model, HttpSession session, Login login) {
+		
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+
+		Boolean test = userConnexion.confirmerUtilisateur(login, session);
+		if (test) {
+			microServicePlannnings.supprimerLiaisions(token, idProjet);
+		}
+		model.addAttribute("test", test);
+		return Constants.testUser(utilisateur, "redirect:/projet/gantt/" + idProjet);
+	}
+	
+	
 }
