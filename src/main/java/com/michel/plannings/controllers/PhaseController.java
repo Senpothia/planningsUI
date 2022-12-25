@@ -514,7 +514,18 @@ public class PhaseController {
 		model.addAttribute("tab", tab);
 
 		// ***************************
-
+		
+		List<LocalDateTime> dates = microServicePlannnings.obtenirDatesLimites(token, idPhase);
+		if(!dates.isEmpty()) {
+			
+			model.addAttribute("limiteInf", dates.get(0));
+			model.addAttribute("limiteSup", dates.get(1));
+			model.addAttribute("noLimites", false);
+		}else {
+			
+			model.addAttribute("noLimites", true);
+		}
+		
 		model.addAttribute("phases", copyPhasesProjet);
 		return Constants.testUser(utilisateur, Constants.LIER_MODIFIER_PHASE);
 

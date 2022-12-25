@@ -1,5 +1,6 @@
 package com.michel.plannings.proxy;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -30,6 +31,8 @@ import com.michel.plannings.models.forms.FormFiche;
 //@FeignClient(name = "plannings", url = "http://46.105.35.7:8103/")
 @FeignClient(name = "plannings", url = "http://localhost:8103/")
 public interface MicroServicePlannings extends ProxyGlobal{
+
+	
 
 	
 

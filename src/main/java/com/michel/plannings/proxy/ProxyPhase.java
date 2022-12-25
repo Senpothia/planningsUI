@@ -1,5 +1,6 @@
 package com.michel.plannings.proxy;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -70,4 +71,7 @@ public interface ProxyPhase {
 	
 	@GetMapping("/phase/projet/dependances/{projet}")
 	List<Dependance> obtenirDependancesProjet(@RequestHeader("Authorization") String token, @PathVariable(name = "projet") Integer idProjet);
+	
+	@GetMapping("/phase/dependances/dates/limite/{phase}")
+	List<LocalDateTime> obtenirDatesLimites(@RequestHeader("Authorization") String token,  @PathVariable(name = "phase") Integer idPhase);
 }  
