@@ -514,18 +514,41 @@ public class PhaseController {
 		model.addAttribute("tab", tab);
 
 		// ***************************
-		
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		System.err.println("exemple date string: " + phase.getDateDebutString());
 		List<LocalDateTime> dates = microServicePlannnings.obtenirDatesLimites(token, idPhase);
-		if(!dates.isEmpty()) {
-			
+		if (dates.get(0) == null) {
+
+			model.addAttribute("limiteInf", "2000-11-11T00:00:00");
+			model.addAttribute("noLimiteInf", true);
+			phase.setLimiteInf(LocalDateTime.parse("2000-11-11T00:00:00"));
+			phase.setLimInfString("2000-11-11");
+
+		} else {
+
 			model.addAttribute("limiteInf", dates.get(0));
-			model.addAttribute("limiteSup", dates.get(1));
-			model.addAttribute("noLimites", false);
-		}else {
-			
-			model.addAttribute("noLimites", true);
+			model.addAttribute("noLimiteInf", false);
+			phase.setLimiteInf(dates.get(0));
+			phase.setLimInfString(dates.get(0).format(dateTimeFormatter));
+
 		}
-		
+
+		if (dates.get(1) == null) {
+
+			model.addAttribute("limiteSup", "2000-11-11T00:00:00");
+			model.addAttribute("noLimiteSup", true);
+			phase.setLimiteSup(LocalDateTime.parse("2000-11-11T00:00:00"));
+			phase.setLimSupString("2000-11-11");
+
+		} else {
+
+			model.addAttribute("limiteSup", dates.get(1));
+			model.addAttribute("noLimiteSup", false);
+			phase.setLimiteSup(dates.get(1));
+			phase.setLimSupString(dates.get(1).format(dateTimeFormatter));
+		}
+		System.err.println("droite: " + phase.getDroite());
+		System.err.println("gauche: " + phase.getGauche());
 		model.addAttribute("phases", copyPhasesProjet);
 		return Constants.testUser(utilisateur, Constants.LIER_MODIFIER_PHASE);
 
@@ -535,22 +558,62 @@ public class PhaseController {
 	public String modifierPhasePourLiaison(PhaseAux phase, @PathVariable(name = "phase") Integer idPhase, Model model,
 			HttpSession session) {
 
+		System.err.println("Méthode Post1");
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 
-		LocalDateTime debut = LocalDateTime.parse(phase.getDateDebutString() + " " + "00:00:00",
-				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		LocalDateTime fin = LocalDateTime.parse(phase.getDateFinString() + " " + "00:00:00",
-				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		LocalDateTime debut = LocalDateTime.parse(phase.getDateDebutString() + " " + "00:00",
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		LocalDateTime fin = LocalDateTime.parse(phase.getDateFinString() + " " + "00:00",
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 		if (fin.isBefore(debut)) {
 
 			model.addAttribute("phase", idPhase);
 			return "alerteDates";
 		}
 
+		LocalDateTime limInf = LocalDateTime.parse(phase.getLimInfString() + " " + "00:00",
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		phase.setLimiteInf(limInf);
+
+		LocalDateTime limSup = LocalDateTime.parse(phase.getLimSupString() + " " + "00:00",
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		System.err.println("limiteInf: " + limInf);
+		System.err.println("limiteSup: " + limSup);
+		System.err.println("limInfString: " + phase.getLimInfString());
+		System.err.println("limSupString: " + phase.getLimSupString());
+		phase.setLimiteSup(limSup);
+		System.err.println("droite: " + phase.getDroite());
+		System.err.println("gauche: " + phase.getGauche());
+		System.err.println("limInf: " + limInf);
+		System.err.println("limSup: " + limSup);
+
+		if (!phase.getLimInfString().equals("2000-11-11")) { // cas d'une limite inférieure - situation où il exite une
+																// dépendance
+
+			if (debut.isBefore(limInf) && !phase.getGauche()) { // décalage non autorisé - limite inf imposée
+
+				model.addAttribute("phase", idPhase);
+				return "alerteDates";
+			}
+
+		}
+
+		if (!phase.getLimSupString().equals("2000-11-11")) { // cas d'une limite supérieure - situation où une phase est
+																// en
+			// dépendance de la phase en cours de traitement
+
+			if (fin.isAfter(limSup) && !phase.getDroite()) {
+
+				model.addAttribute("phase", idPhase);
+				return "alerteDates";
+			}
+		}
+
 		microServicePlannnings.modifierPhasePourLiaison(token, phase, idPhase);
 
 		return "redirect:/phase/liaison/ajouter/" + idPhase;
+
 	}
 
 	@GetMapping("/phase/liste/dependances/modifier/{phase}/{dependance}/{conflit}")
@@ -600,12 +663,13 @@ public class PhaseController {
 		// ***************************
 
 		return Constants.testUser(utilisateur, Constants.LIAISON_MODIFIER_DEPENDANCE);
-	 }
+	}
 
 	@PostMapping("/phase/modifier/liaison/{phase}/{dependance}")
 	public String modifierDependancePourLiaison(PhaseAux dependance, @PathVariable(name = "phase") Integer idPhase,
 			@PathVariable(name = "dependance") Integer idDependance, Model model, HttpSession session) {
 
+		System.err.println("Méthode Post2");
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		LocalDateTime debut = LocalDateTime.parse(dependance.getDateDebutString() + " " + "00:00:00",

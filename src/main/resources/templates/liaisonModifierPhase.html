@@ -173,38 +173,91 @@
 				</tbody>
 			</table>
 			
-
 		</div>
 		
 		<div>
 				<form th:action="@{/phase/modifier/liaison/{phase}(phase=${phase.id})}" method="post" th:object="${phase}">
 					
-					<span th:unless=${noLimites}>
-					<div class="row  mr-1 mb-3">
-						<label for="text" th:text="${'Début; limite: ' + limiteInf}" style="color: red;">Début</label> <input type="date" class="form-control"
-							th:field="*{dateDebutString}" th:value="*{dateDebutString}">
-					</div>
-
-					<div class="row  mr-1 mb-3">
-						<label for="text" th:text="${'Fin; limite: ' + limiteSup}" style="color: red;">Fin</label> <input type="date" class="form-control"
-							th:field="*{dateFinString}" th:value="*{dateFinString}">
-					</div>
+					<span th:unless=${noLimiteInf}>
+						<div class="row  mr-1 mb-3">
+							<b>	<label for="text" th:text="${'Début - limite: ' + #temporals.format(limiteInf, 'dd-MM-yyyy')}" style="color: red;">Début</label></b><input type="date" class="form-control"
+									th:field="*{dateDebutString}" th:value="*{dateDebutString}">
+						</div>
+						
+						<div class="row  mr-1 mb-3" hidden>
+							<label for="text" style="color: red;">Limite inf</label><input type="date" class="form-control"
+								th:field="*{limInfString}" th:value="*{limInfString}">
+						</div>
+						
+						<div class="form-check mt-2">
+							<input type="checkbox" class="form-check-input"
+								th:field="*{gauche}" th:checked="*{gauche}" th:value="*{gauche}"> <label
+								class="form-check-label">Décalage à gauche</label>
+						</div>
 					</span>
 					
-						<span th:if=${noLimites}>
-					<div class="row  mr-1 mb-3">
-						<label for="text">Début</label> <input type="date" class="form-control"
-							th:field="*{dateDebutString}" th:value="*{dateDebutString}">
-					</div>
-
-					<div class="row  mr-1 mb-3">
-						<label for="text">Fin</label> <input type="date" class="form-control"
-							th:field="*{dateFinString}" th:value="*{dateFinString}">
-					</div>
+					<span th:unless=${noLimiteSup}>
+						<div class="row  mr-1 mb-3">
+							<b>	<label for="text" th:text="${'Fin - limite: ' + #temporals.format(limiteSup, 'dd-MM-yyyy')}" style="color: red;">Fin</label> </b> <input type="date" class="form-control"
+									th:field="*{dateFinString}" th:value="*{dateFinString}">
+						</div>
+						
+						<div class="row  mr-1 mb-3" hidden>
+							<label for="text" style="color: red;">Limite sup</label><input type="date" class="form-control"
+								th:field="*{limSupString}" th:value="*{limSupString}">
+						</div>
+					
+						
+						<div class="form-check mt-2">
+							<input type="checkbox" class="form-check-input"
+								th:field="*{droite}" th:checked="*{droite}" th:value="*{droite}"> <label
+								class="form-check-label">Décalage à droite</label>
+						</div>
 					</span>
+					
+						<span th:if=${noLimiteInf}>
+							<div class="row  mr-1 mb-3">
+								<label for="text">Début</label> <input type="date" class="form-control"
+									th:field="*{dateDebutString}" th:value="*{dateDebutString}">
+							</div>
+							
+							
+							<div class="row  mr-1 mb-3" hidden>
+								<label for="text" style="color: red;">Limite inf</label><input type="date" class="form-control"
+									th:field="*{limInfString}" th:value="*{limInfString}">
+							</div>
+						
+							<div class="form-check mt-2" hidden>
+								<input type="checkbox" class="form-check-input"
+									th:field="*{gauche}" th:checked="*{gauche}" th:value="*{gauche}"> <label
+									class="form-check-label">Décalage à gauche</label>
+							</div>
+							
+							
+						</span>
+						<span th:if=${noLimiteSup}>
+							<div class="row  mr-1 mb-3">
+								<label for="text">Fin</label> <input type="date" class="form-control"
+									th:field="*{dateFinString}" th:value="*{dateFinString}">
+							</div>
+							
+							
+							<div class="row  mr-1 mb-3" hidden>
+								<label for="text" style="color: red;">Limite sup</label><input type="date" class="form-control"
+									th:field="*{limSupString}" th:value="*{limSupString}">
+							</div>
+							
+							<div class="form-check mt-2">
+								<input type="checkbox" class="form-check-input"
+									th:field="*{droite}" th:checked="*{droite}" th:value="*{droite}"> <label
+									class="form-check-label">Décalage à droite</label>
+							</div>	
+							
+							
+						</span>
 					
 					<div class="row  mr-1">
-						<label for="text">Décalage</label> <input type="number" min="-30" max="30" 
+						<label for="text">Décalage en jours</label> <input type="number" min="-30" max="30" 
 						class="form-control"
 							th:field="*{decalage}">
 					</div>
