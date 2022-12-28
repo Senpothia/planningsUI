@@ -210,7 +210,7 @@ public class ProjetController {
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		List<Dependance> dependances = microServicePlannnings.obtenirDependancesProjet(token, idProjet);
-		System.err.println("nombre de liaisons: " + dependances.size());
+
 		if (!dependances.isEmpty()) {
 
 			model.addAttribute("liaisons", true);
@@ -226,7 +226,7 @@ public class ProjetController {
 			i++;
 
 		}
-		System.err.println("Taille row : " + tab.length);
+		
 		model.addAttribute("tab", tab);
 		model.addAttribute("supprimer", false);
 		model.addAttribute("test", false);
@@ -251,7 +251,7 @@ public class ProjetController {
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		List<Dependance> dependances = microServicePlannnings.obtenirDependancesProjet(token, idProjet);
-		System.err.println("nombre de liaisons: " + dependances.size());
+	
 		if (!dependances.isEmpty()) {
 
 			model.addAttribute("liaisons", true);
@@ -287,7 +287,7 @@ public class ProjetController {
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		List<Dependance> dependances = microServicePlannnings.obtenirDependancesProjet(token, idProjet);
-		System.err.println("nombre de liaisons: " + dependances.size());
+		
 		if (!dependances.isEmpty()) {
 
 			model.addAttribute("liaisons", true);
@@ -303,7 +303,7 @@ public class ProjetController {
 			i++;
 
 		}
-		System.err.println("Taille row : " + tab.length);
+		
 		model.addAttribute("tab", tab);
 		model.addAttribute("supprimer", false);
 		model.addAttribute("test", test);

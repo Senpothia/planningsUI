@@ -39,16 +39,12 @@ public class PhaseController {
 	public String ajouterPhaseProjet(@PathVariable(name = "projet") Integer idProjet, Model model,
 			HttpSession session) {
 
-		System.out.println("ajouter phase");
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		List<UtilisateurAux> ressources = microServicePlannnings.toutesLesRessources(token);
-		System.out.println("Taille ressourses: " + ressources.size());
 		List<UtilisateurAux> ressourcesAssociees = microServicePlannnings.ressourcesParProjet(token, idProjet);
-		System.out.println("Taille ressoursesAssociees: " + ressourcesAssociees.size());
 		List<UtilisateurAux> copyListRessources = new ArrayList<>(ressources);
-		System.out.println("Taille copie liste ressources: " + copyListRessources.size());
 
 		if (!ressources.isEmpty()) {
 
@@ -320,7 +316,6 @@ public class PhaseController {
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		PhaseAux phase = microServicePlannnings.phaseParId(token, idPhase);
-		System.err.println("taille liste dépendances: " + phase.getDependances().size());
 		ProjetAux projet = microServicePlannnings.projetParId(token, phase.getIdProjet());
 		UtilisateurAux ressource = microServicePlannnings.obtenirRessourceParId(phase.getIdRessource(), token);
 		model.addAttribute("phase", phase);
@@ -350,16 +345,14 @@ public class PhaseController {
 		for (PhaseAux p : copyPhasesProjet) {
 
 			if (phase.getDebut().isBefore(p.getFin())) {
-				System.err.println("Conflit");
+		
 				p.setConflit(true);
 			}
 		}
 
 		List<Dependance> dependances = microServicePlannnings.obtenirDependances(token, idPhase);
-		System.err.println("Taille liste dependances: " + dependances.size());
 		if (!dependances.isEmpty()) {
 
-			System.out.println("Vérification des liaisons");
 			for (PhaseAux p : copyPhasesProjet) {
 
 				Integer id1 = p.getId();
@@ -378,7 +371,7 @@ public class PhaseController {
 
 		if (!antecedents.isEmpty()) {
 
-			System.out.println("Vérification des antécedents");
+		
 			for (PhaseAux p : copyPhasesProjet) {
 
 				Integer id1 = p.getId();
@@ -443,7 +436,6 @@ public class PhaseController {
 		String token = Constants.getToken(session);
 
 		PhaseAux phase = microServicePlannnings.phaseParId(token, idPhase);
-		System.err.println("taille liste dépendances: " + phase.getDependances().size());
 		ProjetAux projet = microServicePlannnings.projetParId(token, phase.getIdProjet());
 		UtilisateurAux ressource = microServicePlannnings.obtenirRessourceParId(phase.getIdRessource(), token);
 		model.addAttribute("phase", phase);
@@ -473,15 +465,13 @@ public class PhaseController {
 		for (PhaseAux p : copyPhasesProjet) {
 
 			if (phase.getDebut().isBefore(p.getFin())) {
-				System.err.println("Conflit");
+			
 				p.setConflit(true);
 			}
 		}
 		List<Dependance> dependances = microServicePlannnings.obtenirDependances(token, idPhase);
-		System.err.println("Taille liste dependances: " + dependances.size());
 		if (!dependances.isEmpty()) {
 
-			System.out.println("Vérification des liaisons");
 			for (PhaseAux p : copyPhasesProjet) {
 
 				Integer id1 = p.getId();
@@ -515,7 +505,6 @@ public class PhaseController {
 
 		// ***************************
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		System.err.println("exemple date string: " + phase.getDateDebutString());
 		List<LocalDateTime> dates = microServicePlannnings.obtenirDatesLimites(token, idPhase);
 		if (dates.get(0) == null) {
 
@@ -547,8 +536,7 @@ public class PhaseController {
 			phase.setLimiteSup(dates.get(1));
 			phase.setLimSupString(dates.get(1).format(dateTimeFormatter));
 		}
-		System.err.println("droite: " + phase.getDroite());
-		System.err.println("gauche: " + phase.getGauche());
+	
 		model.addAttribute("phases", copyPhasesProjet);
 		return Constants.testUser(utilisateur, Constants.LIER_MODIFIER_PHASE);
 
@@ -558,7 +546,6 @@ public class PhaseController {
 	public String modifierPhasePourLiaison(PhaseAux phase, @PathVariable(name = "phase") Integer idPhase, Model model,
 			HttpSession session) {
 
-		System.err.println("Méthode Post1");
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 
@@ -578,16 +565,9 @@ public class PhaseController {
 
 		LocalDateTime limSup = LocalDateTime.parse(phase.getLimSupString() + " " + "00:00",
 				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-		System.err.println("limiteInf: " + limInf);
-		System.err.println("limiteSup: " + limSup);
-		System.err.println("limInfString: " + phase.getLimInfString());
-		System.err.println("limSupString: " + phase.getLimSupString());
+		
 		phase.setLimiteSup(limSup);
-		System.err.println("droite: " + phase.getDroite());
-		System.err.println("gauche: " + phase.getGauche());
-		System.err.println("limInf: " + limInf);
-		System.err.println("limSup: " + limSup);
-
+	
 		if (!phase.getLimInfString().equals("2000-11-11")) { // cas d'une limite inférieure - situation où il exite une
 																// dépendance
 
@@ -669,7 +649,6 @@ public class PhaseController {
 	public String modifierDependancePourLiaison(PhaseAux dependance, @PathVariable(name = "phase") Integer idPhase,
 			@PathVariable(name = "dependance") Integer idDependance, Model model, HttpSession session) {
 
-		System.err.println("Méthode Post2");
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		LocalDateTime debut = LocalDateTime.parse(dependance.getDateDebutString() + " " + "00:00:00",
