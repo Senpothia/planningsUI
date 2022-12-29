@@ -202,7 +202,7 @@
 						<div class="col">
 							<div class="d-flex justify-content-end">
 								<a class="btn mb-1 mr-1 bouton2" style="background-color: #7e60fb; color: white;"
-									href="/espace" role="button">Annuler</a> <input type="submit"
+									th:href="@{/projet/voir/phases/{projet}(projet=${projet.id})}" role="button">Annuler</a> <input type="submit"
 									class="btn mb-1 bouton2" style="background-color: #7e60fb; color: white;"
 									value="Enregistrer">
 							</div>
@@ -286,7 +286,7 @@
 						<div class="col">
 							<div class="d-flex justify-content-end">
 								<a class="btn mb-1 mr-1 bouton2" style="background-color: #7e60fb; color: white;"
-									href="/espace" role="button">Annuler</a> <input type="submit"
+									th:href="@{/projet/voir/phases/{projet}(projet=${projet.id})}" role="button">Annuler</a> <input type="submit"
 									class="btn mb-1 bouton2" style="background-color: #7e60fb; color: white;"
 									value="Enregistrer">
 							</div>

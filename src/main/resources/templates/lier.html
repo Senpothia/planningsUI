@@ -174,13 +174,23 @@
 
 		</div>
 		
+		
+		
 		<div class="col d-flex justify-content-end">
+		
 			<div class="row">
-					<a th:href="@{/phase/liaison/modifier/{phase}(phase=${phase.id})}">
-						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">modifier</p>
-					</a>
+				<div class="form-group mr-3">
+						<a th:href="@{/projet/voir/phases/{projet}(projet=${projet.id})}">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Phases</p>
+						</a>
+				</div>
+				<div class="form-group">
+						<a th:href="@{/phase/liaison/modifier/{phase}(phase=${phase.id})}">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">modifier</p>
+						</a>
 				</div>
 			</div>
+		</div>
 		
 		<div class="row d-flex text-align-left">
 		
@@ -292,26 +302,34 @@
 			</div>
 			
 	
-			<div class="row mt-3">
-				<div class="col d-flex justify-content-end">
-				
-				<span th:if=${groupe2}>
-					<div class="form-group mr-3">
-						<a th:href="@{/projet/gantt/{id}(id=${projet.id})}">
-							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Gantt
-							</p>
-						</a>
-					</div>
-
-				</span>
-
-			<div class="form-group ">
-					<a th:href="@{/projet/voir/{idProjet}(idProjet=${projet.id})}">
-						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour projet</p>
-					</a>
+			
+			<div class="col d-flex justify-content-end">
+					<div class="row mt-3">
+						<span th:if=${groupe2}>
+							<div class="form-group mr-3">
+								<a th:href="@{/projet/gantt/{id}(id=${projet.id})}">
+									<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Gantt
+									</p>
+								</a>
+								
+								
+							</div>
+							
+						</span>
+						
+						<div class="form-group mr-3">
+								<a th:href="@{/projet/voir/phases/{projet}(projet=${projet.id})}">
+									<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Phases
+									</p>
+								</a>
+							</div>
+	
+						<div class="form-group ">
+							<a th:href="@{/projet/voir/{idProjet}(idProjet=${projet.id})}">
+								<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour projet</p>
+							</a>
+						</div>
 				</div>
-			</div>
-
 
 			</div>
 
