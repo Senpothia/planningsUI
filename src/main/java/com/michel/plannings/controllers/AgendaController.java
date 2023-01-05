@@ -33,8 +33,8 @@ public class AgendaController {
 		
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		List<TacheAux> taches = microServicePlannnings.obtenirTachesParRessourceId(token, utilisateur.getId());
-		
+		//List<TacheAux> taches = microServicePlannnings.obtenirTachesParRessourceId(token, utilisateur.getId());
+		List<TacheAux> taches = microServicePlannnings.obtenirTachesParRessourceIdEtStatut(token, utilisateur.getId(), true);
 		Boolean vide = true;
 		if(!taches.isEmpty()) {
 			vide = false;
@@ -42,6 +42,7 @@ public class AgendaController {
 		model.addAttribute("taches", taches);
 		model.addAttribute("ressource", utilisateur);
 		model.addAttribute("vide", vide);
+		model.addAttribute("statut", false);
 		return Constants.testUser(utilisateur, Constants.AGENDA);
 	}
 	
@@ -79,6 +80,26 @@ public class AgendaController {
 		model.addAttribute("tache", tache);
 		return Constants.testUser(utilisateur, Constants.TACHE);
 	}
+	
+	
+	@GetMapping("/taches/{statut}")
+	public String voirTacheParStatut(@PathVariable(name= "statut") Boolean statut,  Model model,
+			HttpSession session) {
+		
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		List<TacheAux> taches = microServicePlannnings.obtenirTachesParRessourceIdEtStatut(token, utilisateur.getId(), statut);
+		Boolean vide = true;
+		if(!taches.isEmpty()) {
+			vide = false;
+		}
+		model.addAttribute("taches", taches);
+		model.addAttribute("ressource", utilisateur);
+		model.addAttribute("vide", vide);
+		model.addAttribute("statut", !statut);
+		return Constants.testUser(utilisateur, Constants.AGENDA);
+	}
+	
 	
 	@GetMapping("/tache/changer/statut/{idTache}/{statut}")
 	public String chagerStatutTache(@PathVariable(name= "idTache") Integer idTache,@PathVariable(name= "statut") Boolean statut,  Model model,

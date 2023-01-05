@@ -29,4 +29,7 @@ public interface ProxyAgenda {
 	
 	@PostMapping("/tache/modifier")
 	void modifierTache(@RequestHeader("Authorization") String token, @RequestBody TacheAux tache);
+	
+	@GetMapping("/agenda/ressource/{idUtilisateur}/{statut}")
+	List<TacheAux> obtenirTachesParRessourceIdEtStatut(@RequestHeader("Authorization") String token, @PathVariable(name = "idUtilisateur") Integer idUtilisateur,@PathVariable(name = "statut") boolean statut);
 }
