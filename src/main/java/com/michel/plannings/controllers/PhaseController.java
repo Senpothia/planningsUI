@@ -387,14 +387,14 @@ public class PhaseController {
 		if (cas.equals("0")) {
 
 			return Constants.testUser(utilisateur, "redirect:/projets/liste/phases/ressource/" + utilisateur.getId())
-					+ "/true";
+					+ "/false";
 
 		}
 
 		if (cas.equals("1")) {
 
 			return Constants.testUser(utilisateur, "redirect:/projets/liste/phases/ressource/" + utilisateur.getId())
-					+ "/false";
+					+ "/true";
 
 		}
 		
