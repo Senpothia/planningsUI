@@ -70,5 +70,6 @@ public interface ProxyProjet {
 	@GetMapping("/projet/gantt/{id}") // récupération diagramme de Gantt par id projet
 	public List<GanttRow> ganttProjetParId(@RequestHeader("Authorization") String token, @PathVariable(name = "id") Integer id);
 	
-	
+	@GetMapping("/projet/tous/{statut}")
+	List<ProjetAux> projetsParStatut(@RequestHeader("Authorization") String token,  @PathVariable(name = "statut") Boolean statut);
 }

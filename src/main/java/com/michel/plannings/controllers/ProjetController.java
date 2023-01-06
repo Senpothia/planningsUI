@@ -81,6 +81,27 @@ public class ProjetController {
 		return Constants.testUser(utilisateur, Constants.PROJETS);
 
 	}
+	
+	@GetMapping("/projets/voir/tous/{statut}")
+	public String tousProjetsParStatut(@PathVariable(name = "statut") Boolean statut, Model model, HttpSession session) {
+
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		List<ProjetAux> projets = microServicePlannnings.projetsParStatut(token, statut);
+		Boolean vide = false;
+		if (projets.isEmpty()) {
+			vide = true;
+		}
+		model.addAttribute("projets", projets);
+		model.addAttribute("vide", vide);
+		model.addAttribute("access", "1");
+		model.addAttribute("statut", !statut);
+		return Constants.testUser(utilisateur, Constants.PROJETS);
+
+	}
+	
+
+	
 
 	@GetMapping("/projet/voir/{id}")
 	public String voirProjetId(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
@@ -90,6 +111,7 @@ public class ProjetController {
 		ProjetAux projet = microServicePlannnings.projetParId(token, id);
 		model.addAttribute("projet", projet);
 		return Constants.testUser(utilisateur, Constants.PROJET);
+		
 
 	}
 
@@ -121,13 +143,15 @@ public class ProjetController {
 
 	}
 
-	@GetMapping("/projets/ressource/{id}")
-	public String mesProjetId(@PathVariable(name = "id") Integer id, Model model, HttpSession session) {
+	@GetMapping("/projets/ressource/{id}/{statut}")
+	public String mesProjetId(@PathVariable(name = "id") Integer id, @PathVariable(name = "statut") Boolean statut,
+			Model model, HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String role = utilisateur.getRole();
 		String token = Constants.getToken(session);
 		List<ProjetAux> projets = new ArrayList<>();
+		List<ProjetAux> projetsTries = new ArrayList<>();
 		if (role.equals("CPROD")) {
 			projets = microServicePlannnings.projetsParChef(token, id);
 		}
@@ -140,13 +164,24 @@ public class ProjetController {
 			projets = microServicePlannnings.projetsParRessource(token, id, false);
 		}
 
+		for (ProjetAux p : projets) {
+			
+			if(p.getStatut() == statut) {
+				
+				projetsTries.add(p);
+			}
+
+		}
+
 		Boolean vide = false;
 		if (projets.isEmpty()) {
 			vide = true;
 		}
-		model.addAttribute("projets", projets);
+		model.addAttribute("statut", true);
+		model.addAttribute("projets", projetsTries);
 		model.addAttribute("access", "2");
 		model.addAttribute("vide", vide);
+		model.addAttribute("statut", !statut);
 		return Constants.testUser(utilisateur, Constants.PROJETS);
 
 	}
@@ -226,7 +261,7 @@ public class ProjetController {
 			i++;
 
 		}
-		
+
 		model.addAttribute("tab", tab);
 		model.addAttribute("supprimer", false);
 		model.addAttribute("test", false);
@@ -243,7 +278,7 @@ public class ProjetController {
 		String token = Constants.getToken(session);
 
 		Boolean test = userConnexion.confirmerUtilisateur(login, session);
-		
+
 		model.addAttribute("supprimer", true);
 		model.addAttribute("test", false);
 		model.addAttribute("login", login);
@@ -251,7 +286,7 @@ public class ProjetController {
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		List<Dependance> dependances = microServicePlannnings.obtenirDependancesProjet(token, idProjet);
-	
+
 		if (!dependances.isEmpty()) {
 
 			model.addAttribute("liaisons", true);
@@ -287,7 +322,7 @@ public class ProjetController {
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		List<Dependance> dependances = microServicePlannnings.obtenirDependancesProjet(token, idProjet);
-		
+
 		if (!dependances.isEmpty()) {
 
 			model.addAttribute("liaisons", true);
@@ -303,7 +338,7 @@ public class ProjetController {
 			i++;
 
 		}
-		
+
 		model.addAttribute("tab", tab);
 		model.addAttribute("supprimer", false);
 		model.addAttribute("test", test);

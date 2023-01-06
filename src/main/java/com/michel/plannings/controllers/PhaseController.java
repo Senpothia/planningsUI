@@ -266,6 +266,49 @@ public class PhaseController {
 		return Constants.testUser(utilisateur, Constants.PHASES_RESSOURCE);
 	}
 
+	@GetMapping("/projets/liste/phases/ressource/{ressource}/{statut}")
+	public String listePhaseParIdParStatut(@PathVariable(name = "ressource") Integer idRessource , @PathVariable(name = "statut") Boolean statut, Model model,
+			HttpSession session) {
+
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		List<PhaseAux> phases = microServicePlannnings.phasesParRessource(token, idRessource);
+		Boolean vide = false;
+		List<PhaseAux> zeros = new ArrayList<PhaseAux>();
+		for (PhaseAux p : phases) {
+
+			if (p.getNumero() == 0) {
+
+				zeros.add(p);
+			}
+
+		}
+
+		phases.removeAll(zeros);
+		
+		List<PhaseAux> phasesTriees = new ArrayList<>();
+		
+		for(PhaseAux p: phases) {
+			
+			if(p.getActif() == statut) {
+				
+				phasesTriees.add(p);
+			}
+		}
+
+		if (phases.isEmpty()) {
+
+			vide = true;
+		}
+
+		UtilisateurAux ressource = microServicePlannnings.obtenirRessourceParId(idRessource, token);
+
+		model.addAttribute("phases", phasesTriees);
+		model.addAttribute("vide", vide);
+		model.addAttribute("ressource", ressource);
+		return Constants.testUser(utilisateur, Constants.PHASES_RESSOURCE);
+	}
+
 	@GetMapping("/phase/actives/liste/{active}")
 	public String listePhaseActives(@PathVariable(name = "active") boolean active, Model model, HttpSession session) {
 
@@ -345,7 +388,7 @@ public class PhaseController {
 		for (PhaseAux p : copyPhasesProjet) {
 
 			if (phase.getDebut().isBefore(p.getFin())) {
-		
+
 				p.setConflit(true);
 			}
 		}
@@ -371,7 +414,6 @@ public class PhaseController {
 
 		if (!antecedents.isEmpty()) {
 
-		
 			for (PhaseAux p : copyPhasesProjet) {
 
 				Integer id1 = p.getId();
@@ -465,7 +507,7 @@ public class PhaseController {
 		for (PhaseAux p : copyPhasesProjet) {
 
 			if (phase.getDebut().isBefore(p.getFin())) {
-			
+
 				p.setConflit(true);
 			}
 		}
@@ -536,7 +578,7 @@ public class PhaseController {
 			phase.setLimiteSup(dates.get(1));
 			phase.setLimSupString(dates.get(1).format(dateTimeFormatter));
 		}
-	
+
 		model.addAttribute("phases", copyPhasesProjet);
 		return Constants.testUser(utilisateur, Constants.LIER_MODIFIER_PHASE);
 
@@ -565,9 +607,9 @@ public class PhaseController {
 
 		LocalDateTime limSup = LocalDateTime.parse(phase.getLimSupString() + " " + "00:00",
 				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-		
+
 		phase.setLimiteSup(limSup);
-	
+
 		if (!phase.getLimInfString().equals("2000-11-11")) { // cas d'une limite inférieure - situation où il exite une
 																// dépendance
 

@@ -41,9 +41,9 @@
 					<h1>Liste de tous les projets</h1>
 				</span> <span th:if="${access == '2'}">
 					<h1>Liste
-						de mes projets en cours</h1>
+						de mes projets</h1>
 				</span> <span th:if="${access == '3'}">
-					<h1>Liste de tous les projets en cours</h1>
+					<h1>Liste de tous les projets actifs</h1>
 				</span>
 
 			</div>
@@ -129,10 +129,52 @@
 		</span>
 
 		<div class="row mt-3">
-			<div class="col d-flex justify-content-center">
+			<div class="col d-flex justify-content-end">
+			
+				<span th:if="${access == '2'}">
+					<span th:if=${statut}>
+						<div class="form-group mr-3">
+							<a
+								th:href="@{/projets/ressource/{id}/true(id=${utilisateur.id})}"><p
+									type="text" class="btn btn-block"
+									style="background-color: #7e60fb; color: white">Actifs</p></a>
+						</div>
+					</span>
+					
+					<span th:unless=${statut}>
+						<div class="form-group mr-3">
+							<a
+								th:href="@{/projets/ressource/{id}/false(id=${utilisateur.id})}"><p
+									type="text" class="btn btn-block"
+									style="background-color: #730800; color: white">Terminés</p></a>
+						</div>
+					</span>
+				</span>
+				
+					<span th:if="${access == '1'}">
+					<span th:if=${statut}>
+						<div class="form-group mr-3">
+							<a
+								th:href="@{/projets/voir/tous/true}"><p
+									type="text" class="btn btn-block"
+									style="background-color: #7e60fb; color: white">Actifs</p></a>
+						</div>
+					</span>
+					
+					<span th:unless=${statut}>
+						<div class="form-group mr-3">
+							<a
+								th:href="@{/projets/voir/tous/false}"><p
+									type="text" class="btn btn-block"
+									style="background-color: #730800; color: white">Terminés</p></a>
+						</div>
+					</span>
+				</span>
+				
+				
 				<div class="form-group ">
 					<a href="/espace"><p type="text" class="btn btn-block"
-							style="background-color: #7e60fb; color: white; width: 350px;">Retour</p></a>
+							style="background-color: #7e60fb; color: white; ">Retour</p></a>
 				</div>
 			</div>
 
