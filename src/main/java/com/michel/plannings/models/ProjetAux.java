@@ -17,6 +17,7 @@ public class ProjetAux {
 	private String nomChef;
 	private Boolean affecte;
 	private Boolean gantt;
+	private Boolean prive;
 
 	public ProjetAux() {
 		super();
@@ -24,7 +25,8 @@ public class ProjetAux {
 	}
 
 	public ProjetAux(Integer id, String nom, String numero, String type, Boolean statut, String statutString,
-			LocalDateTime date, String dateString, Integer chefId, String nomChef, Boolean affecte, Boolean gantt) {
+			LocalDateTime date, String dateString, Integer chefId, String nomChef, Boolean affecte, Boolean gantt,
+			Boolean prive) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -38,6 +40,7 @@ public class ProjetAux {
 		this.nomChef = nomChef;
 		this.affecte = affecte;
 		this.gantt = gantt;
+		this.prive = prive;
 	}
 
 	public Integer getId() {
@@ -134,6 +137,14 @@ public class ProjetAux {
 
 	public void setGantt(Boolean gantt) {
 		this.gantt = gantt;
+	}
+
+	public Boolean getPrive() {
+		return prive;
+	}
+
+	public void setPrive(Boolean prive) {
+		this.prive = prive;
 	}
 
 }

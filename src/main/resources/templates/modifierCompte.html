@@ -1,21 +1,20 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<link rel="stylesheet" href="/css/styles.css">
- <link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
-<title>Plannings</title>
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/styles.css">
+	<link rel="shortcut icon" type="image/x-icon" href="/images/logo0.png" />
+	<title>Plannings</title>
 </head>
+
 <body>
 	<div class="container">
 
@@ -32,8 +31,7 @@
 		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau22.jpg" alt=""
-					th:src="@{/images/bandeau22.jpg}" />
+				<img class="img-fluid" src="/images/bandeau22.jpg" alt="" th:src="@{/images/bandeau22.jpg}" />
 			</div>
 		</div>
 		<!-- ----------------- -->
@@ -42,7 +40,7 @@
 
 			<h1>Complétez ce formulaire pour modifier votre compte.</h1>
 			<h3 style="color: red;" th:if="${error}">Erreur! Pensez à renseigner le mot de passe.</h3>
-			
+
 			</span>
 
 		</div>
@@ -51,36 +49,50 @@
 		<div class="row">
 
 			<div class="col">
-				<form th:action="@{/compte/modifier}" method="post"
-					th:object="${formCompte}">
+				<form th:action="@{/compte/modifier}" method="post" th:object="${formCompte}">
 
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">Prénom</label> <input type="text"
-							class="form-control" th:field="*{prenom}" th:value="*{prenom}">
+						<label for="exampleInputEmail1">Prénom</label> <input type="text" class="form-control"
+							th:field="*{prenom}" th:value="*{prenom}">
 					</div>
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">Nom</label> <input type="text"
-							class="form-control" th:field="*{nom}" th:value="*{nom}">
+						<label for="exampleInputEmail1">Nom</label> <input type="text" class="form-control"
+							th:field="*{nom}" th:value="*{nom}">
 					</div>
 
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">Email</label> <input type="text"
-							class="form-control" th:field="*{username}" th:value="*{username}">
+						<label for="exampleInputEmail1">Email</label> <input type="text" class="form-control"
+							th:field="*{username}" th:value="*{username}">
 					</div>
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">Password</label> <input
-							type="text" class="form-control" th:field="*{password}">
+						<label for="exampleInputEmail1">Password</label> <input type="text" class="form-control"
+							th:field="*{password}">
 					</div>
 
 					<div class="d-flex justify-content-end">
-						 
-						<a class="btn mr-1" style="background-color: #7e60fb; color: white;" href="/espace" role="button">Annuler</a>
-						<input class="btn" style="background-color: #7e60fb; color: white;" type="submit" value="Valider">
 
+						<span th:if=${groupe3}>
+
+							<div class="form-group mr-3">
+								<a th:href="@{/change/mode/session}">
+									<p type="text" class="btn btn-block" style="background-color: red; color: white">
+										Privé</p>
+								</a>
+							</div>
+						</span>
+						<div class="form-group mr-3">
+							<a class="btn mr-1" style="background-color: #7e60fb; color: white;" href="/espace"
+								role="button">Annuler</a>
+						</div>
+
+						<div class="form-group mr-3">
+							<input class="btn" style="background-color: #7e60fb; color: white;" type="submit"
+								value="Valider">
+						</div>
 					</div>
 
 
@@ -108,13 +120,12 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
 </body>
+
 </html>

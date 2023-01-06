@@ -47,6 +47,7 @@ public class UserConnexion {
 					session.setAttribute("GROUPE1", true);
 					session.setAttribute("GROUPE2", false);
 					session.setAttribute("GROUPE3", false);
+					session.setAttribute("PRIVE", false);
 				}
 
 				if (role.equals("CPROD") || role.equals("RESBE") || role.equals("LABO")) {
@@ -54,6 +55,7 @@ public class UserConnexion {
 					session.setAttribute("GROUPE1", true);
 					session.setAttribute("GROUPE2", true);
 					session.setAttribute("GROUPE3", false);
+					session.setAttribute("PRIVE", false);
 				}
 
 				if (role.equals("LABO")) {
@@ -61,6 +63,7 @@ public class UserConnexion {
 					session.setAttribute("GROUPE1", true);
 					session.setAttribute("GROUPE2", true);
 					session.setAttribute("GROUPE3", true);
+					session.setAttribute("PRIVE", false);
 				}
 			}
 
@@ -78,7 +81,7 @@ public class UserConnexion {
 		Boolean groupe1 = (Boolean) session.getAttribute("GROUPE1");
 		Boolean groupe2 = (Boolean) session.getAttribute("GROUPE2");
 		Boolean groupe3 = (Boolean) session.getAttribute("GROUPE3");
-		
+		Boolean prive = (Boolean) session.getAttribute("PRIVE");
 		
 		if (utilisateur == null) {
 
@@ -91,6 +94,7 @@ public class UserConnexion {
 			model.addAttribute("groupe1", groupe1);
 			model.addAttribute("groupe2", groupe2);
 			model.addAttribute("groupe3", groupe3);
+			model.addAttribute("prive", prive);
 		}
 
 		return utilisateur;
@@ -120,6 +124,12 @@ public class UserConnexion {
 			return false;
 		}
 
+	}
+
+	public void changeSessionMode(HttpSession session) {
+		
+		Boolean mode = (Boolean) session.getAttribute("PRIVE");
+		session.setAttribute("PRIVE", !mode);
 	}
 
 }

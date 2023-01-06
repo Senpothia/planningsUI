@@ -129,13 +129,16 @@ public class HomeController {
 		model.addAttribute("authentification", true);
 		model.addAttribute("utilisateur", utilisateur);
 		model.addAttribute("error", error);
-
+		Boolean groupe3 = (Boolean) session.getAttribute("GROUPE3");
+		model.addAttribute("groupe3", groupe3);
+		model.addAttribute("prive", (Boolean) session.getAttribute("PRIVE"));
+		
 		return Constants.MODIFIER_COMPTE;
 	}
 
 	@PostMapping("/compte/modifier")
 	public String enregitrementModification(Model model, HttpSession session, FormCompte formCompte) {
-
+		
 		String token = (String) session.getAttribute("TOKEN");
 		token = "Bearer " + token;
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("USER");
@@ -159,6 +162,7 @@ public class HomeController {
 			microServicePlannnings.modifierCompte(utilisateur.getId(), token, utilisateurAux);
 			model.addAttribute("utilisateur", utilisateur);
 			model.addAttribute("authentification", true);
+			
 
 			return Constants.ESPACE_PERSONEL;
 
@@ -174,6 +178,13 @@ public class HomeController {
 
 		session.invalidate();
 		return Constants.PAGE_ACCUEIL;
+	}
+	
+	@GetMapping("/change/mode/session")
+	public String changeMode(HttpSession session) {
+		
+		userConnexion.changeSessionMode(session);
+		return "redirect:/espace";
 	}
 
 }
