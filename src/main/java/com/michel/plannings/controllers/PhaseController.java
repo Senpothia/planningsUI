@@ -260,6 +260,7 @@ public class PhaseController {
 
 		UtilisateurAux ressource = microServicePlannnings.obtenirRessourceParId(idRessource, token);
 
+		model.addAttribute("case", "2");  // cas où l'accès se fait à partir des phases utilisateur sans considérer leur statut
 		model.addAttribute("phases", phases);
 		model.addAttribute("vide", vide);
 		model.addAttribute("ressource", ressource);
@@ -267,8 +268,8 @@ public class PhaseController {
 	}
 
 	@GetMapping("/projets/liste/phases/ressource/{ressource}/{statut}")
-	public String listePhaseParIdParStatut(@PathVariable(name = "ressource") Integer idRessource , @PathVariable(name = "statut") Boolean statut, Model model,
-			HttpSession session) {
+	public String listePhaseParIdParStatut(@PathVariable(name = "ressource") Integer idRessource,
+			@PathVariable(name = "statut") Boolean statut, Model model, HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
@@ -285,13 +286,13 @@ public class PhaseController {
 		}
 
 		phases.removeAll(zeros);
-		
+
 		List<PhaseAux> phasesTriees = new ArrayList<>();
-		
-		for(PhaseAux p: phases) {
-			
-			if(p.getActif() == statut) {
-				
+
+		for (PhaseAux p : phases) {
+
+			if (p.getActif() == statut) {
+
 				phasesTriees.add(p);
 			}
 		}
@@ -302,7 +303,16 @@ public class PhaseController {
 		}
 
 		UtilisateurAux ressource = microServicePlannnings.obtenirRessourceParId(idRessource, token);
+		String cas = new String();
+		if (statut) {
 
+			cas = "1";   // cas des phases actives depuis la page des phases utilisateur
+
+		} else {
+
+			cas = "0";	// cas des phases inactives depuis la page des phases utilisateur
+		}
+		model.addAttribute("case", cas);
 		model.addAttribute("phases", phasesTriees);
 		model.addAttribute("vide", vide);
 		model.addAttribute("ressource", ressource);
@@ -333,6 +343,14 @@ public class PhaseController {
 			}
 			model.addAttribute("phases", phasesSans0);
 		}
+		if (active) {
+			
+			model.addAttribute("case", "3"); // cas des phases actives depuis la page des phases actives/inactives
+			
+		} else {
+
+			model.addAttribute("case", "4"); // cas des phases inactives depuis la page des phases actives/inactives
+		}
 
 		model.addAttribute("vide", vide);
 		model.addAttribute("active", active);
@@ -340,9 +358,10 @@ public class PhaseController {
 		return Constants.testUser(utilisateur, Constants.PHASES_ACTIVES);
 	}
 
-	@GetMapping("/phase/changer/statut/{phase}/{active}")
+	@GetMapping("/phase/changer/statut/{phase}/{active}/{case}")
 	public String changerPhaseStatut(@PathVariable(name = "phase") Integer idPhase,
-			@PathVariable(name = "active") boolean active, Model model, HttpSession session) {
+			@PathVariable(name = "active") boolean active, @PathVariable(name = "case") String cas, Model model,
+			HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
@@ -351,6 +370,48 @@ public class PhaseController {
 		PhaseAux ph = microServicePlannnings.phaseParId(token, idPhase);
 		Integer idProjet = ph.getIdProjet();
 		return Constants.testUser(utilisateur, "redirect:/projet/voir/phases/" + idProjet);
+
+	}
+
+	@GetMapping("/phase/changer/statut/liste/{phase}/{active}/{case}")
+	public String changerPhaseStatutListe(@PathVariable(name = "phase") Integer idPhase,
+			@PathVariable(name = "active") boolean active, @PathVariable(name = "case") String cas, Model model,
+			HttpSession session) {
+
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		microServicePlannnings.changerStatutPhase(token, idPhase, active);
+
+		PhaseAux ph = microServicePlannnings.phaseParId(token, idPhase);
+		Integer idProjet = ph.getIdProjet();
+		if (cas.equals("0")) {
+
+			return Constants.testUser(utilisateur, "redirect:/projets/liste/phases/ressource/" + utilisateur.getId())
+					+ "/true";
+
+		}
+
+		if (cas.equals("1")) {
+
+			return Constants.testUser(utilisateur, "redirect:/projets/liste/phases/ressource/" + utilisateur.getId())
+					+ "/false";
+
+		}
+		
+		if (cas.equals("3")) {
+
+			return Constants.testUser(utilisateur, "redirect:/phase/actives/liste/true");
+
+		}
+		
+		if (cas.equals("4")) {
+
+			return Constants.testUser(utilisateur, "redirect:/phase/actives/liste/false");
+
+		}
+		
+		
+		return Constants.testUser(utilisateur, "redirect:/projets/liste/phases/ressource/" + utilisateur.getId());
 
 	}
 
