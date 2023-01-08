@@ -47,7 +47,8 @@
 
 		<span th:if=${vide}>
 			<div class="row d-flex justify-content-center">
-				<h2 th:text="${active} ? 'La liste des phases active est vide' : 'La liste des phases inactive est vide'" style="color: red;"></h2>
+				<h2 th:text="${active} ? 'La liste des phases active est vide' : 'La liste des phases inactive est vide'"
+					style="color: red;"></h2>
 			</div>
 		</span>
 
@@ -64,7 +65,7 @@
 								<th scope="col">Projet</th>
 								<th scope="col">Nom</th>
 								<th scope="col">Ressource</th>
-								
+
 								<th scope="col">Suspendue</th>
 								<th scope="col">Conformité</th>
 								<span th:if=${groupe1}>
@@ -83,10 +84,10 @@
 								<td th:text="${phase.projet}" />
 								<td th:text="${phase.nom}" />
 								<td th:text="${phase.nomRessource}" />
-								
+
 								<td th:text="${phase.suspenduString}" />
 								<td th:text="${phase.conformeString}" />
-								
+
 								<span th:unless=${groupe2}>
 									<td th:text="${phase.actifString}" />
 								</span>
@@ -136,8 +137,22 @@
 
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-end">
+				
+				<span th:unless=${active}>
+						
+						<a th:href="@{/phase/actives/liste/{active}(active=${true})}"><button type="button"
+								class="btn mr-3" style="background-color: #7e60fb; color: white;">Phases en
+								cours</button></a>
+					
+				</span>
 
-
+				<span th:if=${active}>
+					
+						<a th:href="@{/phase/actives/liste/{active}(active=${false})}"><button type="button"
+								class="btn mr-3" style="background-color: #730800; color: white;">Phases
+								inactives</button></a>
+					
+				</span>
 
 
 				<div class="form-group ">
