@@ -2,8 +2,6 @@ package com.michel.plannings.models;
 
 import java.time.LocalDateTime;
 
-
-
 public class TacheAux {
 
 	private Integer id;
@@ -22,6 +20,7 @@ public class TacheAux {
 	private Boolean suspendu;
 	private String suspenduString;
 	private UtilisateurAux ressource;
+	private Boolean prive;
 
 	public TacheAux() {
 		super();
@@ -29,8 +28,9 @@ public class TacheAux {
 	}
 
 	public TacheAux(Integer id, Integer numero, LocalDateTime debut, String debutString, LocalDateTime fin,
-			String finString, String heureDebut, String heurefin, String texte, String commentaire, Integer urgence,
-			Boolean actif, Boolean suspendu, UtilisateurAux ressource) {
+			String finString, String heureDebut, String heureFin, String texte, String commentaire, Integer urgence,
+			Boolean actif, String actifString, Boolean suspendu, String suspenduString, UtilisateurAux ressource,
+			Boolean prive) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -39,16 +39,17 @@ public class TacheAux {
 		this.fin = fin;
 		this.finString = finString;
 		this.heureDebut = heureDebut;
-		this.heureFin = heurefin;
+		this.heureFin = heureFin;
 		this.texte = texte;
 		this.commentaire = commentaire;
 		this.urgence = urgence;
 		this.actif = actif;
+		this.actifString = actifString;
 		this.suspendu = suspendu;
+		this.suspenduString = suspenduString;
 		this.ressource = ressource;
+		this.prive = prive;
 	}
-
-	
 
 	public Integer getId() {
 		return id;
@@ -178,6 +179,12 @@ public class TacheAux {
 		this.suspenduString = suspenduString;
 	}
 
-	
+	public Boolean getPrive() {
+		return prive;
+	}
+
+	public void setPrive(Boolean prive) {
+		this.prive = prive;
+	}
 
 }

@@ -19,6 +19,7 @@ public class AlerteAux {
 	private String actifString;
 	private Boolean suspendu;
 	private String suspenduString;
+	private Boolean prive;
 
 	public AlerteAux() {
 		super();
@@ -27,7 +28,7 @@ public class AlerteAux {
 
 	public AlerteAux(Integer id, Integer numero, LocalDateTime date, String stringDate, String texte, String nomAuteur,
 			Integer idAuteur, Integer idProjet, String nomProjet, Integer urgence, String urgenceString, Boolean actif,
-			String actifString, Boolean suspendu, String suspenduString) {
+			String actifString, Boolean suspendu, String suspenduString, Boolean prive) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -44,6 +45,7 @@ public class AlerteAux {
 		this.actifString = actifString;
 		this.suspendu = suspendu;
 		this.suspenduString = suspenduString;
+		this.prive = prive;
 	}
 
 	public Integer getId() {
@@ -164,6 +166,14 @@ public class AlerteAux {
 
 	public void setNomProjet(String nomProjet) {
 		this.nomProjet = nomProjet;
+	}
+
+	public Boolean getPrive() {
+		return prive;
+	}
+
+	public void setPrive(Boolean prive) {
+		this.prive = prive;
 	}
 
 }

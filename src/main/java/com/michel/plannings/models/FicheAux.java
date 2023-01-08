@@ -30,16 +30,18 @@ public class FicheAux {
 	private String statutString;
 	private Integer niveau;
 	private Integer idPhase;
+	private Boolean prive;
 
 	public FicheAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
- 
+
 	public FicheAux(Integer id, Integer numero, LocalDateTime date, String dateString, String service, String degre,
 			String projet, String code, String produit, String circonstance, String observation, String document,
 			String incidence, String solution, String domaine, String objet, String reponse, Integer idAuteur,
-			String nomAuteur, String anomalie, Boolean statut, String statutString, Integer niveau, Integer idPhase) {
+			String nomAuteur, String anomalie, Boolean statut, String statutString, Integer niveau, Integer idPhase,
+			Boolean prive) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -65,9 +67,8 @@ public class FicheAux {
 		this.statutString = statutString;
 		this.niveau = niveau;
 		this.idPhase = idPhase;
+		this.prive = prive;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -251,19 +252,13 @@ public class FicheAux {
 		this.dateString = dateString;
 	}
 
-	
-
 	public String getNomAuteur() {
 		return nomAuteur;
 	}
 
-
-
 	public void setNomAuteur(String nomAuteur) {
 		this.nomAuteur = nomAuteur;
 	}
-
-
 
 	public String getStatutString() {
 		return statutString;
@@ -271,6 +266,14 @@ public class FicheAux {
 
 	public void setStatutString(String statutString) {
 		this.statutString = statutString;
+	}
+
+	public Boolean getPrive() {
+		return prive;
+	}
+
+	public void setPrive(Boolean prive) {
+		this.prive = prive;
 	}
 	
 	

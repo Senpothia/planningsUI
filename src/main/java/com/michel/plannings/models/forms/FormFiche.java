@@ -25,16 +25,19 @@ public class FormFiche {
 	private String reponse;
 	private String document;
 	private String service;
+	private boolean prive;
 
 	public FormFiche() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public FormFiche(Integer id, Integer numero, String date, boolean statut, String etat, Integer niveau, String degre,
 			String projet, String produit, String code, String circonstance, String observation, String incidence,
 			String solution, String domaine, String objet, Integer qualification, Integer auteur, String reponse,
-			String document, String service) {
+			String document, String service, boolean prive) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -57,7 +60,10 @@ public class FormFiche {
 		this.reponse = reponse;
 		this.document = document;
 		this.service = service;
+		this.prive = prive;
 	}
+
+
 
 	public Integer getNumero() {
 		return numero;
@@ -226,5 +232,19 @@ public class FormFiche {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
+
+	public boolean isPrive() {
+		return prive;
+	}
+
+
+
+	public void setPrive(boolean prive) {
+		this.prive = prive;
+	}
+	
+	
 
 }
