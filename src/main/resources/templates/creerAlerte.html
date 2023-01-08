@@ -56,6 +56,39 @@
 			</div>
 		</span>
 		<!-- ********************************************* -->
+		
+				<div class="col">
+
+			<table class="table table-striped">
+				<thead>
+
+				</thead>
+				<tbody>
+
+
+					<tr>
+						<th scope="row">Nom du projet</th>
+						<td th:text="${projet.nom}" />
+
+					</tr>
+
+
+					<tr>
+						<th scope="row">Type de projet</th>
+						<td th:text="${projet.type}" />
+
+					</tr>
+
+					<tr>
+						<th scope="row">Chef projet</th>
+						<td th:text="${projet.nomChef}" />
+
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
 
 		<div class="container">
 			
@@ -86,8 +119,7 @@
 							<option th:value="3" th:text="'Très haute'"></option>
 						</select>
 					</div>
- 
-
+					
 					<div class="bouton row">
 
 						<div class="col">

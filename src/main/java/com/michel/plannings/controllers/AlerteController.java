@@ -1,5 +1,6 @@
 package com.michel.plannings.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -30,30 +31,36 @@ public class AlerteController {
 	private UserConnexion userConnexion;
 
 	@GetMapping("/alerte/ajouter/{idProjet}")
-	public String ajouterNotePhase(@PathVariable(name = "idProjet") Integer idProjet, Model model,
+	public String ajouterAlerte(@PathVariable(name = "idProjet") Integer idProjet, Model model,
 			HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		AlerteAux alerte = new AlerteAux();
 		alerte.setIdProjet(idProjet);
 		alerte.setIdAuteur(utilisateur.getId());
 		model.addAttribute("alerte", alerte);
+		model.addAttribute("projet", projet);
 		model.addAttribute("idProjet", idProjet);
 		return Constants.testUser(utilisateur, Constants.CREATION_ALERTE);
 	}
 
 	@PostMapping("/alerte/ajouter/{idProjet}")
-	public String enregistrerNotePhase(@PathVariable(name = "idProjet") Integer idProjet, Model model,
+	public String enregistrerAlerte(@PathVariable(name = "idProjet") Integer idProjet, Model model,
 			HttpSession session, AlerteAux alerte) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
 		if (utilisateur == null) {
 			return "redirect:/connexion";
 		} else {
-
+			
+			ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
+			alerte.setPrive(projet.getPrive());
 			alerte.setIdProjet(idProjet);
 			alerte.setIdAuteur(utilisateur.getId());
-			String token = Constants.getToken(session);
+			
 			microServicePlannnings.creerAlerte(token, alerte);
 			return "redirect:/projet/voir/alertes/" + idProjet;
 
@@ -62,7 +69,7 @@ public class AlerteController {
 	}
 
 	@GetMapping("/projet/voir/alertes/{idProjet}")
-	public String afficherNotesPhase(@PathVariable(name = "idProjet") Integer idProjet, Model model,
+	public String afficherAlertesProjet(@PathVariable(name = "idProjet") Integer idProjet, Model model,
 			HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
@@ -93,7 +100,7 @@ public class AlerteController {
 	}
 
 	@GetMapping("/alerte/modifier/{idAlerte}")
-	public String modifierNoteProjet(@PathVariable(name = "idAlerte") Integer idAlerte, Model model,
+	public String modifierAlerteProjet(@PathVariable(name = "idAlerte") Integer idAlerte, Model model,
 			HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
@@ -105,7 +112,7 @@ public class AlerteController {
 	}
 
 	@PostMapping("/alerte/modifier/{idAlerte}")
-	public String enregistrerModificationsNoteProjet(@PathVariable(name = "idAlerte") Integer idAlerte, Model model,
+	public String enregistrerModificationsAlerte(@PathVariable(name = "idAlerte") Integer idAlerte, Model model,
 			HttpSession session, AlerteAux alerte) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
@@ -148,11 +155,23 @@ public class AlerteController {
 		
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		//List<AlerteAux> alertes = microServicePlannnings.obtenirListeActives(token, actif);
 		List<AlerteAux> alertes = microServicePlannnings.obtenirListeActivesAuteur(token, actif, utilisateur.getId());
 		Boolean vide = false;
 		if (alertes.isEmpty()) {
 			vide = true;
+		}
+		List<AlerteAux> alertesPrivees = new ArrayList<>();
+		if(!(Boolean) session.getAttribute("PRIVE")) {
+			
+			for(AlerteAux a: alertes) {
+				
+				if(a.getPrive()) {
+					
+					alertesPrivees.add(a);
+				}
+			}
+			
+			alertes.removeAll(alertesPrivees);
 		}
 		
 		model.addAttribute("alertes", alertes);
