@@ -82,6 +82,24 @@ public class ProjetController {
 
 	}
 	
+	
+	@GetMapping("/projets/prives")
+	public String tousProjetsPrives(Model model, HttpSession session) {
+
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		List<ProjetAux> projets = microServicePlannnings.projetsTousPrives(token);
+		Boolean vide = false;
+		if (projets.isEmpty()) {
+			vide = true;
+		}
+		model.addAttribute("projets", projets);
+		model.addAttribute("vide", vide);
+		model.addAttribute("access", "1");
+		return Constants.testUser(utilisateur, Constants.PROJETS);
+
+	}
+	
 	@GetMapping("/projets/voir/tous/{statut}")
 	public String tousProjetsParStatut(@PathVariable(name = "statut") Boolean statut, Model model, HttpSession session) {
 

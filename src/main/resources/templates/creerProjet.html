@@ -95,9 +95,14 @@
 						<label for="text">Date</label> <input type="date"
 							class="form-control" th:field="*{dateString}">
 					</div>
-
-
-
+					
+					<span th:if=${prive}>
+						<div class="form-check mt-2">
+							<input type="checkbox" class="form-check-input"
+								th:field="*{prive}" th:checked="*{prive}" th:value="*{prive}"> <label
+								class="form-check-label">Privé</label>
+						</div>
+					</span>
 
 					<div class="bouton row">
 
@@ -115,8 +120,6 @@
 					</div>
 			</form>
 
-
-
 			<!-- PIED DE PAGE -->
 
 			<div th:replace="fragments/footer :: footer"></div>
@@ -125,9 +128,6 @@
 		</div>
 
 	</div>
-
-
-
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

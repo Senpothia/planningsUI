@@ -67,6 +67,14 @@
 							style="background-color: #7e60fb; color: white;">Tous
 							les projets</button></a>
 				</div>
+				
+				<span th:if=${prive}>
+					<div class="row d-flex justify-content-center">
+						<a href="/projets/prives"><button type="button" class="btn mb-1 bouton2"
+								style="background-color: red; color: white;">Projets privés</button></a>
+					</div>
+
+				</span>
 
 				<span th:if=${groupe2}>
 					<div class="row d-flex justify-content-center">

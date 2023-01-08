@@ -45,7 +45,10 @@ public interface ProxyProjet {
 	@GetMapping("/projet/tous")
 	public List<ProjetAux> projetsTous(@RequestHeader("Authorization") String token);
 	
-
+	@GetMapping("/projet/prives")
+	List<ProjetAux> projetsTousPrives(@RequestHeader("Authorization") String token);
+	
+	
 	@PutMapping("/projet/statut/{id}")
 	public  ProjetAux modifierStatutProjet(@PathVariable Integer id, @RequestHeader("Authorization") String token);
 	
