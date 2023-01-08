@@ -102,8 +102,8 @@
 								th:field="*{heureFin}" required="required">
 						</div>
 					</div>
-
-
+					
+				
 					<div class="form-group">
 						<label for="exampleFormControlSelect1">Urgence</label> <select class="form-control"
 							id="exampleFormControlSelect1" th:field="*{urgence}">
@@ -112,6 +112,26 @@
 							<option th:value="3" th:text="'Très haute'"></option>
 						</select>
 					</div>
+					
+						<span th:if=${prive}>
+						
+							<div class="form-check mt-2">
+								<input type="checkbox" class="form-check-input"
+									th:field="*{prive}" th:checked="*{prive}" th:value="*{prive}"> <label
+									class="form-check-label">Privé</label>
+							</div>
+
+						</span>
+						
+						<span th:unless=${prive}>
+						
+							<div class="form-check mt-2" hidden>
+								<input type="checkbox" class="form-check-input"
+									th:field="*{prive}" th:checked="*{prive}" th:value="*{prive}"> <label
+									class="form-check-label" >Privé</label>
+							</div>
+
+						</span>
 
 					<div class="bouton row">
 

@@ -1,5 +1,6 @@
 package com.michel.plannings.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -20,141 +21,162 @@ import com.michel.plannings.services.UserConnexion;
 
 @Controller
 public class AgendaController {
-	
+
 	@Autowired
 	private MicroServicePlannings microServicePlannnings;
 
 	@Autowired
 	private UserConnexion userConnexion;
-	
+
 	@GetMapping("/agenda/access")
-	private String accessAgenda( Model model,
-			HttpSession session) {
-		
+	private String accessAgenda(Model model, HttpSession session) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		//List<TacheAux> taches = microServicePlannnings.obtenirTachesParRessourceId(token, utilisateur.getId());
-		List<TacheAux> taches = microServicePlannnings.obtenirTachesParRessourceIdEtStatut(token, utilisateur.getId(), true);
+		// List<TacheAux> taches =
+		// microServicePlannnings.obtenirTachesParRessourceId(token,
+		// utilisateur.getId());
+		List<TacheAux> taches = microServicePlannnings.obtenirTachesParRessourceIdEtStatut(token, utilisateur.getId(),
+				true);
 		Boolean vide = true;
-		if(!taches.isEmpty()) {
+		if (!taches.isEmpty()) {
 			vide = false;
 		}
+		List<TacheAux> tachePrivees = new ArrayList<>();
+		if (!(Boolean) session.getAttribute("PRIVE")) {
+
+			for (TacheAux t : taches) {
+
+				if (t.getPrive()) {
+
+					tachePrivees.add(t);
+				}
+
+			}
+		}
+		taches.removeAll(tachePrivees);
 		model.addAttribute("taches", taches);
 		model.addAttribute("ressource", utilisateur);
 		model.addAttribute("vide", vide);
 		model.addAttribute("statut", false);
 		return Constants.testUser(utilisateur, Constants.AGENDA);
 	}
-	
+
 	@GetMapping("/tache/ajouter/{idUtilisateur}")
-	public String creerTache (@PathVariable(name= "idUtilisateur") Integer idUtilisateur,  Model model,
+	public String creerTache(@PathVariable(name = "idUtilisateur") Integer idUtilisateur, Model model,
 			HttpSession session) {
-		
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		model.addAttribute("tache", new TacheAux());
 		return Constants.testUser(utilisateur, Constants.CREER_TACHE);
 	}
-	
-	
+
 	@PostMapping("/agenda/tache/enregistrer")
-	public String enregistrerTache(TacheAux tache,  Model model,
-			HttpSession session ) {
-		
+	public String enregistrerTache(TacheAux tache, Model model, HttpSession session) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		UtilisateurAux u = new UtilisateurAux(utilisateur.getId(), null, null, null, null, null, null, null, false, false, null, null, null, null);
+		UtilisateurAux u = new UtilisateurAux(utilisateur.getId(), null, null, null, null, null, null, null, false,
+				false, null, null, null, null);
 		tache.setRessource(u);
 		microServicePlannnings.enregistrerTache(token, tache);
 		return "redirect:/agenda/access";
 	}
-	
-	
+
 	@GetMapping("/tache/voir/{idTache}")
-	public String voirTache(@PathVariable(name= "idTache") Integer idTache,  Model model,
-			HttpSession session) {
-		
+	public String voirTache(@PathVariable(name = "idTache") Integer idTache, Model model, HttpSession session) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		TacheAux  tache = microServicePlannnings.obtenirTacheParId(token, idTache);
+		TacheAux tache = microServicePlannnings.obtenirTacheParId(token, idTache);
 		model.addAttribute("tache", tache);
 		return Constants.testUser(utilisateur, Constants.TACHE);
 	}
-	
-	
+
 	@GetMapping("/taches/{statut}")
-	public String voirTacheParStatut(@PathVariable(name= "statut") Boolean statut,  Model model,
-			HttpSession session) {
-		
+	public String voirTacheParStatut(@PathVariable(name = "statut") Boolean statut, Model model, HttpSession session) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
-		List<TacheAux> taches = microServicePlannnings.obtenirTachesParRessourceIdEtStatut(token, utilisateur.getId(), statut);
+		List<TacheAux> taches = microServicePlannnings.obtenirTachesParRessourceIdEtStatut(token, utilisateur.getId(),
+				statut);
 		Boolean vide = true;
-		if(!taches.isEmpty()) {
+		if (!taches.isEmpty()) {
 			vide = false;
 		}
-		model.addAttribute("taches", taches);
+
 		model.addAttribute("ressource", utilisateur);
 		model.addAttribute("vide", vide);
 		model.addAttribute("statut", !statut);
+		List<TacheAux> tachePrivees = new ArrayList<>();
+		if (!(Boolean) session.getAttribute("PRIVE")) {
+
+			for (TacheAux t : taches) {
+
+				if (t.getPrive()) {
+
+					tachePrivees.add(t);
+				}
+
+			}
+		}
+		taches.removeAll(tachePrivees);
+		model.addAttribute("taches", taches);
 		return Constants.testUser(utilisateur, Constants.AGENDA);
 	}
-	
-	
+
 	@GetMapping("/tache/changer/statut/{idTache}/{statut}")
-	public String chagerStatutTache(@PathVariable(name= "idTache") Integer idTache,@PathVariable(name= "statut") Boolean statut,  Model model,
-			HttpSession session) {
-		
+	public String chagerStatutTache(@PathVariable(name = "idTache") Integer idTache,
+			@PathVariable(name = "statut") Boolean statut, Model model, HttpSession session) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		microServicePlannnings.tacheChangerStatut(token, idTache);
 
 		return Constants.testUser(utilisateur, "redirect:/tache/voir/" + idTache);
 	}
-	
+
 	@GetMapping("/tache/changer/statut/liste/{idTache}")
-	public String chagerStatutTacheListe(@PathVariable(name= "idTache") Integer idTache,  Model model,
+	public String chagerStatutTacheListe(@PathVariable(name = "idTache") Integer idTache, Model model,
 			HttpSession session) {
-		
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		microServicePlannnings.tacheChangerStatut(token, idTache);
 
 		return Constants.testUser(utilisateur, "redirect:/agenda/access");
 	}
-	
+
 	@GetMapping("/tache/supprimer/{idTache}")
-	public String supprimerTache(@PathVariable(name= "idTache") Integer idTache,  Model model,
-			HttpSession session) {
-		
+	public String supprimerTache(@PathVariable(name = "idTache") Integer idTache, Model model, HttpSession session) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		microServicePlannnings.supprimerTacheParId(token, idTache);
 		return Constants.testUser(utilisateur, "redirect:/agenda/access");
 	}
-	
-	
+
 	@GetMapping("/tache/modifier/{idTache}")
-	public String accessModificationTache(@PathVariable(name= "idTache") Integer idTache,  Model model,
+	public String accessModificationTache(@PathVariable(name = "idTache") Integer idTache, Model model,
 			HttpSession session) {
-		
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		TacheAux tache = microServicePlannnings.obtenirTacheParId(token, idTache);
 		model.addAttribute("tache", tache);
 		return Constants.testUser(utilisateur, Constants.MODIFIER_TACHE);
-		
+
 	}
-	
-	
+
 	@PostMapping("/tache/modifier/{idTache}")
-	public String modifierTache(@PathVariable(name= "idTache") Integer idTache,  Model model,
-			HttpSession session, TacheAux tache) {
-		
+	public String modifierTache(@PathVariable(name = "idTache") Integer idTache, Model model, HttpSession session,
+			TacheAux tache) {
+
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
 		tache.setId(idTache);
-	
+
 		microServicePlannnings.modifierTache(token, tache);
 		return Constants.testUser(utilisateur, "redirect:/tache/voir/" + idTache);
 	}
