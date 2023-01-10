@@ -147,7 +147,9 @@
 									<th scope="col">Notes</th>
 								</span>
 								-->
-								<th scope="col">Liaisons</th>
+								<span th:if=${groupe2}>
+									<th scope="col">Liaisons</th>
+								</span>
 								<th scope="col">Voir</th>
 							</tr>
 						</thead>
@@ -185,7 +187,7 @@
 									</span>
 								</span>
 
-								<span th:if="${groupe1}">
+								<span th:if="${groupe2}">
 
 									<td><a th:href="@{/phase/liaison/ajouter/{id}(id=${phase.id})}">
 											<p type="text" class="btn btn-block"

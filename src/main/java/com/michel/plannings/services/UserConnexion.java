@@ -42,6 +42,16 @@ public class UserConnexion {
 				session.setAttribute("USER", utilisateur);
 				session.setAttribute("TOKEN", token);
 				String role = utilisateur.getRole();
+				
+				if (role.equals("USER")) {
+					
+					session.setAttribute("GROUPE1", false);
+					session.setAttribute("GROUPE2", false);
+					session.setAttribute("GROUPE3", false);
+					session.setAttribute("PRIVE", false);
+					
+				}
+				
 				if (role.equals("CPROD") || role.equals("RESBE") || role.equals("BE") || role.equals("LABO")) {
 
 					session.setAttribute("GROUPE1", true);

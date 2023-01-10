@@ -146,7 +146,7 @@
 
 				<span th:if=${statut}>
 					<div class="form-group mr-3">
-						<a th:href="@{/projets/liste/phases/ressource/{ressource}/false(ressource=${utilisateur.id})}">
+						<a th:href="@{/projets/liste/phases/ressource/{ressource}/false(ressource=${ressource.id})}">
 							<p type="text" class="btn btn-block" style="background-color: #730800; color: white">
 								Terminées</p>
 						</a>
