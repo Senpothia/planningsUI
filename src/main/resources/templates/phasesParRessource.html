@@ -38,7 +38,7 @@
 		</div>
 		<span th:if=${vide}>
 			<div class="row d-flex justify-content-center">
-				<h1 th:text="${'Vous ne disposez pas de phases'}" style="color: red;"></h1>
+				<h1 th:text="${'Aucune phase trouvée!'}" style="color: red;"></h1>
 			</div>
 		</span>
 
@@ -82,7 +82,7 @@
 								<span th:if=${groupe2}>
 									<span th:if="${phase.actif}">
 										<td><a
-												th:href="@{/phase/changer/statut/liste/{phase}/{active}/{case}(phase=${phase.id}, active=${phase.actif}, case=${case})}">
+												th:href="@{/phase/changer/statut/liste/{phase}/{active}/{case}/{ressource}(phase=${phase.id}, active=${phase.actif}, case=${case}, ressource=${ressource.id})}">
 												<p type="text" class="btn btn-block"
 													style="background-color: #730800; color: white">Désactiver</p>
 											</a>
@@ -92,7 +92,7 @@
 
 									<span th:unless="${phase.actif}">
 										<td><a
-												th:href="@{/phase/changer/statut/liste/{phase}/{active}/{case}(phase=${phase.id}, active=${phase.actif}, case=${case})}">
+												th:href="@{/phase/changer/statut/liste/{phase}/{active}/{case}/{ressource}(phase=${phase.id}, active=${phase.actif}, case=${case}, ressource=${ressource.id})}">
 												<p type="text" class="btn btn-block"
 													style="background-color: #7e60fb; color: white">Activer</p>
 											</a>
@@ -127,7 +127,7 @@
 				
 				<span th:if="${case == '2'}">
 					<div class="form-group mr-3">
-						<a th:href="@{/projets/liste/phases/ressource/{ressource}/false(ressource=${utilisateur.id})}">
+						<a th:href="@{/projets/liste/phases/ressource/{ressource}/false(ressource=${ressource.id})}">
 							<p type="text" class="btn btn-block" style="background-color: #730800; color: white">
 								Terminées</p>
 						</a>
@@ -137,7 +137,7 @@
 
 				<span th:unless=${statut}>
 					<div class="form-group mr-3">
-						<a th:href="@{/projets/liste/phases/ressource/{ressource}/true(ressource=${utilisateur.id})}">
+						<a th:href="@{/projets/liste/phases/ressource/{ressource}/true(ressource=${ressource.id})}">
 							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Actives
 							</p>
 						</a>

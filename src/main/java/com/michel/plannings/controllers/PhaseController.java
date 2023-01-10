@@ -298,7 +298,7 @@ public class PhaseController {
 			}
 		}
 
-		if (phases.isEmpty()) {
+		if (phasesTriees.isEmpty()) {
 
 			vide = true;
 		}
@@ -413,6 +413,51 @@ public class PhaseController {
 		
 		
 		return Constants.testUser(utilisateur, "redirect:/projets/liste/phases/ressource/" + utilisateur.getId());
+
+	}
+	
+	
+	@GetMapping("/phase/changer/statut/liste/{phase}/{active}/{case}/{ressource}")
+	public String changerPhaseStatutListeRessource(@PathVariable(name = "phase") Integer idPhase,
+			@PathVariable(name = "active") boolean active, @PathVariable(name = "case") String cas, @PathVariable(name = "ressource") Integer idRessource, Model model,
+			HttpSession session) {
+
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		microServicePlannnings.changerStatutPhase(token, idPhase, active);
+
+		PhaseAux ph = microServicePlannnings.phaseParId(token, idPhase);
+		Integer idProjet = ph.getIdProjet();
+		
+		/*
+		if (cas.equals("0")) {
+
+			return Constants.testUser(utilisateur, "redirect:/projets/liste/phases/ressource/" + idRessource)
+					+ "/false";
+
+		}
+
+		if (cas.equals("1")) {
+
+			return Constants.testUser(utilisateur, "redirect:/projets/liste/phases/ressource/" + idRessource)
+					+ "/true";
+
+		}
+		
+		if (cas.equals("3")) {
+
+			return Constants.testUser(utilisateur, "redirect:/phase/actives/liste/true");
+
+		}
+		
+		if (cas.equals("4")) {
+
+			return Constants.testUser(utilisateur, "redirect:/phase/actives/liste/false");
+
+		}
+		
+		*/
+		return Constants.testUser(utilisateur, "redirect:/projets/liste/phases/ressource/" + idRessource);
 
 	}
 

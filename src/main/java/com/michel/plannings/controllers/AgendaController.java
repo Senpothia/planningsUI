@@ -80,6 +80,7 @@ public class AgendaController {
 		UtilisateurAux u = new UtilisateurAux(utilisateur.getId(), null, null, null, null, null, null, null, false,
 				false, null, null, null, null);
 		tache.setRessource(u);
+			
 		microServicePlannnings.enregistrerTache(token, tache);
 		return "redirect:/agenda/access";
 	}
