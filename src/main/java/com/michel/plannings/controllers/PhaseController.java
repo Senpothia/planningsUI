@@ -135,6 +135,7 @@ public class PhaseController {
 		ProjetAux projet = microServicePlannnings.projetParId(token, idProjet);
 		model.addAttribute("projet", projet);
 		model.addAttribute("phases", phases);
+		model.addAttribute("case", "3");
 
 		// Diagramme de Gantt
 

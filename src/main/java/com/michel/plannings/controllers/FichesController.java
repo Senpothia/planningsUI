@@ -151,6 +151,7 @@ public class FichesController {
 
 		model.addAttribute("projet", projet);
 		model.addAttribute("phases", phases);
+		model.addAttribute("prive", (Boolean)session.getAttribute("PRIVE"));
 
 		return Constants.testUser(utilisateur, Constants.FICHES_PROJET);
 	}

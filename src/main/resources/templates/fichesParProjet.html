@@ -99,54 +99,55 @@
 
 
 				<!--  début table présentation des fiches -->
-				
-	<span th:unless=${phase.fiches.isEmpty()}>			
-				<div class="col donnees" style="margin: 5px;">
 
-					<table class="table table-striped">
-						<thead>
-							<tr>
+				<span th:unless=${phase.fiches.isEmpty()}>
+					<div class="col donnees" style="margin: 5px;">
 
-								<th scope="col">Numéro fiche</th>
-								<th scope="col">Projet</th>
-								<th scope="col">Auteur</th>
-								<th scope="col">Anomalie</th>
-								<th scope="col">Incidence</th>
-								<th scope="col">Statut</th>
+						<table class="table table-striped">
+							<thead>
+								<tr>
 
-								<th scope="col">Voir</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="fiche, iStat: ${phase.fiches}">
+									<th scope="col">Numéro fiche</th>
+									<th scope="col">Projet</th>
+									<th scope="col">Auteur</th>
+									<th scope="col">Anomalie</th>
+									<th scope="col">Incidence</th>
+									<th scope="col">Statut</th>
 
-								<td th:text="${fiche.numero}" />
-								<td th:text="${fiche.projet}" />
-								<td th:text="${fiche.nomAuteur}" />
-								<td th:text="${fiche.anomalie}" />
-								<td th:text="${fiche.incidence}" />
-								<td th:text="${fiche.statutString}" />
+									<th scope="col">Voir</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="fiche, iStat: ${phase.fiches}">
 
-								<td><a th:href="@{/fiche/voir/{id}(id=${fiche.id})}">
-										<p type="text" class="btn btn-block"
-											style="background-color: #7e60fb; color: white">Voir</p>
-									</a>
-								</td>
-							</tr>
+									<td th:text="${fiche.numero}" />
+									<td th:text="${fiche.projet}" />
+									<td th:text="${fiche.nomAuteur}" />
+									<td th:text="${fiche.anomalie}" />
+									<td th:text="${fiche.incidence}" />
+									<td th:text="${fiche.statutString}" />
 
-						</tbody>
-					</table>
-					
-					
-				</div>
-</span>
+									<td><a th:href="@{/fiche/voir/{id}(id=${fiche.id})}">
+											<p type="text" class="btn btn-block"
+												style="background-color: #7e60fb; color: white">Voir</p>
+										</a>
+									</td>
+								</tr>
 
-<span th:if=${phase.fiches.isEmpty()}>	
-<div class="row d-flex justify-content-center">
-				<h3 th:text="${'Cette phase ne comporte pas de fiches'}" style="color: red;"></h1>
-			</div>
+							</tbody>
+						</table>
 
-</span>
+
+					</div>
+				</span>
+
+				<span th:if=${phase.fiches.isEmpty()}>
+					<div class="row d-flex justify-content-center">
+						<h3 th:text="${'Cette phase ne comporte pas de fiches'}" style="color: red;">
+							</h1>
+					</div>
+
+				</span>
 				<!--  fin table présentation des fiches -->
 			</div>
 
@@ -156,18 +157,31 @@
 
 		<div class="row mt-3">
 			<div class="col d-flex justify-content-end">
-
-				<div class="form-group mr-3">
-					<a th:href="@{/projet/voir/fiches/spontanees/{projet}(projet=${projet.id})}">
-						<p type="text" class="btn btn-block"
-							style="background-color: #7e60fb; color: white;">Voir fiches spontannées</p>
-					</a>
-				</div>
 				
+				<!--
+				<span th:if=${prive}>
+					<div class="form-group mr-3">
+						<a th:href="@{/projet/voir/fiches/spontanees/prive/{projet}(projet=${projet.id})}">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white;">Voir
+								fiches spontannées</p>
+						</a>
+					</div>
+				</span>
+			
+				<span th:unless=${prive}>
+					-->
+					<div class="form-group mr-3">
+						<a th:href="@{/projet/voir/fiches/spontanees/{projet}(projet=${projet.id})}">
+							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white;">Voir
+								fiches spontannées</p>
+						</a>
+					</div>
+					<!--
+				</span>
+					-->
 				<div class="form-group ">
 					<a href="/espace">
-						<p type="text" class="btn btn-block"
-							style="background-color: #7e60fb; color: white;">Retour</p>
+						<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white;">Retour</p>
 					</a>
 				</div>
 			</div>

@@ -50,20 +50,23 @@ public class ProjetController {
 
 	@PostMapping("/projets/creation") // Enregistrement des éléments de création d'une qualification
 	public String enregistrerProjet(Model model, HttpSession session, ProjetAux projetAux) {
-
+	
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		if (utilisateur == null) {
 			return "redirect:/connexion";
 		} else {
-
+	
 			String token = Constants.getToken(session);
 			projetAux.setChefId(utilisateur.getId());
+			projetAux.setPrive((Boolean) session.getAttribute("PRIVE"));
 			microServicePlannnings.creerProjet(token, projetAux);
 			return Constants.ACCUEIL_PROJETS;
-
+	
 		}
-
+	
 	}
+
+	
 
 	@GetMapping("/projets/voir/tous")
 	public String tousProjets(Model model, HttpSession session) {
