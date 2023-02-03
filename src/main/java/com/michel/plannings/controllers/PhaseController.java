@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.michel.plannings.contants.Constants;
 import com.michel.plannings.models.Dependance;
 import com.michel.plannings.models.FicheAux;
@@ -158,7 +159,6 @@ public class PhaseController {
 
 		return Constants.testUser(utilisateur, Constants.PHASES);
 	}
-	
 
 	@GetMapping("/phase/voir/{phase}")
 	public String voirPhase(@PathVariable(name = "phase") Integer idPhase, Model model, HttpSession session) {
@@ -262,7 +262,8 @@ public class PhaseController {
 
 		UtilisateurAux ressource = microServicePlannnings.obtenirRessourceParId(idRessource, token);
 
-		model.addAttribute("case", "2");  // cas où l'accès se fait à partir des phases utilisateur sans considérer leur statut
+		model.addAttribute("case", "2"); // cas où l'accès se fait à partir des phases utilisateur sans considérer leur
+											// statut
 		model.addAttribute("phases", phases);
 		model.addAttribute("vide", vide);
 		model.addAttribute("ressource", ressource);
@@ -308,11 +309,11 @@ public class PhaseController {
 		String cas = new String();
 		if (statut) {
 
-			cas = "1";   // cas des phases actives depuis la page des phases utilisateur
+			cas = "1"; // cas des phases actives depuis la page des phases utilisateur
 
 		} else {
 
-			cas = "0";	// cas des phases inactives depuis la page des phases utilisateur
+			cas = "0"; // cas des phases inactives depuis la page des phases utilisateur
 		}
 		model.addAttribute("case", cas);
 		model.addAttribute("phases", phasesTriees);
@@ -346,9 +347,9 @@ public class PhaseController {
 			model.addAttribute("phases", phasesSans0);
 		}
 		if (active) {
-			
+
 			model.addAttribute("case", "3"); // cas des phases actives depuis la page des phases actives/inactives
-			
+
 		} else {
 
 			model.addAttribute("case", "4"); // cas des phases inactives depuis la page des phases actives/inactives
@@ -374,11 +375,10 @@ public class PhaseController {
 		return Constants.testUser(utilisateur, "redirect:/projet/voir/phases/" + idProjet);
 
 	}
-	
+
 	@GetMapping("/phase/changer/statut/{phase}/{active}")
 	public String changerPhaseStatutPresentation(@PathVariable(name = "phase") Integer idPhase,
-			@PathVariable(name = "active") boolean active, Model model,
-			HttpSession session) {
+			@PathVariable(name = "active") boolean active, Model model, HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
@@ -414,29 +414,27 @@ public class PhaseController {
 					+ "/true";
 
 		}
-		
+
 		if (cas.equals("3")) {
 
 			return Constants.testUser(utilisateur, "redirect:/phase/actives/liste/true");
 
 		}
-		
+
 		if (cas.equals("4")) {
 
 			return Constants.testUser(utilisateur, "redirect:/phase/actives/liste/false");
 
 		}
-		
-		
+
 		return Constants.testUser(utilisateur, "redirect:/projets/liste/phases/ressource/" + utilisateur.getId());
 
 	}
-	
-	
+
 	@GetMapping("/phase/changer/statut/liste/{phase}/{active}/{case}/{ressource}")
 	public String changerPhaseStatutListeRessource(@PathVariable(name = "phase") Integer idPhase,
-			@PathVariable(name = "active") boolean active, @PathVariable(name = "case") String cas, @PathVariable(name = "ressource") Integer idRessource, Model model,
-			HttpSession session) {
+			@PathVariable(name = "active") boolean active, @PathVariable(name = "case") String cas,
+			@PathVariable(name = "ressource") Integer idRessource, Model model, HttpSession session) {
 
 		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
 		String token = Constants.getToken(session);
@@ -694,15 +692,29 @@ public class PhaseController {
 			model.addAttribute("phase", idPhase);
 			return "alerteDates";
 		}
+		System.out.println("phase.getDateDebutString()" + phase.getDateDebutString());
+		System.out.println("phase.getLimInfString()" + phase.getLimInfString());
+		System.out.println("phase.getLimSupString()" + phase.getLimSupString());
+		
+		LocalDateTime limSup = null;
+		LocalDateTime limInf = null;
+		
+		if (phase.getLimInfString() != null) {
 
-		LocalDateTime limInf = LocalDateTime.parse(phase.getLimInfString() + " " + "00:00",
-				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-		phase.setLimiteInf(limInf);
+			limInf = LocalDateTime.parse(phase.getLimInfString() + " " + "00:00",
+					DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+			phase.setLimiteInf(limInf);
 
-		LocalDateTime limSup = LocalDateTime.parse(phase.getLimSupString() + " " + "00:00",
-				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		}
+		
+		if (phase.getLimSupString() != null) {
+			
+			 limSup = LocalDateTime.parse(phase.getLimSupString() + " " + "00:00",
+					DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-		phase.setLimiteSup(limSup);
+			phase.setLimiteSup(limSup);
+		}
+		
 
 		if (!phase.getLimInfString().equals("2000-11-11")) { // cas d'une limite inférieure - situation où il exite une
 																// dépendance
