@@ -459,7 +459,7 @@ public class PhaseController {
 
 		Integer idProjet = phase.getIdProjet();
 		List<PhaseAux> phases = microServicePlannnings.phasesParProjetId(token, idProjet);
-
+		System.out.println();
 		phases.remove(0);
 		if (phases.isEmpty()) {
 			model.addAttribute("vide", true);
@@ -471,11 +471,13 @@ public class PhaseController {
 
 		for (PhaseAux p : phases) {
 
-			if (p.getId() == idPhase) {
+			if (p.getId().equals(idPhase)) {
 
 				copyPhasesProjet.remove(p);
 			}
 		}
+		
+		System.out.println("taille liste copie: " + copyPhasesProjet.size());
 
 		for (PhaseAux p : copyPhasesProjet) {
 
