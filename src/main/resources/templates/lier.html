@@ -184,11 +184,19 @@
 							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Phases</p>
 						</a>
 				</div>
-				<div class="form-group">
+				<div class="form-group mr-3">
 						<a th:href="@{/phase/liaison/modifier/{phase}(phase=${phase.id})}">
 							<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">modifier</p>
 						</a>
 				</div>
+				
+				<div class="form-group ">
+							<a th:href="@{/projet/voir/{idProjet}(idProjet=${projet.id})}">
+								<p type="text" class="btn btn-block" style="background-color: #7e60fb; color: white">Retour projet</p>
+							</a>
+				</div>
+						
+						
 			</div>
 		</div>
 		
