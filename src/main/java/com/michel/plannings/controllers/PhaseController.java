@@ -831,7 +831,7 @@ public class PhaseController {
 		tacheAux.setActif(true);
 		tacheAux.setSuspendu(false);
 		tacheAux.setPrive(projet.getPrive());
-		tacheAux.setTexte(phase.getDescription());
+		tacheAux.setTexte(phase.getNom());
 		tacheAux.setCommentaire(phase.getComplement());
 		tacheAux.setDebut(phase.getDebut());
 		tacheAux.setDebutString(phase.getDateDebutString());
