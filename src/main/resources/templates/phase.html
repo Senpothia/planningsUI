@@ -200,6 +200,16 @@
 					
 				</span>
 				
+					<span th:if=${groupe2}>
+					<div class="form-group mr-3">
+						<a
+							th:href="@{/phase/convertir/{id}(id=${phase.id})}"><p
+								type="text" class="btn btn-block"
+								style="background-color: #8a17c8; color: white">Convertir</p></a>
+					</div>
+					
+				</span>
+				
 			<span th:if=${groupe2}>
 					<div class="form-group mr-3">
 						<a th:href="@{/projet/gantt/{id}(id=${projet.id})}">

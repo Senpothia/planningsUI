@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.michel.plannings.models.Dependance;
 import com.michel.plannings.models.PhaseAux;
 import com.michel.plannings.models.ProjetAux;
+import com.michel.plannings.models.TacheAux;
 
 public interface ProxyPhase {
 	
@@ -74,4 +75,7 @@ public interface ProxyPhase {
 	
 	@GetMapping("/phase/dependances/dates/limite/{phase}")
 	List<LocalDateTime> obtenirDatesLimites(@RequestHeader("Authorization") String token,  @PathVariable(name = "phase") Integer idPhase);
+	
+	@PostMapping("/phase/convertir/{phase}")
+	void convertirPhase(@RequestHeader("Authorization") String token, @PathVariable(name = "phase") Integer idPhase, @RequestBody TacheAux tacheAux);
 }  

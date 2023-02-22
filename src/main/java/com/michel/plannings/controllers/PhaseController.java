@@ -22,6 +22,7 @@ import com.michel.plannings.models.GanttRow;
 import com.michel.plannings.models.Login;
 import com.michel.plannings.models.PhaseAux;
 import com.michel.plannings.models.ProjetAux;
+import com.michel.plannings.models.TacheAux;
 import com.michel.plannings.models.Utilisateur;
 import com.michel.plannings.models.UtilisateurAux;
 import com.michel.plannings.proxy.MicroServicePlannings;
@@ -813,5 +814,32 @@ public class PhaseController {
 		microServicePlannnings.modifierPhasePourLiaison(token, dependance, idDependance);
 
 		return "redirect:/phase/liaison/ajouter/" + idPhase;
+	}
+	
+	@GetMapping("/phase/convertir/{phase}")
+	public String convertirPhase(@PathVariable(name = "phase") Integer idPhase, Model model, HttpSession session) {
+
+		Utilisateur utilisateur = userConnexion.obtenirUtilisateur(session, model);
+		String token = Constants.getToken(session);
+		
+		
+		PhaseAux phase = microServicePlannnings.phaseParId(token, idPhase);
+		ProjetAux projet = microServicePlannnings.projetParId(token, phase.getIdProjet());
+		System.out.println("Phase debut: "+ phase.getDebut());
+		System.out.println("Phase fin: " + phase.getFin());
+		TacheAux tacheAux = new TacheAux();
+		tacheAux.setActif(true);
+		tacheAux.setSuspendu(false);
+		tacheAux.setPrive(projet.getPrive());
+		tacheAux.setTexte(phase.getDescription());
+		tacheAux.setCommentaire(phase.getComplement());
+		tacheAux.setDebut(phase.getDebut());
+		tacheAux.setDebutString(phase.getDateDebutString());
+		tacheAux.setFin(phase.getFin());
+		tacheAux.setFinString(phase.getDateFinString());
+		tacheAux.setRessource(new UtilisateurAux(utilisateur.getId(), null, null, null, null, null, null, null, false, false, null, null, null, null));
+		microServicePlannnings.convertirPhase(token,idPhase, tacheAux);
+		
+		return Constants.testUser(utilisateur, "redirect:/agenda/access");
 	}
 }
